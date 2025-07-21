@@ -83,7 +83,36 @@
             <section class="recommendations-section" id="permanentRecommendationsSection">
                 <h2>💍 魅力アップ商品</h2>
                 <p class="recommendations-subtitle">40-50代男性の魅力を高める厳選アイテム</p>
-                <div id="permanentCategoriesContainer" class="categories-container"></div>
+                
+                <!-- Products Layout with Sidebar -->
+                <div class="products-container">
+                    <!-- Left Sidebar for Categories -->
+                    <aside class="categories-sidebar">
+                        <nav class="category-navigation">
+                            <button class="category-tab active" data-category="communication">
+                                📚 コミュニケーション
+                            </button>
+                            <button class="category-tab" data-category="fashion">
+                                👔 ファッション・身だしなみ
+                            </button>
+                            <button class="category-tab" data-category="lifestyle">
+                                🍷 ライフスタイル
+                            </button>
+                        </nav>
+                    </aside>
+                    
+                    <!-- Right Content Area for Products -->
+                    <main class="products-content">
+                        <header class="content-header">
+                            <h3 id="activeCategory">📚 コミュニケーション</h3>
+                        </header>
+                        <div class="products-scroll-area">
+                            <div id="productsContainer" class="products-horizontal-container">
+                                <!-- Products will be loaded here -->
+                            </div>
+                        </div>
+                    </main>
+                </div>
             </section>
 
             <!-- Features Section -->

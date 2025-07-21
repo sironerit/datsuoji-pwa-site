@@ -361,18 +361,68 @@ function displayRecommendedProducts() {
 }
 
 function displayPermanentRecommendedProducts() {
-    // Display products in the permanent section (always visible)
-    const permanentCategoriesContainer = document.getElementById('permanentCategoriesContainer');
+    // Set up sidebar category switching
+    setupSidebarCategoryTabs();
     
-    if (permanentCategoriesContainer) {
-        // Clear existing content
-        permanentCategoriesContainer.innerHTML = '';
+    // Display initial category
+    showCategoryProducts('communication');
+}
+
+function setupSidebarCategoryTabs() {
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    
+    categoryTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            
+            // Remove active class from all tabs
+            categoryTabs.forEach(t => t.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            this.classList.add('active');
+            
+            // Show products for selected category
+            showCategoryProducts(category);
+        });
+    });
+}
+
+function showCategoryProducts(category) {
+    const productsContainer = document.getElementById('productsContainer');
+    const activeCategory = document.getElementById('activeCategory');
+    
+    if (!productsContainer || !activeCategory) return;
+    
+    // Update category title
+    const categoryTitles = {
+        'communication': '📚 コミュニケーション',
+        'fashion': '👔 ファッション・身だしなみ', 
+        'lifestyle': '🍷 ライフスタイル'
+    };
+    
+    activeCategory.textContent = categoryTitles[category] || category;
+    
+    // Clear container
+    productsContainer.innerHTML = '';
+    
+    // Get products for category
+    const products = PRODUCT_DATABASE[category] || [];
+    
+    // Add products with animation
+    products.forEach((product, index) => {
+        const productCard = createHorizontalProductCard(product);
+        productCard.style.opacity = '0';
+        productCard.style.transform = 'translateX(20px)';
         
-        // Create category-based product sections for permanent display
-        createPermanentCategorySection('📚 コミュニケーション', 'communication', 1);
-        createPermanentCategorySection('👔 ファッション・身だしなみ', 'fashion', 2);
-        createPermanentCategorySection('🍷 ライフスタイル', 'lifestyle', 3);
-    }
+        productsContainer.appendChild(productCard);
+        
+        // Animate in
+        setTimeout(() => {
+            productCard.style.transition = 'all 0.3s ease';
+            productCard.style.opacity = '1';
+            productCard.style.transform = 'translateX(0)';
+        }, index * 100);
+    });
 }
 
 function setupCategorySwitching() {
