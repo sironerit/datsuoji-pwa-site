@@ -117,34 +117,51 @@ async function handleImproveClick() {
 }
 
 async function callImprovementAPI(text) {
-    // This is a placeholder for the actual Gemini API integration
-    // In production, this would call your backend API endpoint
-    
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Generate mock improvements for demonstration
-    const mockImprovements = generateMockImprovements(text);
-    
-    return mockImprovements;
-    
-    // TODO: Replace with actual API call
-    /*
-    const response = await fetch('/api/improve', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ text: text })
-    });
-    
-    if (!response.ok) {
-        throw new Error('API request failed');
+    try {
+        console.log('Calling improvement API with text:', text);
+        
+        const response = await fetch('/api/improve-text', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: text })
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `API request failed: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('API Response:', data);
+        
+        if (!data.success || !data.improvedTexts || !Array.isArray(data.improvedTexts)) {
+            throw new Error('Invalid API response format');
+        }
+        
+        // Convert simple strings to improvement objects for compatibility with existing UI
+        const improvements = data.improvedTexts.map((text, index) => ({
+            text: text,
+            tone: index === 0 ? "丁寧・謙虚" : 
+                  index === 1 ? "自然・親しみやすい" :
+                  index === 2 ? "フレンドリー" : "シンプル・誠実"
+        }));
+        
+        // Track successful improvement
+        trackImprovement(text.length, improvements.length);
+        
+        return improvements;
+        
+    } catch (error) {
+        console.error('API call failed:', error);
+        
+        // Show user-friendly error and fallback to mock for demonstration
+        showErrorMessage(`AI改善に失敗しました: ${error.message}\n代替案を表示しています。`);
+        
+        // Fallback to mock improvements for demonstration
+        return generateMockImprovements(text);
     }
-    
-    const data = await response.json();
-    return data.improvements;
-    */
 }
 
 function generateMockImprovements(originalText) {
