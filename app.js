@@ -23,7 +23,7 @@ const PRODUCT_DATABASE = {
             price: "¥1,650",
             rating: 4.1,
             reviews: 94,
-            image: "https://m.media-amazon.com/images/I/51+8mYyq1AL._SL500_.jpg",
+            image: "https://m.media-amazon.com/images/I/51CDG+mjXVL._SL500_.jpg",
             asin: "B09XVYQL2P",
             category: "恋愛心理学"
         },
@@ -55,7 +55,7 @@ const PRODUCT_DATABASE = {
             price: "¥1,590",
             rating: 4.1,
             reviews: 328,
-            image: "https://m.media-amazon.com/images/I/41wN2kCQ1yL._SL500_.jpg",
+            image: "https://m.media-amazon.com/images/I/61z+vQqD+VL._SL500_.jpg",
             asin: "B08QR1T4FQ",
             category: "スキンケア"
         },
@@ -77,7 +77,7 @@ const PRODUCT_DATABASE = {
             price: "¥2,480",
             rating: 4.3,
             reviews: 89,
-            image: "https://m.media-amazon.com/images/I/61XvN7NfBGL._SL500_.jpg",
+            image: "https://m.media-amazon.com/images/I/71rH2qZvLwL._SL500_.jpg",
             asin: "B0B2L7M9XR",
             category: "インテリア"
         }
