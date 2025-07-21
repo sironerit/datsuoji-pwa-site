@@ -155,9 +155,11 @@ async function callImprovementAPI(text) {
         
     } catch (error) {
         console.error('API call failed:', error);
+        console.error('Error details:', error.message);
+        console.error('Stack trace:', error.stack);
         
         // Show user-friendly error and fallback to mock for demonstration
-        showErrorMessage(`AI改善に失敗しました: ${error.message}\n代替案を表示しています。`);
+        showErrorMessage(`AI改善に失敗しました: ${error.message}\nモック版を表示しています。`);
         
         // Fallback to mock improvements for demonstration
         return generateMockImprovements(text);
