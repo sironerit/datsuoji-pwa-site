@@ -39,7 +39,11 @@ function setupEventListeners() {
     inputText.addEventListener('paste', handlePaste);
     
     // Improve button click
-    improveBtn.addEventListener('click', handleImproveClick);
+    console.log('🔧 Setting up improve button listener');
+    improveBtn.addEventListener('click', function(event) {
+        console.log('🖱️ Improve button clicked!', event);
+        handleImproveClick();
+    });
     
     // Keyboard shortcuts
     document.addEventListener('keydown', handleKeyboardShortcuts);
