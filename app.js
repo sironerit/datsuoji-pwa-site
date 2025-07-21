@@ -206,7 +206,19 @@ function displayResults(improvements) {
     
     improvements.forEach((improvement, index) => {
         const resultCard = createResultCard(improvement, index + 1);
+        
+        // Add staggered animation
+        resultCard.style.opacity = '0';
+        resultCard.style.transform = 'translateY(20px)';
+        
         resultsGrid.appendChild(resultCard);
+        
+        // Trigger animation with delay
+        setTimeout(() => {
+            resultCard.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            resultCard.style.opacity = '1';
+            resultCard.style.transform = 'translateY(0)';
+        }, index * 150); // Staggered delay
     });
 }
 

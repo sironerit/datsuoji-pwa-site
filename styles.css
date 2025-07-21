@@ -147,31 +147,61 @@ section h2 {
 /* Results Section */
 .results-section {
     background: white;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    margin-bottom: 2rem;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    margin-bottom: 3rem;
+    border: 1px solid #f1f5f9;
+}
+
+.results-section h2 {
+    color: #1e293b;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .results-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.8rem;
+    margin-top: 2rem;
 }
 
 .result-card {
-    background: #f8fafc;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 1.5rem;
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 2rem;
     position: relative;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+.result-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #06b6d4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .result-card:hover {
-    border-color: #2563eb;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    transform: translateY(-2px);
+    border-color: #3b82f6;
+    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.15);
+}
+
+.result-card:hover::before {
+    opacity: 1;
 }
 
 .result-header {
@@ -182,45 +212,84 @@ section h2 {
 }
 
 .result-number {
-    background: #2563eb;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
     color: white;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .copy-btn {
-    background: transparent;
-    border: 1px solid #d1d5db;
-    color: #6b7280;
-    padding: 6px 12px;
-    border-radius: 6px;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: 1px solid #cbd5e1;
+    color: #475569;
+    padding: 8px 16px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.copy-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    transition: left 0.5s ease;
 }
 
 .copy-btn:hover {
-    background: #f3f4f6;
-    border-color: #9ca3af;
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+    border-color: #64748b;
+    color: #334155;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.copy-btn:hover::before {
+    left: 100%;
 }
 
 .copy-btn.copied {
-    background: #10b981;
+    background: linear-gradient(135deg, #10b981, #059669);
     color: white;
-    border-color: #10b981;
+    border-color: #059669;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
 }
 
 .result-text {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #374151;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #1e293b;
     white-space: pre-line;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    margin-top: 1rem;
+    padding: 1rem 0;
+    position: relative;
+}
+
+.result-tone {
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    padding: 0.5rem 0.75rem;
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    border-radius: 8px;
+    border-left: 3px solid #3b82f6;
 }
 
 /* Features Section */
