@@ -94,14 +94,18 @@ async function handleImproveClick() {
     const text = inputText.value.trim();
     if (!text) return;
     
+    console.log('🚀 handleImproveClick started with text:', text);
+    
     try {
         isProcessing = true;
         showLoadingModal();
         updateImproveButton();
         
+        console.log('📞 About to call callImprovementAPI...');
         // Call improvement API (placeholder for now)
         const improvements = await callImprovementAPI(text);
         
+        console.log('✅ Got improvements:', improvements);
         displayResults(improvements);
         resultsSection.style.display = 'block';
         resultsSection.scrollIntoView({ behavior: 'smooth' });
