@@ -1,3 +1,6 @@
+// *** VERSION DEBUG v1.1 - 2025-01-21 ***
+console.log('🔥 APP.JS VERSION 1.1 LOADED - Latest with CSP fix and debugging');
+
 // DOM Elements
 const inputText = document.getElementById('inputText');
 const charCount = document.getElementById('charCount');
