@@ -200,7 +200,7 @@ async function handleImproveClick() {
         
         console.log('✅ Got improvements:', improvements);
         displayResults(improvements);
-        displayRecommendedProducts();
+        // Don't display additional recommendations after improvement - use permanent sidebar
         resultsSection.style.display = 'block';
         resultsSection.scrollIntoView({ behavior: 'smooth' });
         
@@ -361,11 +361,18 @@ function displayRecommendedProducts() {
 }
 
 function displayPermanentRecommendedProducts() {
-    // Set up sidebar category switching
-    setupCategorySwitching();
+    // Display products in the permanent section (always visible)
+    const permanentCategoriesContainer = document.getElementById('permanentCategoriesContainer');
     
-    // Display initial category (communication)
-    displayCategoryProducts('communication');
+    if (permanentCategoriesContainer) {
+        // Clear existing content
+        permanentCategoriesContainer.innerHTML = '';
+        
+        // Create category-based product sections for permanent display
+        createPermanentCategorySection('📚 コミュニケーション', 'communication', 1);
+        createPermanentCategorySection('👔 ファッション・身だしなみ', 'fashion', 2);
+        createPermanentCategorySection('🍷 ライフスタイル', 'lifestyle', 3);
+    }
 }
 
 function setupCategorySwitching() {
