@@ -206,13 +206,20 @@ function createResultCard(improvement, number) {
     card.innerHTML = `
         <div class="result-header">
             <div class="result-number">${number}</div>
-            <button class="copy-btn" onclick="copyToClipboard(this, ${JSON.stringify(improvement.text).replace(/"/g, '&quot;')})">
+            <button class="copy-btn" data-text="${improvement.text.replace(/"/g, '&quot;')}">
                 📋 コピー
             </button>
         </div>
         <div class="result-text">${improvement.text}</div>
         ${improvement.tone ? `<div class="result-tone">💭 ${improvement.tone}</div>` : ''}
     `;
+    
+    // Add event listener for copy button (CSP-safe)
+    const copyBtn = card.querySelector('.copy-btn');
+    copyBtn.addEventListener('click', function() {
+        const text = this.getAttribute('data-text');
+        copyToClipboard(this, text);
+    });
     
     return card;
 }
