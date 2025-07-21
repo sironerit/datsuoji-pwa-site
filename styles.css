@@ -317,7 +317,78 @@ section h2 {
     margin-bottom: 2rem;
 }
 
-/* Netflix-style Categories Container */
+/* Sidebar + Content Layout */
+.products-layout {
+    display: flex;
+    gap: 2rem;
+    min-height: 400px;
+}
+
+/* Category Sidebar */
+.category-sidebar {
+    flex: 0 0 280px;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f1f5f9;
+    height: fit-content;
+}
+
+.category-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.category-btn {
+    width: 100%;
+    text-align: left;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.category-btn:hover {
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+.category-btn.active {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Products Main Area */
+.products-main {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f1f5f9;
+}
+
+.selected-category-title {
+    color: #1e293b;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+/* Netflix-style Categories Container (for legacy support) */
 .categories-container {
     display: flex;
     flex-direction: column;
@@ -933,6 +1004,41 @@ section h2 {
     .horizontal-product-btn {
         padding: 6px 12px;
         font-size: 0.75rem;
+    }
+    
+    /* Sidebar Layout Mobile */
+    .products-layout {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .category-sidebar {
+        flex: none;
+        width: 100%;
+        padding: 1rem;
+    }
+    
+    .category-menu {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+    
+    .category-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .products-main {
+        padding: 1rem;
+    }
+    
+    .selected-category-title {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
     }
 }
 
