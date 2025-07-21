@@ -117,6 +117,9 @@ function initializeApp() {
     
     // Update character count
     updateCharCount();
+    
+    // Display recommended products immediately on page load (permanent section)
+    displayPermanentRecommendedProducts();
 }
 
 function setupEventListeners() {
@@ -332,7 +335,7 @@ function createResultCard(improvement, number) {
 }
 
 function displayRecommendedProducts() {
-    // Check if recommendations section already exists
+    // Check if recommendations section already exists (for after-improvement display)
     let recommendationsSection = document.getElementById('recommendationsSection');
     
     if (!recommendationsSection) {
@@ -355,6 +358,21 @@ function displayRecommendedProducts() {
     createCategorySection('📚 コミュニケーション', 'communication', 4);
     createCategorySection('👔 ファッション・身だしなみ', 'fashion', 5);
     createCategorySection('🍷 ライフスタイル', 'lifestyle', 6);
+}
+
+function displayPermanentRecommendedProducts() {
+    // Display products in the permanent section (always visible)
+    const permanentCategoriesContainer = document.getElementById('permanentCategoriesContainer');
+    
+    if (permanentCategoriesContainer) {
+        // Clear existing content
+        permanentCategoriesContainer.innerHTML = '';
+        
+        // Create category-based product sections for permanent display
+        createPermanentCategorySection('📚 コミュニケーション', 'communication', 1);
+        createPermanentCategorySection('👔 ファッション・身だしなみ', 'fashion', 2);
+        createPermanentCategorySection('🍷 ライフスタイル', 'lifestyle', 3);
+    }
 }
 
 function createCategorySection(title, category, animationDelay) {
@@ -391,6 +409,44 @@ function createCategorySection(title, category, animationDelay) {
         categorySection.style.opacity = '1';
         categorySection.style.transform = 'translateY(0)';
     }, animationDelay * 150);
+}
+
+function createPermanentCategorySection(title, category, animationDelay) {
+    const permanentCategoriesContainer = document.getElementById('permanentCategoriesContainer');
+    
+    if (!permanentCategoriesContainer) return;
+    
+    // Create category section
+    const categorySection = document.createElement('div');
+    categorySection.className = 'category-section';
+    categorySection.style.opacity = '0';
+    categorySection.style.transform = 'translateY(20px)';
+    
+    categorySection.innerHTML = `
+        <h3 class="category-title">${title}</h3>
+        <div class="products-horizontal-scroll" data-category="${category}">
+            <div class="products-horizontal-container"></div>
+        </div>
+    `;
+    
+    permanentCategoriesContainer.appendChild(categorySection);
+    
+    // Get products for this category
+    const categoryProducts = PRODUCT_DATABASE[category] || [];
+    const horizontalContainer = categorySection.querySelector('.products-horizontal-container');
+    
+    // Add products to horizontal container
+    categoryProducts.forEach((product, index) => {
+        const productCard = createHorizontalProductCard(product);
+        horizontalContainer.appendChild(productCard);
+    });
+    
+    // Animate category section
+    setTimeout(() => {
+        categorySection.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        categorySection.style.opacity = '1';
+        categorySection.style.transform = 'translateY(0)';
+    }, animationDelay * 200);
 }
 
 function getRecommendedProducts() {
