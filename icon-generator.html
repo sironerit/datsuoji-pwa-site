@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>脱おじ構文AI - アイコン生成ツール</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8fafc;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .icon-preview {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .icon-canvas {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+        .size-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .size-btn {
+            padding: 8px 12px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .size-btn:hover {
+            background: #1d4ed8;
+        }
+        .size-btn.active {
+            background: #dc2626;
+        }
+        .download-section {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .step {
+            background: white;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+        }
+        .online-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .tool-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            text-decoration: none;
+            color: inherit;
+        }
+        .tool-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        input, select, button {
+            margin: 5px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #d1d5db;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 脱おじ構文AI - アイコン生成ツール</h1>
+        <p>PWA用のアイコンを簡単に作成できます</p>
+    </div>
+
+    <!-- アイコンプレビュー -->
+    <div class="icon-preview">
+        <canvas id="iconCanvas" class="icon-canvas" width="512" height="512"></canvas>
+    </div>
+
+    <!-- コントロール -->
+    <div class="controls">
+        <h3>🎨 アイコンデザイン設定</h3>
+        
+        <div>
+            <label>背景色:</label>
+            <input type="color" id="bgColor" value="#2563eb">
+            
+            <label>文字色:</label>
+            <input type="color" id="textColor" value="#ffffff">
+            
+            <label>アイコンスタイル:</label>
+            <select id="iconStyle">
+                <option value="脱">脱 (シンプル)</option>
+                <option value="脱AI">脱AI (詳細)</option>
+                <option value="改">改 (改善)</option>
+                <option value="✨→">✨→ (変換)</option>
+            </select>
+        </div>
+
+        <div>
+            <button onclick="updateIcon()">プレビュー更新</button>
+            <button onclick="downloadCurrentSize()">現在のサイズでダウンロード</button>
+        </div>
+
+        <h4>📏 必要なアイコンサイズ</h4>
+        <div class="size-buttons">
+            <button class="size-btn active" onclick="setSize(72)">72×72</button>
+            <button class="size-btn" onclick="setSize(96)">96×96</button>
+            <button class="size-btn" onclick="setSize(128)">128×128</button>
+            <button class="size-btn" onclick="setSize(144)">144×144</button>
+            <button class="size-btn" onclick="setSize(152)">152×152</button>
+            <button class="size-btn" onclick="setSize(180)">180×180</button>
+            <button class="size-btn" onclick="setSize(192)">192×192</button>
+            <button class="size-btn" onclick="setSize(384)">384×384</button>
+            <button class="size-btn" onclick="setSize(512)">512×512</button>
+        </div>
+
+        <div class="download-section">
+            <h4>💾 一括ダウンロード</h4>
+            <button onclick="downloadAllSizes()" style="background: #dc2626; font-size: 16px; padding: 12px 24px;">
+                🚀 全サイズのアイコンを生成してダウンロード
+            </button>
+            <p><small>※ 各サイズのファイルが順番にダウンロードされます</small></p>
+        </div>
+    </div>
+
+    <!-- 簡単な手順 -->
+    <div class="step">
+        <h3>🚀 5分でできる！簡単アイコン作成手順</h3>
+        <ol>
+            <li><strong>上のプレビューで確認:</strong> 色とスタイルを選んでプレビューを確認</li>
+            <li><strong>一括ダウンロード:</strong> 「全サイズのアイコンを生成してダウンロード」ボタンをクリック</li>
+            <li><strong>ファイルを移動:</strong> ダウンロードされたファイルを <code>icons/</code> フォルダに移動</li>
+            <li><strong>完了！:</strong> これでPWAアイコンの設定が完了です</li>
+        </ol>
+    </div>
+
+    <!-- オンラインツール（代替手段） -->
+    <div class="controls">
+        <h3>🌐 オンラインアイコン生成ツール（代替手段）</h3>
+        <div class="online-tools">
+            <a href="https://realfavicongenerator.net/" target="_blank" class="tool-card">
+                <h4>Real Favicon Generator</h4>
+                <p>最も人気のある無料アイコン生成サービス</p>
+            </a>
+            <a href="https://www.favicon.cc/" target="_blank" class="tool-card">
+                <h4>Favicon.cc</h4>
+                <p>シンプルなピクセルアート風アイコン作成</p>
+            </a>
+            <a href="https://favicon.io/" target="_blank" class="tool-card">
+                <h4>Favicon.io</h4>
+                <p>テキストからアイコンを生成</p>
+            </a>
+            <a href="https://app.logo.com/" target="_blank" class="tool-card">
+                <h4>Logo.com</h4>
+                <p>AIを使ったロゴ・アイコン生成</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- マニュアル作成手順 -->
+    <div class="controls">
+        <h3>✋ 手動作成する場合の手順</h3>
+        
+        <div class="step">
+            <h4>📝 推奨デザイン案</h4>
+            <ul>
+                <li><strong>案1:</strong> 青い背景に白文字で「脱」</li>
+                <li><strong>案2:</strong> グラデーション背景に「改」+ 矢印</li>
+                <li><strong>案3:</strong> シンプルな背景に「✨→」(改善記号)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>🛠️ 作成手順</h4>
+            <ol>
+                <li>Canva、Figma、またはPhotoshop等を使用</li>
+                <li>512×512pxで最大サイズのアイコンを作成</li>
+                <li>背景色: #2563eb (青色)、文字色: #ffffff (白色)</li>
+                <li>中央に「脱」「改」等の文字を配置</li>
+                <li>512×512で保存後、各サイズにリサイズ</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let currentSize = 512;
+        
+        // Canvas要素とコンテキストを取得
+        const canvas = document.getElementById('iconCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // 初期アイコンを生成
+        updateIcon();
+        
+        function setSize(size) {
+            currentSize = size;
+            canvas.width = size;
+            canvas.height = size;
+            
+            // ボタンのアクティブ状態を更新
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            updateIcon();
+        }
+        
+        function updateIcon() {
+            const bgColor = document.getElementById('bgColor').value;
+            const textColor = document.getElementById('textColor').value;
+            const style = document.getElementById('iconStyle').value;
+            
+            // 背景を描画
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 文字を描画
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            // フォントサイズをCanvasサイズに合わせて調整
+            const fontSize = Math.floor(canvas.width * 0.4);
+            ctx.font = `bold ${fontSize}px 'Noto Sans CJK JP', 'Yu Gothic', sans-serif`;
+            
+            // 文字を中央に描画
+            ctx.fillText(style, canvas.width / 2, canvas.height / 2);
+        }
+        
+        function downloadCurrentSize() {
+            const link = document.createElement('a');
+            link.download = `icon-${currentSize}x${currentSize}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        function downloadAllSizes() {
+            const sizes = [72, 96, 128, 144, 152, 180, 192, 384, 512];
+            let index = 0;
+            
+            function downloadNext() {
+                if (index >= sizes.length) {
+                    alert('✅ 全てのアイコンファイルのダウンロードが完了しました！\n\nダウンロードフォルダからiconsフォルダに移動してください。');
+                    return;
+                }
+                
+                const size = sizes[index];
+                setSize(size);
+                
+                // 少し待ってから描画が完了したダウンロード
+                setTimeout(() => {
+                    downloadCurrentSize();
+                    index++;
+                    // 次のファイルも少し間隔をあけてダウンロード
+                    setTimeout(downloadNext, 500);
+                }, 100);
+            }
+            
+            downloadNext();
+        }
+        
+        // 色が変更された時に自動更新
+        document.getElementById('bgColor').addEventListener('change', updateIcon);
+        document.getElementById('textColor').addEventListener('change', updateIcon);
+        document.getElementById('iconStyle').addEventListener('change', updateIcon);
+    </script>
+</body>
+</html>
