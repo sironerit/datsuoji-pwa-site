@@ -342,39 +342,55 @@ function displayRecommendedProducts() {
         recommendationsSection.className = 'recommendations-section';
         
         recommendationsSection.innerHTML = `
-            <h2>💍 この改善に効果的なアイテム</h2>
-            <p class="recommendations-subtitle">魅力をさらにアップさせるおすすめ商品</p>
-            <div id="productsGrid" class="products-grid"></div>
+            <h2>💍 魅力アップ商品</h2>
+            <p class="recommendations-subtitle">40-50代男性の魅力を高める厳選アイテム</p>
+            <div id="categoriesContainer" class="categories-container"></div>
         `;
         
         // Insert after results section
         resultsSection.appendChild(recommendationsSection);
     }
     
-    // Get recommended products
-    const recommendedProducts = getRecommendedProducts();
-    const productsGrid = document.getElementById('productsGrid');
+    // Create category-based product sections
+    createCategorySection('📚 コミュニケーション', 'communication', 4);
+    createCategorySection('👔 ファッション・身だしなみ', 'fashion', 5);
+    createCategorySection('🍷 ライフスタイル', 'lifestyle', 6);
+}
+
+function createCategorySection(title, category, animationDelay) {
+    const categoriesContainer = document.getElementById('categoriesContainer');
     
-    // Clear existing products
-    productsGrid.innerHTML = '';
+    // Create category section
+    const categorySection = document.createElement('div');
+    categorySection.className = 'category-section';
+    categorySection.style.opacity = '0';
+    categorySection.style.transform = 'translateY(20px)';
     
-    // Add products with animation
-    recommendedProducts.forEach((product, index) => {
-        const productCard = createProductCard(product);
-        
-        // Add staggered animation
-        productCard.style.opacity = '0';
-        productCard.style.transform = 'translateY(20px)';
-        
-        productsGrid.appendChild(productCard);
-        
-        // Trigger animation with delay
-        setTimeout(() => {
-            productCard.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-            productCard.style.opacity = '1';
-            productCard.style.transform = 'translateY(0)';
-        }, (index + 4) * 150); // Start after result cards
+    categorySection.innerHTML = `
+        <h3 class="category-title">${title}</h3>
+        <div class="products-horizontal-scroll" data-category="${category}">
+            <div class="products-horizontal-container"></div>
+        </div>
+    `;
+    
+    categoriesContainer.appendChild(categorySection);
+    
+    // Get products for this category
+    const categoryProducts = PRODUCT_DATABASE[category] || [];
+    const horizontalContainer = categorySection.querySelector('.products-horizontal-container');
+    
+    // Add products to horizontal container
+    categoryProducts.forEach((product, index) => {
+        const productCard = createHorizontalProductCard(product);
+        horizontalContainer.appendChild(productCard);
     });
+    
+    // Animate category section
+    setTimeout(() => {
+        categorySection.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        categorySection.style.opacity = '1';
+        categorySection.style.transform = 'translateY(0)';
+    }, animationDelay * 150);
 }
 
 function getRecommendedProducts() {
@@ -411,6 +427,34 @@ function createProductCard(product) {
                     🛒 Amazonで見る
                 </a>
             </div>
+        </div>
+    `;
+    
+    return card;
+}
+
+function createHorizontalProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'horizontal-product-card';
+    
+    const amazonUrl = `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
+    const stars = '★'.repeat(Math.floor(product.rating)) + '☆'.repeat(5 - Math.floor(product.rating));
+    
+    card.innerHTML = `
+        <div class="horizontal-product-image">
+            <img src="${product.image}" alt="${product.title}" loading="lazy">
+            <div class="horizontal-product-category">${product.category}</div>
+        </div>
+        <div class="horizontal-product-info">
+            <h4 class="horizontal-product-title">${product.title}</h4>
+            <div class="horizontal-product-rating">
+                <span class="stars">${stars}</span>
+                <span class="rating-number">${product.rating}</span>
+            </div>
+            <div class="horizontal-product-price">${product.price}</div>
+            <a href="${amazonUrl}" target="_blank" rel="noopener" class="horizontal-product-btn">
+                🛒 Amazon
+            </a>
         </div>
     `;
     

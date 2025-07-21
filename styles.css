@@ -317,6 +317,172 @@ section h2 {
     margin-bottom: 2rem;
 }
 
+/* Netflix-style Categories Container */
+.categories-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.category-section {
+    width: 100%;
+}
+
+.category-title {
+    color: #1e293b;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+}
+
+/* Horizontal Scrolling Container */
+.products-horizontal-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+.products-horizontal-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.products-horizontal-scroll::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 3px;
+}
+
+.products-horizontal-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.products-horizontal-scroll::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.products-horizontal-container {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem;
+    min-width: min-content;
+}
+
+/* Horizontal Product Cards */
+.horizontal-product-card {
+    flex: 0 0 280px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #f1f5f9;
+    cursor: pointer;
+}
+
+.horizontal-product-card:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: #3b82f6;
+}
+
+.horizontal-product-image {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+}
+
+.horizontal-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.horizontal-product-card:hover .horizontal-product-image img {
+    transform: scale(1.05);
+}
+
+.horizontal-product-category {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.horizontal-product-info {
+    padding: 1rem;
+}
+
+.horizontal-product-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.6rem;
+}
+
+.horizontal-product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.horizontal-product-rating .stars {
+    color: #fbbf24;
+    font-size: 0.8rem;
+}
+
+.horizontal-product-rating .rating-number {
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.horizontal-product-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #dc2626;
+    margin-bottom: 0.75rem;
+}
+
+.horizontal-product-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    text-align: center;
+    width: 100%;
+}
+
+.horizontal-product-btn:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -731,6 +897,42 @@ section h2 {
         margin: 40% auto;
         width: 95%;
         padding: 1.5rem;
+    }
+    
+    /* Horizontal Products Mobile */
+    .recommendations-section {
+        padding: 1.5rem;
+    }
+    
+    .categories-container {
+        gap: 1.5rem;
+    }
+    
+    .category-title {
+        font-size: 1.1rem;
+        padding: 0;
+    }
+    
+    .horizontal-product-card {
+        flex: 0 0 240px;
+    }
+    
+    .horizontal-product-image {
+        height: 140px;
+    }
+    
+    .horizontal-product-info {
+        padding: 0.75rem;
+    }
+    
+    .horizontal-product-title {
+        font-size: 0.9rem;
+        min-height: 2.4rem;
+    }
+    
+    .horizontal-product-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
     }
 }
 
