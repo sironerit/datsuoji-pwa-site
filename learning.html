@@ -166,5 +166,21 @@
 
     <!-- Script -->
     <script src="learning.js?v=2.3.0"></script>
+    
+    <!-- 一時的なキャッシュクリアスクリプト -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (let registration of registrations) {
+                console.log('🔄 Unregistering old service worker...');
+                registration.unregister();
+            }
+            // 強制リロード
+            setTimeout(() => {
+                window.location.reload(true);
+            }, 1000);
+        });
+    }
+    </script>
 </body>
 </html>
