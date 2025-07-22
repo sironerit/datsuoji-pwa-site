@@ -216,39 +216,67 @@ async function callAnalysisAPI(text) {
 }
 
 function generateMockAnalysis(originalText) {
-    // Mock analysis for demonstration (based on Android version logic)
+    // Analyze the actual text for more accurate mock feedback
+    const emojiCount = (originalText.match(/[😀-🙏🌀-🗿🚀-🛿🇦-🇿]/g) || []).length;
+    const hasRepetition = /(.)\1{2,}/.test(originalText);
+    const hasInappropriateWords = /(好き|愛|ちゅ|キス|抱|抱き)/i.test(originalText);
+    
+    let naturalness_score = 15;
+    let naturalness_feedback = "文章の構成は理解できますが、";
+    
+    if (hasRepetition) {
+        naturalness_score -= 8;
+        naturalness_feedback += "同じ文字や表現の繰り返しが多く、不自然な印象を与えています。";
+    } else if (emojiCount > 3) {
+        naturalness_score -= 5;
+        naturalness_feedback += "絵文字の使用が多すぎて、文章が不自然な印象を与えています。";
+    } else if (emojiCount === 1) {
+        naturalness_feedback += "絵文字の使用は適度ですが、全体の表現が幼稚な印象を与えています。";
+    } else {
+        naturalness_feedback += "表現が直接的すぎて、大人の会話として不自然です。";
+    }
+    
+    let impression_score = 5;
+    let impression_feedback = "";
+    if (hasInappropriateWords) {
+        impression_feedback = "愛情表現が直接的すぎて、初対面の相手には不適切で不快感を与える可能性があります。";
+    } else {
+        impression_feedback = "表現が幼稚で、40-50代男性としての品格に欠ける印象を与えます。";
+    }
+    
+    let detected_issues = [];
+    if (hasRepetition) detected_issues.push("同じ表現の過度な繰り返し");
+    if (hasInappropriateWords) detected_issues.push("不適切な愛情表現");
+    if (emojiCount > 0) detected_issues.push("感情的すぎる表現");
+    detected_issues.push("大人らしさの欠如");
+    
     return {
-        overall_score: 42,
+        overall_score: 25,
         category_scores: {
-            impression: 8,
-            naturalness: 12,
-            discomfort_risk: 6,
-            continuity: 16
+            impression: impression_score,
+            naturalness: naturalness_score,
+            discomfort_risk: 3,
+            continuity: 2
         },
         detailed_feedback: {
-            impression: "外見を直接褒める表現が含まれており、相手に不快感を与える可能性があります。",
-            naturalness: "絵文字の使用が多すぎて、文章が不自然な印象を与えています。",
-            discomfort_risk: "「可愛い」「一目惚れ」など、初回メッセージには不適切な表現が検出されました。",
-            continuity: "質問が含まれておらず、会話を続けにくい内容です。"
+            impression: impression_feedback,
+            naturalness: naturalness_feedback,
+            discomfort_risk: "相手に強い不快感や恐怖感を与える可能性が非常に高い表現です。",
+            continuity: "一方的な感情表現で、相手が返信しづらい内容になっています。"
         },
-        detected_issues: [
-            "外見褒め（可愛いですね）",
-            "絵文字過多（😍🍺）", 
-            "唐突な誘い（お酒飲みませんか）",
-            "一方的な内容"
-        ],
+        detected_issues: detected_issues,
         improvement_suggestions: [
-            "外見について直接言及するのではなく、プロフィールから共通の興味を見つけて話題にしましょう",
-            "絵文字は1-2個程度に抑えて、自然な文章を心がけましょう",
-            "いきなりの誘いではなく、まずは軽い質問から会話を始めましょう",
-            "相手の興味や趣味について質問を含めて、会話が続きやすくしましょう"
+            "感情表現は控えめにして、まずは軽い挨拶から始めましょう",
+            "相手の興味や趣味について質問を含めて、会話のきっかけを作りましょう",
+            "大人らしい落ち着いた表現を心がけ、品格のある文章にしましょう",
+            "一方的な表現ではなく、相手のことを気遣う内容を含めましょう"
         ],
         pro_tips: [
-            "初回メッセージでは相手のプロフィールをよく読み、共通点や興味深い点に触れることが重要です",
-            "外見褒めは避け、内面や趣味、経験について言及する方が好印象を与えます"
+            "初回メッセージでは感情表現は控え、相手のプロフィールに基づいた質問から始めることが重要です",
+            "40-50代男性としての落ち着きと品格を表現に反映させましょう"
         ],
         grade: "D",
-        summary: "改善の余地が大きいメッセージです。外見褒めや絵文字の多用を控え、相手の興味に基づいた自然な会話を心がけましょう。"
+        summary: "感情表現が直接的すぎて、相手に不快感を与える可能性が高いメッセージです。もっと控えめで品格のある表現を心がけましょう。"
     };
 }
 
