@@ -57,8 +57,6 @@
                 <nav class="toc-nav">
                     <a href="#input-section" class="toc-link">💬 メッセージ入力</a>
                     <a href="#features-section" class="toc-link">✨ 主な機能</a>
-                    <a href="#about-section" class="toc-link">📖 について</a>
-                    <a href="#usage-section" class="toc-link">📝 使い方</a>
                 </nav>
             </div>
             
@@ -73,21 +71,40 @@
                 </div>
             </div>
             
+            <!-- Quick Usage -->
+            <div class="sidebar-section">
+                <h3>📝 使い方</h3>
+                <div class="quick-usage">
+                    <div class="usage-step">
+                        <span class="step-num">1</span>
+                        <span class="step-desc">メッセージ入力</span>
+                    </div>
+                    <div class="usage-step">
+                        <span class="step-num">2</span>
+                        <span class="step-desc">AI改善実行</span>
+                    </div>
+                    <div class="usage-step">
+                        <span class="step-num">3</span>
+                        <span class="step-desc">4候補から選択</span>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Quick Tips -->
             <div class="sidebar-section">
-                <h3>💡 クイックTips</h3>
+                <h3>💡 改善のコツ</h3>
                 <div class="quick-tips">
                     <div class="tip-item">
                         <span class="tip-icon">❌</span>
-                        <span class="tip-text">絵文字の使いすぎに注意</span>
+                        <span class="tip-text">絵文字使いすぎ</span>
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">❌</span>
+                        <span class="tip-text">上から目線</span>
                     </div>
                     <div class="tip-item">
                         <span class="tip-icon">✅</span>
-                        <span class="tip-text">相手の興味を尊重する</span>
-                    </div>
-                    <div class="tip-item">
-                        <span class="tip-icon">💬</span>
-                        <span class="tip-text">自然な会話を心がける</span>
+                        <span class="tip-text">自然で品格ある表現</span>
                     </div>
                 </div>
             </div>
@@ -97,24 +114,41 @@
     <!-- Main Content -->
     <main class="main">
         <div class="container">
-            <!-- Input Section -->
-            <section class="input-section" id="input-section">
-                <h2>💬 メッセージを入力してください</h2>
-                <div class="input-wrapper">
-                    <textarea
-                        id="inputText"
-                        class="input-textarea"
-                        placeholder="例：写真可愛いですね😍お疲れ様です🍺&#10;一緒にお酒飲みませんか？&#10;&#10;改善したいメッセージを入力してください..."
-                        rows="4"
-                        maxlength="500"
-                    ></textarea>
-                    <div class="char-counter">
-                        <span id="charCount">0</span>/500
+            <!-- Compact Hero Section with Input -->
+            <section class="hero-section" id="input-section">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h2>💬 おじさん構文を品格ある文章に</h2>
+                        <p class="hero-description">
+                            AIが不適切な表現を自然で好印象な文章に改善します。マッチングアプリ・LINE・ビジネスメールに最適。
+                        </p>
+                        <div class="quick-example">
+                            <div class="example-compact">
+                                <span class="before-compact">❌ 写真可愛いですね😍</span>
+                                <span class="arrow-compact">→</span>
+                                <span class="after-compact">✅ 素敵なお写真ですね</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-input">
+                        <div class="input-wrapper">
+                            <textarea
+                                id="inputText"
+                                class="input-textarea"
+                                placeholder="改善したいメッセージを入力..."
+                                rows="3"
+                                maxlength="500"
+                            ></textarea>
+                            <div class="char-counter">
+                                <span id="charCount">0</span>/500
+                            </div>
+                        </div>
+                        <button id="improveBtn" class="improve-btn" disabled>
+                            ✨ AIで改善する（4候補表示）
+                        </button>
                     </div>
                 </div>
-                <button id="improveBtn" class="improve-btn" disabled>
-                    ✨ AIで改善する
-                </button>
             </section>
 
             <!-- Results Section -->
@@ -125,76 +159,28 @@
                 </div>
             </section>
 
-            <!-- Features Section -->
-            <section class="features-section" id="features-section">
-                <h2>✨ 主な機能</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🤖</div>
-                        <h3>AI改善エンジン</h3>
-                        <p>最新の自然言語処理技術で、不適切な表現を品格ある文章に変換</p>
+            <!-- Compact Features Section -->
+            <section class="compact-features" id="features-section">
+                <div class="feature-highlights">
+                    <div class="feature-item">
+                        <span class="feature-emoji">🤖</span>
+                        <span class="feature-text">AI自動改善</span>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💡</div>
-                        <h3>4つの提案</h3>
-                        <p>シチュエーションに応じた複数の改善案を同時に表示</p>
+                    <div class="feature-item">
+                        <span class="feature-emoji">💡</span>
+                        <span class="feature-text">4つの提案</span>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📱</div>
-                        <h3>モバイル対応</h3>
-                        <p>スマートフォンでも快適に利用できるレスポンシブデザイン</p>
+                    <div class="feature-item">
+                        <span class="feature-emoji">📱</span>
+                        <span class="feature-text">モバイル対応</span>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>プライバシー保護</h3>
-                        <p>入力したメッセージは安全に処理され、保存されません</p>
+                    <div class="feature-item">
+                        <span class="feature-emoji">🔒</span>
+                        <span class="feature-text">プライバシー保護</span>
                     </div>
-                </div>
-            </section>
-
-            <!-- About Section -->
-            <section class="about-section" id="about-section">
-                <h2>📖 脱おじ構文AIとは？</h2>
-                <div class="about-content">
-                    <p>
-                        「脱おじ構文AI」は、不適切な表現や古い言い回しを、現代的で品格のある文章に改善するAIツールです。
-                        特にマッチングアプリやLINEなどのメッセージコミュニケーションで、相手に好印象を与える表現をサポートします。
-                    </p>
-                    <div class="example-box">
-                        <h3>改善例</h3>
-                        <div class="example-item">
-                            <div class="before">❌ 写真可愛いですね😍一目惚れです💕</div>
-                            <div class="arrow">→</div>
-                            <div class="after">✅ プロフィールを拝見しました。素敵な方だなと感じています。</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Usage Guide -->
-            <section class="usage-section" id="usage-section">
-                <h2>📝 使い方</h2>
-                <div class="usage-steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h3>メッセージ入力</h3>
-                            <p>改善したいメッセージを入力欄に貼り付けまたは入力してください</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h3>AI改善実行</h3>
-                            <p>「AIで改善する」ボタンをクリックして、AIによる改善を開始</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h3>結果確認</h3>
-                            <p>4つの改善提案から、最も適切なものを選択してご利用ください</p>
-                        </div>
+                    <div class="feature-item">
+                        <span class="feature-emoji">⚡</span>
+                        <span class="feature-text">高速処理</span>
                     </div>
                 </div>
             </section>

@@ -1,6 +1,6 @@
-const CACHE_NAME = 'datsuoji-ai-v1.1.0';
-const STATIC_CACHE = 'datsuoji-static-v1.1.0';
-const RUNTIME_CACHE = 'datsuoji-runtime-v1.1.0';
+const CACHE_NAME = 'datsuoji-ai-v1.2.0';
+const STATIC_CACHE = 'datsuoji-static-v1.2.0';
+const RUNTIME_CACHE = 'datsuoji-runtime-v1.2.0';
 
 // Files to cache on install
 const STATIC_FILES = [
