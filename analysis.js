@@ -280,10 +280,10 @@ function generateMockAnalysis(originalText) {
     return {
         overall_score: overall_score,
         category_scores: {
-            impression: impression_score,
-            naturalness: naturalness_score,
-            discomfort_risk: discomfort_risk_score,
-            continuity: continuity_score
+            impression: `印象評価: ${Math.round((impression_score / 25) * 100)}%`,
+            naturalness: `自然さ評価: ${Math.round((naturalness_score / 25) * 100)}%`,
+            discomfort_risk: `不快リスク回避: ${Math.round((discomfort_risk_score / 25) * 100)}%`,
+            continuity: `継続性評価: ${Math.round((continuity_score / 25) * 100)}%`
         },
         detailed_feedback: {
             impression: impression_feedback,
@@ -352,17 +352,23 @@ function displayOverallScore(score, grade) {
 }
 
 function displayCategoryScores(scores, feedback) {
-    // Display scores with animation
-    setTimeout(() => animateScoreCounter(impressionScore, 0, scores.impression || 0, 800), 200);
-    setTimeout(() => animateScoreCounter(naturalScore, 0, scores.naturalness || 0, 800), 400);
-    setTimeout(() => animateScoreCounter(riskScore, 0, scores.discomfort_risk || 0, 800), 600);
-    setTimeout(() => animateScoreCounter(continuityScore, 0, scores.continuity || 0, 800), 800);
+    // Extract percentage values from strings like "印象評価: 65%"
+    const impressionValue = extractPercentage(scores.impression);
+    const naturalValue = extractPercentage(scores.naturalness);
+    const riskValue = extractPercentage(scores.discomfort_risk);
+    const continuityValue = extractPercentage(scores.continuity);
     
-    // Animate progress bars
-    setTimeout(() => animateProgressBar('impressionProgress', scores.impression || 0, 25), 300);
-    setTimeout(() => animateProgressBar('naturalProgress', scores.naturalness || 0, 25), 500);
-    setTimeout(() => animateProgressBar('riskProgress', scores.discomfort_risk || 0, 25), 700);
-    setTimeout(() => animateProgressBar('continuityProgress', scores.continuity || 0, 25), 900);
+    // Display scores with animation (show percentage values)
+    setTimeout(() => animateScoreCounter(impressionScore, 0, impressionValue, 800), 200);
+    setTimeout(() => animateScoreCounter(naturalScore, 0, naturalValue, 800), 400);
+    setTimeout(() => animateScoreCounter(riskScore, 0, riskValue, 800), 600);
+    setTimeout(() => animateScoreCounter(continuityScore, 0, continuityValue, 800), 800);
+    
+    // Animate progress bars (use percentage values directly)
+    setTimeout(() => animateProgressBar('impressionProgress', impressionValue, 100), 300);
+    setTimeout(() => animateProgressBar('naturalProgress', naturalValue, 100), 500);
+    setTimeout(() => animateProgressBar('riskProgress', riskValue, 100), 700);
+    setTimeout(() => animateProgressBar('continuityProgress', continuityValue, 100), 900);
     
     // Display feedback
     impressionFeedback.textContent = feedback.impression || '';
@@ -370,8 +376,14 @@ function displayCategoryScores(scores, feedback) {
     riskFeedback.textContent = feedback.discomfort_risk || '';
     continuityFeedback.textContent = feedback.continuity || '';
     
-    // Draw radar chart
-    setTimeout(() => drawRadarChart(scores), 1000);
+    // Draw radar chart with percentage values
+    const chartScores = {
+        impression: impressionValue,
+        naturalness: naturalValue,
+        discomfort_risk: riskValue,
+        continuity: continuityValue
+    };
+    setTimeout(() => drawRadarChart(chartScores), 1000);
 }
 
 function displayDetectedIssues(issues) {
@@ -486,6 +498,22 @@ function getScoreColor(score) {
     }
 }
 
+function extractPercentage(scoreString) {
+    // Extract percentage value from strings like "印象評価: 65%" or return as number if already numeric
+    if (typeof scoreString === 'number') {
+        return scoreString;
+    }
+    
+    if (typeof scoreString === 'string') {
+        const match = scoreString.match(/(\d+)%/);
+        if (match) {
+            return parseInt(match[1], 10);
+        }
+    }
+    
+    return 0; // Default fallback
+}
+
 // 🎯 Enhanced Visualization Functions
 
 function animateProgressBar(elementId, value, maxValue) {
@@ -577,7 +605,7 @@ function drawRadarPolygon(ctx, centerX, centerY, radius, categories) {
     
     ctx.beginPath();
     categories.forEach((category, index) => {
-        const normalizedValue = category.value / 25; // Normalize to 0-1
+        const normalizedValue = category.value / 100; // Normalize to 0-1
         const x = centerX + Math.cos(category.angle - Math.PI / 2) * radius * normalizedValue;
         const y = centerY + Math.sin(category.angle - Math.PI / 2) * radius * normalizedValue;
         
@@ -647,7 +675,7 @@ function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
         ctx.save();
         ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
         ctx.fillStyle = '#2563eb';
-        ctx.fillText(`${category.value}pt`, scoreX, scoreY);
+        ctx.fillText(`${category.value}%`, scoreX, scoreY);
         ctx.restore();
     });
 }

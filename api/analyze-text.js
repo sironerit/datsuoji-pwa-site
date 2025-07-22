@@ -56,10 +56,10 @@ export default async function handler(req, res) {
 {
   "overall_score": 全体的な品質評価(0-100点),
   "category_scores": {
-    "impression": 印象得点（0-25点）,
-    "naturalness": 自然さ得点（0-25点）,
-    "discomfort_risk": 不快リスク回避得点（0-25点、上記基準で厳格採点）,
-    "continuity": 継続性得点（0-25点）
+    "impression": "印象評価: (0-100%)",
+    "naturalness": "自然さ評価: (0-100%)", 
+    "discomfort_risk": "不快リスク回避: (0-100%)",
+    "continuity": "継続性評価: (0-100%)"
   },
   "detailed_feedback": {
     "impression": "印象についての具体的フィードバック",
@@ -139,12 +139,8 @@ export default async function handler(req, res) {
             throw new Error('分析結果の形式が不正です');
         }
 
-        // スコアの正規化（0-100の範囲に調整）
+        // スコアの正規化（総合スコアのみ0-100の範囲に調整）
         analysisResult.overall_score = Math.max(0, Math.min(100, analysisResult.overall_score));
-        
-        Object.keys(analysisResult.category_scores).forEach(key => {
-            analysisResult.category_scores[key] = Math.max(0, Math.min(25, analysisResult.category_scores[key]));
-        });
 
         // 成功レスポンス
         res.status(200).json({
