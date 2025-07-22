@@ -1,5 +1,5 @@
-// *** LEARNING PAGE v2.2.0 - 2025-01-21 ***
-console.log('📚 LEARNING.JS VERSION 2.2.0 LOADED - 104 Comprehensive Dating Techniques');
+// *** LEARNING PAGE v2.3.0 - 2025-01-21 ***
+console.log('📚 LEARNING.JS VERSION 2.3.0 LOADED - 104 Comprehensive Dating Techniques + Enhanced Difficulty Badges');
 
 // 恋愛・会話術コンテンツデータベース - Android版ベース + Web版拡張 (104 テクニック完全版)
 const LEARNING_DATABASE = {
@@ -4657,38 +4657,39 @@ function displayLearningContent() {
     }
 }
 
+function getCategoryDisplayName(category) {
+    const categoryNames = {
+        'first-contact': '📬 初回アプローチ',
+        'conversation': '💬 会話継続術',
+        'date-invitation': '💕 デート誘い方',
+        'date-success': '🍽️ デート成功術',
+        'profile-photo': '📷 プロフィール術',
+        'psychology': '🧠 恋愛心理学',
+        'body-language': '👤 ボディランゲージ',
+        'digital-dating': '📱 デジタル恋愛',
+        'practical': '🎯 実践テクニック',
+        'avoid-mistakes': '⚠️ 避けるべき失敗'
+    };
+    return categoryNames[category] || category;
+}
+
 function createLearningCard(item) {
     const card = document.createElement('div');
     card.className = 'learning-card';
     
-    const difficultyColor = {
-        'beginner': '#10b981',
-        'intermediate': '#f59e0b', 
-        'advanced': '#ef4444'
-    };
-    
-    const difficultyText = {
-        'beginner': '初級',
-        'intermediate': '中級',
-        'advanced': '上級'
-    };
-    
     card.innerHTML = `
         <div class="learning-card-header">
-            <h3 class="learning-title">${item.title}</h3>
-            <div class="learning-meta">
-                <span class="difficulty-badge" style="background: ${difficultyColor[item.difficulty] || '#6b7280'}">
-                    ${difficultyText[item.difficulty] || ''}
-                </span>
-            </div>
+            <div class="learning-card-category">${getCategoryDisplayName(item.category)}</div>
+            <h3 class="learning-card-title">${item.title}</h3>
+            <div class="learning-card-difficulty difficulty-${item.difficulty}"></div>
         </div>
-        <div class="learning-summary">
-            <p>${item.summary}</p>
+        <div class="learning-card-summary">
+            ${item.summary}
         </div>
-        <div class="learning-tags">
-            ${item.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
+        <div class="learning-card-tags">
+            ${item.tags.map(tag => `<span class="learning-tag">#${tag}</span>`).join('')}
         </div>
-        <div class="learning-actions">
+        <div class="learning-card-footer">
             <div class="expand-indicator">
                 <span class="expand-text">📖 詳しく学ぶ</span>
                 <span class="expand-icon">▼</span>
