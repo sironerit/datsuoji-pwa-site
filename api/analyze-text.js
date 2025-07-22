@@ -1,7 +1,4 @@
 // Vercel Serverless Function for Message Analysis
-import { GoogleGenerativeAI } from '@google/generative-ai';
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export default async function handler(req, res) {
     // Enable CORS
@@ -33,9 +30,12 @@ export default async function handler(req, res) {
             });
         }
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const apiKey = process.env.GEMINI_API_KEY;
+        if (!apiKey) {
+            throw new Error('Gemini API key not configured');
+        }
 
-        // シンプルなテスト用プロンプト（長すぎるプロンプトが原因かテスト）
+        // 改善APIと同じ方法を使用（直接fetch）
         const analysisPrompt = `
 あなたはプロの恋愛コーチです。以下のメッセージを分析してください。
 
@@ -72,9 +72,40 @@ export default async function handler(req, res) {
 }
 `;
 
-        const result = await model.generateContent(analysisPrompt);
-        const response = await result.response;
-        let analysisText = response.text();
+        const requestBody = {
+            contents: [
+                {
+                    parts: [
+                        {
+                            text: analysisPrompt
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody)
+            }
+        );
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('=== GEMINI API ERROR DETAILS ===');
+            console.error('Status:', response.status);
+            console.error('Error Body:', errorText);
+            console.error('================================');
+            throw new Error(`Gemini API Error ${response.status}: ${errorText}`);
+        }
+
+        const data = await response.json();
+        let analysisText = data.candidates?.[0]?.content?.parts?.[0]?.text || 'テストレスポンス';
         
         console.log('Gemini API raw response:', analysisText);
 
