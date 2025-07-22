@@ -10,6 +10,7 @@
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#2563eb">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="脱おじ構文">
@@ -165,39 +166,30 @@
     </div>
 
     <!-- Script -->
-    <script src="learning.js?v=2.3.0&t=1737549600"></script>
-    
-    <!-- 強力なキャッシュクリアスクリプト -->
+    <!-- 完全キャッシュバスティング: ランダムタイムスタンプ -->
     <script>
-    // Service Worker完全削除
+        const timestamp = Date.now();
+        const script = document.createElement('script');
+        script.src = `learning.js?v=2.3.0&bust=${timestamp}`;
+        script.onload = function() {
+            console.log('✅ Fresh learning.js loaded with timestamp:', timestamp);
+        };
+        document.head.appendChild(script);
+    </script>
+    
+    <!-- Service Worker無効化 -->
+    <script>
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-            for (let registration of registrations) {
-                console.log('🔥 Force unregistering service worker...');
+        // 既存のService Worker完全削除
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => {
+                console.log('🔥 Permanently unregistering SW:', registration.scope);
                 registration.unregister();
-            }
+            });
         });
         
-        // キャッシュストレージ削除
-        if ('caches' in window) {
-            caches.keys().then(cacheNames => {
-                return Promise.all(
-                    cacheNames.map(cacheName => {
-                        console.log('🗑️ Deleting cache:', cacheName);
-                        return caches.delete(cacheName);
-                    })
-                );
-            });
-        }
-        
-        // localStorage クリア
-        localStorage.clear();
-        sessionStorage.clear();
-        
-        console.log('💥 All caches cleared! Reloading...');
-        setTimeout(() => {
-            window.location.reload(true);
-        }, 2000);
+        // 新しいService Worker登録を阻止
+        console.log('🚫 Service Worker disabled for this session');
     }
     </script>
 </body>
