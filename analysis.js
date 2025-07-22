@@ -46,6 +46,19 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeAnalysisApp() {
     console.log('🚀 Initializing Analysis App');
     
+    // Check if DOM elements exist
+    console.log('DOM elements check:', {
+        analysisInputText: !!analysisInputText,
+        analysisCharCount: !!analysisCharCount,
+        analyzeBtn: !!analyzeBtn,
+        analysisResultsSection: !!analysisResultsSection
+    });
+    
+    if (!analysisInputText || !analyzeBtn) {
+        console.error('❌ Critical DOM elements missing!');
+        return;
+    }
+    
     // Register service worker for PWA functionality
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/service-worker.js')
@@ -131,6 +144,14 @@ function updateAnalysisCharCount() {
 function updateAnalyzeButton() {
     const text = analysisInputText.value.trim();
     const isValid = text.length > 0 && text.length <= 500;
+    
+    // Debug logging
+    console.log('🔍 updateAnalyzeButton:', {
+        textLength: text.length,
+        isValid: isValid,
+        isAnalyzing: isAnalyzing,
+        disabled: !isValid || isAnalyzing
+    });
     
     analyzeBtn.disabled = !isValid || isAnalyzing;
     
