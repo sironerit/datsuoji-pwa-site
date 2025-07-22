@@ -9,7 +9,7 @@ const STATIC_FILES = [
   '/analysis.html',
   '/analysis.js',
   '/learning.html',
-  '/learning-v3.js',
+  '/learning-v4.js',
   '/styles.css',
   '/app.js',
   '/manifest.json',
