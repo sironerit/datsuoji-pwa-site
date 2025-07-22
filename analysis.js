@@ -690,7 +690,7 @@ function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
             displayLabel = displayLabel.split('・')[0];
         }
         if (displayLabel === '不快リスク回避') {
-            displayLabel = '不快リスク';
+            displayLabel = 'リスク回避';
         }
         if (displayLabel === '会話継続性') {
             displayLabel = '継続性';
