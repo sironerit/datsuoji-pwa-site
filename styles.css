@@ -1813,11 +1813,28 @@ section h2 {
     align-items: center;
     justify-content: center;
     gap: 3rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .score-display {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .score-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .score-number {
+        font-size: 2rem;
+    }
 }
 
 .score-circle {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: center;
     width: 120px;
     height: 120px;
@@ -1826,7 +1843,6 @@ section h2 {
     color: white;
     flex-direction: column;
     text-align: center;
-    padding-top: 2rem;
 }
 
 .score-number {
