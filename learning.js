@@ -658,20 +658,10 @@ function toggleLearningExpansion(cardElement, item) {
     const expandedContent = document.createElement('div');
     expandedContent.className = 'learning-expanded-content';
     expandedContent.innerHTML = `
-        <div class="expanded-header">
-            <h4>${item.title} - 詳細解説</h4>
-            <button class="expanded-close-btn">× 閉じる</button>
-        </div>
         <div class="expanded-body">
             ${item.content}
         </div>
     `;
-    
-    // 閉じるボタンのイベント
-    const closeBtn = expandedContent.querySelector('.expanded-close-btn');
-    closeBtn.addEventListener('click', () => {
-        closeLearningExpansion(cardElement);
-    });
     
     // カードに展開コンテンツを追加
     cardElement.appendChild(expandedContent);

@@ -425,48 +425,11 @@ body > * {
     }
 }
 
-.expanded-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    border-radius: 8px;
-    border: 1px solid #bfdbfe;
-}
-
-.expanded-header h4 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #1e40af;
-    margin: 0;
-    line-height: 1.4;
-    flex: 1;
-    padding-right: 1rem;
-}
-
-.expanded-close-btn {
-    background: #1e40af;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: all 0.2s;
-    flex-shrink: 0;
-}
-
-.expanded-close-btn:hover {
-    background: #1d4ed8;
-    transform: translateY(-1px);
-}
 
 .expanded-body {
     color: #374151;
     line-height: 1.7;
+    padding-top: 0.5rem;
 }
 
 .expanded-body h4 {
