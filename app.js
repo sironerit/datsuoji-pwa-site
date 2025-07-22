@@ -106,6 +106,24 @@ function initializeApp() {
         navigator.serviceWorker.register('/service-worker.js')
             .then(registration => {
                 console.log('Service Worker registered successfully');
+                
+                // Check for updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed') {
+                            if (navigator.serviceWorker.controller) {
+                                // New update available
+                                showUpdateNotification();
+                            }
+                        }
+                    });
+                });
+                
+                // Check for updates every 30 seconds
+                setInterval(() => {
+                    registration.update();
+                }, 30000);
             })
             .catch(error => {
                 console.log('Service Worker registration failed:', error);
@@ -875,3 +893,50 @@ window.addEventListener('offline', () => {
     console.log('Network connection lost');
     showErrorMessage('インターネット接続が切断されました。オフライン機能は限定的です。');
 });
+
+// PWA Update notification
+function showUpdateNotification() {
+    const updateBanner = document.createElement('div');
+    updateBanner.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        background: #10b981;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1001;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    `;
+    
+    updateBanner.innerHTML = `
+        <span>🚀 新しいバージョンが利用可能です</span>
+        <div>
+            <button id="updateBtn" style="background: white; color: #10b981; border: none; padding: 8px 16px; border-radius: 4px; margin-right: 8px; cursor: pointer;">更新する</button>
+            <button id="laterBtn" style="background: transparent; color: white; border: 1px solid white; padding: 8px 16px; border-radius: 4px; cursor: pointer;">後で</button>
+        </div>
+    `;
+    
+    document.body.appendChild(updateBanner);
+    
+    // Update button click
+    document.getElementById('updateBtn').addEventListener('click', () => {
+        window.location.reload();
+    });
+    
+    // Later button click
+    document.getElementById('laterBtn').addEventListener('click', () => {
+        updateBanner.remove();
+    });
+    
+    // Auto-dismiss after 15 seconds
+    setTimeout(() => {
+        if (updateBanner.parentNode) {
+            updateBanner.remove();
+        }
+    }, 15000);
+}

@@ -1,6 +1,6 @@
-const CACHE_NAME = 'datsuoji-ai-v1.0.0';
-const STATIC_CACHE = 'datsuoji-static-v1.0.0';
-const RUNTIME_CACHE = 'datsuoji-runtime-v1.0.0';
+const CACHE_NAME = 'datsuoji-ai-v1.1.0';
+const STATIC_CACHE = 'datsuoji-static-v1.1.0';
+const RUNTIME_CACHE = 'datsuoji-runtime-v1.1.0';
 
 // Files to cache on install
 const STATIC_FILES = [
@@ -212,32 +212,30 @@ function isHTMLRequest(request) {
 }
 
 function handleStaticAsset(request) {
-  return caches.match(request).then((response) => {
-    if (response) {
-      return response;
-    }
-    
-    return fetch(request)
-      .then((response) => {
-        // Don't cache non-successful responses
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
-        }
-        
-        const responseToCache = response.clone();
-        caches.open(STATIC_CACHE)
-          .then((cache) => {
-            cache.put(request, responseToCache);
-          });
-        
+  // Network First for CSS/JS to ensure fresh updates
+  return fetch(request)
+    .then((response) => {
+      // Don't cache non-successful responses
+      if (!response || response.status !== 200 || response.type !== 'basic') {
         return response;
-      })
-      .catch((error) => {
-        console.error('[SW] Static asset fetch failed:', error);
-        // Return offline fallback if available
-        return caches.match('/offline.html') || new Response('Offline');
+      }
+      
+      // Cache the fresh response
+      const responseToCache = response.clone();
+      caches.open(STATIC_CACHE)
+        .then((cache) => {
+          cache.put(request, responseToCache);
+        });
+      
+      return response;
+    })
+    .catch((error) => {
+      console.error('[SW] Network failed, serving cached static asset:', error);
+      // Fall back to cache if network fails
+      return caches.match(request).then((cachedResponse) => {
+        return cachedResponse || new Response('Offline', { status: 503 });
       });
-  });
+    });
 }
 
 function handleAPIRequest(request) {
@@ -282,15 +280,31 @@ function handleAPIRequest(request) {
 }
 
 function handleHTMLRequest(request) {
-  return caches.match(request).then((response) => {
-    if (response) {
-      // Serve from cache, but also update in background
-      fetchAndCache(request);
-      return response;
-    }
-    
-    return fetchAndCache(request);
-  });
+  // Network First strategy for HTML to ensure fresh content
+  return fetch(request)
+    .then((response) => {
+      if (response && response.status === 200) {
+        // Cache the fresh response
+        const responseToCache = response.clone();
+        caches.open(STATIC_CACHE)
+          .then((cache) => {
+            cache.put(request, responseToCache);
+          });
+        return response;
+      }
+      
+      // If network fails, serve from cache
+      return caches.match(request).then((cachedResponse) => {
+        return cachedResponse || response;
+      });
+    })
+    .catch((error) => {
+      console.log('[SW] Network failed, serving from cache:', error);
+      // Serve from cache as fallback
+      return caches.match(request).then((response) => {
+        return response || caches.match('/index.html') || new Response('Offline', { status: 503 });
+      });
+    });
 }
 
 function fetchAndCache(request) {
