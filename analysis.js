@@ -254,7 +254,7 @@ function generateMockAnalysis(originalText) {
         detailed_feedback: {
             impression: impression_feedback,
             naturalness: naturalness_feedback,
-            discomfort_risk: "相手に強い不快感や恐怖感を与える可能性が非常に高い表現です。",
+            discomfort_risk: "不快感を与えるリスクが高く、相手への配慮が不足しています。より慎重な表現を心がけましょう。",
             continuity: "一方的な感情表現で、相手が返信しづらい内容になっています。"
         },
         detected_issues: detected_issues,

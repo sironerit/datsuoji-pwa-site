@@ -45,7 +45,7 @@ export default async function handler(req, res) {
 【分析項目と採点基準（各25点満点）】
 1. 印象・好感度: 相手に与える第一印象の良さ
 2. 自然さ・読みやすさ: 文章の自然さと読みやすさ  
-3. 不快感リスク（逆転採点）: 相手が不快に感じるリスク（低いほど高得点）
+3. 不快リスク回避: 相手に不快感を与えないよう適切に配慮できているか（高得点=回避成功）
 4. 会話継続性: 会話が続きやすいかどうか
 
 【厳格な減点基準】
@@ -64,13 +64,13 @@ export default async function handler(req, res) {
   "category_scores": {
     "impression": 印象得点（0-25点）,
     "naturalness": 自然さ得点（0-25点）,
-    "discomfort_risk": 不快感リスク得点（0-25点、リスク低=高得点）,
+    "discomfort_risk": 不快リスク回避得点（0-25点、回避成功=高得点）,
     "continuity": 継続性得点（0-25点）
   },
   "detailed_feedback": {
     "impression": "印象についての具体的フィードバック",
     "naturalness": "自然さについての具体的フィードバック", 
-    "discomfort_risk": "不快感リスクについての具体的フィードバック",
+    "discomfort_risk": "不快リスク回避についての具体的フィードバック",
     "continuity": "会話継続性についての具体的フィードバック"
   },
   "detected_issues": [
