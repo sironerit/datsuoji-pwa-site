@@ -3259,7 +3259,25 @@ section h2 {
     line-height: 1.5;
 }
 
-/* Issues and Improvements */
+/* Issues and Improvements Side-by-Side */
+.issues-improvements-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.issues-column h3,
+.improvements-column h3 {
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    margin-top: 0;
+}
+
+/* Legacy support */
 .improvement-section {
     background: white;
     padding: 2rem;
@@ -3622,6 +3640,11 @@ section h2 {
     
     .radar-chart-section {
         order: -1; /* Move radar chart to top on mobile */
+    }
+    
+    .issues-improvements-section {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }
 
