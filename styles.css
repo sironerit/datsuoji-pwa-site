@@ -3205,6 +3205,23 @@ section h2 {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Enhanced Analysis Layout */
+.analysis-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    align-items: start;
+}
+
+/* 2x2 Categories Grid */
+.analysis-categories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Legacy support */
 .analysis-categories {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -3592,7 +3609,22 @@ section h2 {
     margin-bottom: 0.5rem;
 }
 
-/* Mobile Responsiveness for Charts */
+/* Mobile Responsiveness for Enhanced Layout */
+@media (max-width: 968px) {
+    .analysis-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .analysis-categories-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .radar-chart-section {
+        order: -1; /* Move radar chart to top on mobile */
+    }
+}
+
 @media (max-width: 768px) {
     .radar-chart-section {
         padding: 1.5rem;

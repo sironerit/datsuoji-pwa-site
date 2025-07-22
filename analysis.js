@@ -467,17 +467,17 @@ function drawRadarChart(scores) {
     const ctx = canvas.getContext('2d');
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = 150;
+    const radius = 90; // 右側配置用にさらに小さく
     
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Data preparation
+    // Data preparation - 4軸配置
     const categories = [
-        { label: '印象・好感度', value: scores.impression || 0, angle: 0 },
-        { label: '自然さ', value: scores.naturalness || 0, angle: Math.PI / 2 },
-        { label: '不快リスク回避', value: scores.discomfort_risk || 0, angle: Math.PI },
-        { label: '会話継続性', value: scores.continuity || 0, angle: (3 * Math.PI) / 2 }
+        { label: '印象・好感度', value: scores.impression || 0, angle: -Math.PI / 2 }, // Top
+        { label: '自然さ', value: scores.naturalness || 0, angle: 0 }, // Right
+        { label: '不快リスク回避', value: scores.discomfort_risk || 0, angle: Math.PI / 2 }, // Bottom
+        { label: '会話継続性', value: scores.continuity || 0, angle: Math.PI } // Left
     ];
     
     // Draw background grid
@@ -487,13 +487,9 @@ function drawRadarChart(scores) {
     drawRadarPolygon(ctx, centerX, centerY, radius, categories);
     
     // Draw category labels
-    drawRadarLabels(ctx, centerX, centerY, radius + 30, categories);
+    drawRadarLabels(ctx, centerX, centerY, radius + 25, categories);
     
-    // Draw center dot
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, 3, 0, 2 * Math.PI);
-    ctx.fillStyle = '#2563eb';
-    ctx.fill();
+    // 中心点は削除（不要）
 }
 
 function drawRadarGrid(ctx, centerX, centerY, radius) {
@@ -557,30 +553,49 @@ function drawRadarPolygon(ctx, centerX, centerY, radius, categories) {
 }
 
 function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
-    ctx.fillStyle = '#374151';
-    ctx.font = '12px system-ui, -apple-system, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#1e293b';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
     
     categories.forEach(category => {
-        const x = centerX + Math.cos(category.angle - Math.PI / 2) * labelRadius;
-        const y = centerY + Math.sin(category.angle - Math.PI / 2) * labelRadius;
+        const x = centerX + Math.cos(category.angle) * labelRadius;
+        const y = centerY + Math.sin(category.angle) * labelRadius;
         
-        // Split long labels
-        const words = category.label.split('・');
-        if (words.length > 1) {
-            ctx.fillText(words[0], x, y - 6);
-            ctx.fillText(words[1], x, y + 6);
-        } else {
-            ctx.fillText(category.label, x, y);
+        // Position labels to avoid overlaps and fit canvas
+        let labelX = x;
+        let labelY = y;
+        let scoreX = x;
+        let scoreY = y;
+        
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        if (category.angle === -Math.PI / 2) { // Top
+            labelY = y - 12;
+            scoreY = y + 8;
+        } else if (category.angle === Math.PI / 2) { // Bottom  
+            labelY = y + 12;
+            scoreY = y - 8;
+        } else if (category.angle === 0) { // Right
+            labelX = x + 5;
+            labelY = y - 8;
+            scoreX = x + 5;
+            scoreY = y + 8;
+        } else { // Left
+            labelX = x - 5;
+            labelY = y - 8;
+            scoreX = x - 5;
+            scoreY = y + 8;
         }
         
-        // Draw score near label
-        ctx.font = 'bold 11px system-ui, -apple-system, sans-serif';
+        // Draw label
+        ctx.fillText(category.label, labelX, labelY);
+        
+        // Draw score with larger font
+        ctx.save();
+        ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
         ctx.fillStyle = '#2563eb';
-        ctx.fillText(`${category.value}pt`, x, y + 18);
-        ctx.font = '12px system-ui, -apple-system, sans-serif';
-        ctx.fillStyle = '#374151';
+        ctx.fillText(`${category.value}pt`, scoreX, scoreY);
+        ctx.restore();
     });
 }
 
