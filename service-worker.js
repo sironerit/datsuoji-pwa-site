@@ -1,6 +1,6 @@
-const CACHE_NAME = 'datsuoji-ai-v2.1.0';
-const STATIC_CACHE = 'datsuoji-static-v2.1.0';
-const RUNTIME_CACHE = 'datsuoji-runtime-v2.1.0';
+const CACHE_NAME = 'datsuoji-ai-v2.2.0';
+const STATIC_CACHE = 'datsuoji-static-v2.2.0';
+const RUNTIME_CACHE = 'datsuoji-runtime-v2.2.0';
 
 // Files to cache on install
 const STATIC_FILES = [
@@ -8,6 +8,8 @@ const STATIC_FILES = [
   '/index.html',
   '/analysis.html',
   '/analysis.js',
+  '/learning.html',
+  '/learning.js',
   '/styles.css',
   '/app.js',
   '/manifest.json',

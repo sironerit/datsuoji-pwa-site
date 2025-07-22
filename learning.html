@@ -165,6 +165,23 @@
     </div>
 
     <!-- Script -->
-    <script src="learning.js"></script>
+    <script src="learning.js?v=2.2.0"></script>
+    
+    <!-- Force Cache Update Script -->
+    <script>
+        // Force service worker update
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            }).then(function() {
+                // Reload after service worker is unregistered
+                setTimeout(() => {
+                    window.location.reload(true);
+                }, 1000);
+            });
+        }
+    </script>
 </body>
 </html>
