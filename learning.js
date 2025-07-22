@@ -619,40 +619,93 @@ function createLearningCard(item) {
             ${item.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
         </div>
         <div class="learning-actions">
-            <button class="learn-btn" onclick="openLearningModal('${item.id}')">
+            <button class="learn-btn" data-item-id="${item.id}">
                 📖 詳しく学ぶ
             </button>
         </div>
     `;
     
+    // 展開機能を追加
+    const learnBtn = card.querySelector('.learn-btn');
+    learnBtn.addEventListener('click', () => {
+        toggleLearningExpansion(card, item);
+    });
+    
     return card;
 }
 
-function openLearningModal(itemId) {
-    // アイテム検索
-    let targetItem = null;
-    Object.keys(LEARNING_DATABASE).forEach(category => {
-        const found = LEARNING_DATABASE[category].find(item => item.id === itemId);
-        if (found) targetItem = found;
-    });
+function toggleLearningExpansion(cardElement, item) {
+    // 他の展開されているカードを閉じる
+    const existingExpanded = document.querySelector('.learning-card.expanded');
+    if (existingExpanded && existingExpanded !== cardElement) {
+        closeLearningExpansion(existingExpanded);
+    }
     
-    if (!targetItem) {
-        console.error('Learning item not found:', itemId);
+    // 既に展開されている場合は閉じる
+    if (cardElement.classList.contains('expanded')) {
+        closeLearningExpansion(cardElement);
         return;
     }
     
-    // モーダル内容設定
-    modalTitle.textContent = targetItem.title;
-    modalBody.innerHTML = targetItem.content;
+    // 展開コンテンツを作成
+    const expandedContent = document.createElement('div');
+    expandedContent.className = 'learning-expanded-content';
+    expandedContent.innerHTML = `
+        <div class="expanded-header">
+            <h4>${item.title} - 詳細解説</h4>
+            <button class="expanded-close-btn">× 閉じる</button>
+        </div>
+        <div class="expanded-body">
+            ${item.content}
+        </div>
+    `;
     
-    // モーダル表示
-    learningModal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    // 閉じるボタンのイベント
+    const closeBtn = expandedContent.querySelector('.expanded-close-btn');
+    closeBtn.addEventListener('click', () => {
+        closeLearningExpansion(cardElement);
+    });
+    
+    // カードに展開コンテンツを追加
+    cardElement.appendChild(expandedContent);
+    cardElement.classList.add('expanded');
+    
+    // ボタンテキストを変更
+    const learnBtn = cardElement.querySelector('.learn-btn');
+    learnBtn.textContent = '📖 閉じる';
+    
+    // スムーズにスクロール
+    setTimeout(() => {
+        expandedContent.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest' 
+        });
+    }, 100);
+}
+
+function closeLearningExpansion(cardElement) {
+    const expandedContent = cardElement.querySelector('.learning-expanded-content');
+    if (expandedContent) {
+        expandedContent.remove();
+    }
+    cardElement.classList.remove('expanded');
+    
+    // ボタンテキストを元に戻す
+    const learnBtn = cardElement.querySelector('.learn-btn');
+    learnBtn.textContent = '📖 詳しく学ぶ';
+}
+
+// 廃止されたモーダル関数（互換性のため残す）
+function openLearningModal(itemId) {
+    console.log('Modal function is deprecated, using expansion instead');
 }
 
 function closeModal() {
-    learningModal.style.display = 'none';
-    document.body.style.overflow = 'auto';
+    // モーダルが残っていれば閉じる
+    if (learningModal && learningModal.style.display === 'block') {
+        learningModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 }
 
 function resetFilters() {
