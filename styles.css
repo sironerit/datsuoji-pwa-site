@@ -269,21 +269,90 @@ body > * {
 .learning-card-difficulty {
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
-    font-size: 0.85rem;
-    color: #64748b;
+    justify-content: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0.3px;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    min-width: 75px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.learning-card-difficulty::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+    transform: rotate(-45deg) translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.learning-card-difficulty:hover::before {
+    transform: rotate(-45deg) translateX(100%);
 }
 
 .difficulty-beginner {
-    color: #059669;
+    background: linear-gradient(135deg, #06d6a0, #118ab2, #073b4c);
+    color: white;
+    border: 2px solid rgba(6, 214, 160, 0.4);
+    box-shadow: 0 3px 12px rgba(6, 214, 160, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.difficulty-beginner::after {
+    content: '🌱 初級';
+    font-weight: 700;
+}
+
+.difficulty-beginner:hover {
+    background: linear-gradient(135deg, #05a085, #0f7a94, #062a36);
+    box-shadow: 0 5px 18px rgba(6, 214, 160, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px) scale(1.05);
 }
 
 .difficulty-intermediate {
-    color: #d97706;
+    background: linear-gradient(135deg, #f77f00, #fcbf49, #eae2b7);
+    color: #2d1810;
+    border: 2px solid rgba(247, 127, 0, 0.4);
+    box-shadow: 0 3px 12px rgba(247, 127, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.difficulty-intermediate::after {
+    content: '🔥 中級';
+    font-weight: 700;
+}
+
+.difficulty-intermediate:hover {
+    background: linear-gradient(135deg, #e56f00, #e3a935, #d4ca95);
+    box-shadow: 0 5px 18px rgba(247, 127, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px) scale(1.05);
 }
 
 .difficulty-advanced {
-    color: #dc2626;
+    background: linear-gradient(135deg, #d00000, #dc2f02, #9d0208);
+    color: white;
+    border: 2px solid rgba(208, 0, 0, 0.4);
+    box-shadow: 0 3px 12px rgba(208, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.difficulty-advanced::after {
+    content: '⚡ 上級';
+    font-weight: 700;
+}
+
+.difficulty-advanced:hover {
+    background: linear-gradient(135deg, #b50000, #c52702, #7f0206);
+    box-shadow: 0 5px 18px rgba(208, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px) scale(1.05);
 }
 
 .learning-card-summary {
