@@ -548,7 +548,7 @@ function drawRadarChart(scores) {
     const ctx = canvas.getContext('2d');
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = 80; // 見切れ防止のため小さく調整
+    const radius = 70; // さらに小さく調整
     
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -568,7 +568,7 @@ function drawRadarChart(scores) {
     drawRadarPolygon(ctx, centerX, centerY, radius, categories);
     
     // Draw category labels
-    drawRadarLabels(ctx, centerX, centerY, radius + 35, categories);
+    drawRadarLabels(ctx, centerX, centerY, radius + 25, categories);
 }
 
 function drawRadarGrid(ctx, centerX, centerY, radius) {
@@ -645,51 +645,52 @@ function drawRadarPolygon(ctx, centerX, centerY, radius, categories) {
 
 function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
     ctx.fillStyle = '#1e293b';
-    ctx.font = '11px system-ui, -apple-system, sans-serif';
+    ctx.font = '10px system-ui, -apple-system, sans-serif';
     
     categories.forEach(category => {
         const x = centerX + Math.cos(category.angle) * labelRadius;
         const y = centerY + Math.sin(category.angle) * labelRadius;
         
-        // 見切れ防止のため位置調整
+        // コンパクトな配置調整
         let labelX = x;
         let labelY = y;
         let scoreX = x;
         let scoreY = y;
         
-        // 文字配置調整（見切れ防止）
+        // 文字配置調整（コンパクト版）
         if (category.angle === -Math.PI / 2) { // Top
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
-            labelY = y - 15;
-            scoreY = y - 5;
+            labelY = y - 8;
+            scoreY = y + 5;
         } else if (category.angle === Math.PI / 2) { // Bottom  
             ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            labelY = y + 15;
-            scoreY = y + 5;
+            labelY = y + 8;
+            scoreY = y - 5;
         } else if (category.angle === 0) { // Right
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            labelX = x + 8;
-            scoreX = x + 8;
-            labelY = y - 8;
-            scoreY = y + 8;
+            labelX = x + 5;
+            scoreX = x + 5;
+            labelY = y - 6;
+            scoreY = y + 6;
         } else { // Left
             ctx.textAlign = 'right';
             ctx.textBaseline = 'middle';
-            labelX = x - 8;
-            scoreX = x - 8;
-            labelY = y - 8;
-            scoreY = y + 8;
+            labelX = x - 5;
+            scoreX = x - 5;
+            labelY = y - 6;
+            scoreY = y + 6;
         }
         
-        // Draw label
-        ctx.fillText(category.label, labelX, labelY);
+        // Draw label (短縮版)
+        const shortLabel = category.label.replace('・', '\n').split('\n')[0];
+        ctx.fillText(shortLabel, labelX, labelY);
         
-        // Draw score with larger font
+        // Draw score
         ctx.save();
-        ctx.font = 'bold 13px system-ui, -apple-system, sans-serif';
+        ctx.font = 'bold 11px system-ui, -apple-system, sans-serif';
         ctx.fillStyle = '#2563eb';
         ctx.fillText(`${category.value}%`, scoreX, scoreY);
         ctx.restore();
