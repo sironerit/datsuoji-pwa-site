@@ -227,7 +227,7 @@ function generateMockAnalysis(originalText) {
         naturalness_score = 2;
         discomfort_risk_score = 1;
         continuity_score = 1;
-        overall_score = impression_score + naturalness_score + discomfort_risk_score + continuity_score;
+        overall_score = 12;
         
         impression_feedback = "セクハラ的で極めて不適切。完全に印象最悪で、相手に恐怖感や嫌悪感を与える内容です。";
         naturalness_feedback = "完全に異常で不自然。このような発言は社会的に許容されません。";
@@ -259,7 +259,7 @@ function generateMockAnalysis(originalText) {
         
         discomfort_risk_score = 3;
         continuity_score = 2;
-        overall_score = impression_score + naturalness_score + discomfort_risk_score + continuity_score;
+        overall_score = 35;
         discomfort_risk_feedback = "不快感を与えるリスクが高く、相手への配慮が不足しています。より慎重な表現を心がけましょう。";
         continuity_feedback = "一方的な感情表現で、相手が返信しづらい内容になっています。";
     }
