@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メッセージ分析 - 脱おじ構文AI</title>
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://pagead2.googlesyndication.com 'unsafe-inline'; connect-src 'self' https://generativelanguage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="脱おじ構文AI">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="メッセージの問題点を詳細分析。プロ恋愛コーチ風の具体的なアドバイスで改善点を明確化します。">
+    <meta name="keywords" content="メッセージ分析,おじさん構文,AI分析,マッチングアプリ,恋愛コーチ">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">📊 脱おじ構文AI - 分析</h1>
+            <p class="tagline">プロ恋愛コーチ風の詳細メッセージ分析</p>
+        </div>
+    </header>
+
+    <!-- Left Sidebar -->
+    <aside class="left-sidebar">
+        <div class="left-sidebar-content">
+            <!-- Navigation Menu -->
+            <div class="sidebar-section">
+                <h3>📋 機能メニュー</h3>
+                <nav class="toc-nav">
+                    <a href="/" class="toc-link">💬 メッセージ改善</a>
+                    <a href="/analysis" class="toc-link active">📊 メッセージ分析</a>
+                    <a href="/learning" class="toc-link">📚 会話術学習</a>
+                    <a href="/stats" class="toc-link">📈 利用統計</a>
+                </nav>
+            </div>
+            
+            <!-- Analysis Tips -->
+            <div class="sidebar-section">
+                <h3>💡 分析のポイント</h3>
+                <div class="quick-tips">
+                    <div class="tip-item">
+                        <span class="tip-icon">📊</span>
+                        <span class="tip-text">総合スコア</span>
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">⚠️</span>
+                        <span class="tip-text">問題点特定</span>
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">✨</span>
+                        <span class="tip-text">改善提案</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Analysis Input Section -->
+            <section class="analysis-input-section">
+                <div class="analysis-hero">
+                    <h2>📊 メッセージを詳細分析</h2>
+                    <p class="analysis-description">
+                        プロ恋愛コーチの視点で、あなたのメッセージを徹底分析。
+                        <strong>何が問題で、なぜダメなのか</strong>を具体的に解説します。
+                    </p>
+                    
+                    <div class="input-analysis-wrapper">
+                        <textarea
+                            id="analysisInputText"
+                            class="analysis-textarea"
+                            placeholder="分析したいメッセージを入力してください...&#10;例：写真可愛いですね😍お疲れ様です🍺一緒にお酒飲みませんか？"
+                            rows="4"
+                            maxlength="500"
+                        ></textarea>
+                        <div class="char-counter">
+                            <span id="analysisCharCount">0</span>/500
+                        </div>
+                    </div>
+                    
+                    <button id="analyzeBtn" class="analyze-btn" disabled>
+                        🔍 プロ分析を開始
+                    </button>
+                </div>
+            </section>
+
+            <!-- Analysis Results Section -->
+            <section class="analysis-results-section" id="analysisResultsSection" style="display: none;">
+                <h2>📋 分析結果</h2>
+                
+                <!-- Overall Score -->
+                <div class="score-section">
+                    <div class="score-card">
+                        <h3>📊 総合スコア</h3>
+                        <div class="score-display">
+                            <div class="score-circle">
+                                <span id="overallScore" class="score-number">0</span>
+                                <span class="score-suffix">点</span>
+                            </div>
+                            <div class="score-grade">
+                                <span id="scoreGrade" class="grade-text">評価中...</span>
+                                <div id="scoreBar" class="score-bar">
+                                    <div id="scoreProgress" class="score-progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Scores -->
+                <div class="detailed-analysis">
+                    <div class="analysis-categories">
+                        <div class="category-card">
+                            <h4>😊 印象・好感度</h4>
+                            <div class="category-score">
+                                <span id="impressionScore">-</span>/25点
+                            </div>
+                            <div id="impressionFeedback" class="category-feedback">分析中...</div>
+                        </div>
+                        
+                        <div class="category-card">
+                            <h4>💬 自然さ・読みやすさ</h4>
+                            <div class="category-score">
+                                <span id="naturalScore">-</span>/25点
+                            </div>
+                            <div id="naturalFeedback" class="category-feedback">分析中...</div>
+                        </div>
+                        
+                        <div class="category-card">
+                            <h4>🚫 不快感リスク</h4>
+                            <div class="category-score risk">
+                                <span id="riskScore">-</span>/25点
+                            </div>
+                            <div id="riskFeedback" class="category-feedback">分析中...</div>
+                        </div>
+                        
+                        <div class="category-card">
+                            <h4>✨ 会話継続性</h4>
+                            <div class="category-score">
+                                <span id="continuityScore">-</span>/25点
+                            </div>
+                            <div id="continuityFeedback" class="category-feedback">分析中...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Issues and Improvements -->
+                <div class="improvement-section">
+                    <h3>⚠️ 検出された問題点</h3>
+                    <div id="detectedIssues" class="issues-list">
+                        <!-- Issues will be populated here -->
+                    </div>
+                </div>
+
+                <div class="improvement-section">
+                    <h3>💡 具体的な改善提案</h3>
+                    <div id="improvementList" class="improvement-list">
+                        <!-- Improvement suggestions will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Pro Tips -->
+                <div class="pro-tips-section">
+                    <h3>🎯 プロからのアドバイス</h3>
+                    <div id="proTips" class="pro-tips-content">
+                        <!-- Pro tips will be populated here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="page-sidebar">
+        <div class="sidebar-content">
+            <!-- Product Categories -->
+            <div class="sidebar-section">
+                <h3>💍 魅力アップ商品</h3>
+                <nav class="sidebar-categories">
+                    <button class="sidebar-category-btn active" data-category="communication">
+                        📚 コミュニケーション
+                    </button>
+                    <button class="sidebar-category-btn" data-category="fashion">
+                        👔 ファッション・身だしなみ
+                    </button>
+                    <button class="sidebar-category-btn" data-category="lifestyle">
+                        🍷 ライフスタイル
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Products Display -->
+            <div class="sidebar-section">
+                <h4 id="sidebarCategoryTitle">📚 コミュニケーション</h4>
+                <div class="sidebar-products" id="sidebarProducts">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 脱おじ構文AI. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="terms.html">利用規約</a>
+                <a href="contact.html">お問い合わせ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Modal -->
+    <div class="modal" id="analysisLoadingModal">
+        <div class="modal-content">
+            <div class="loader"></div>
+            <p>プロ恋愛コーチがメッセージを詳細分析中...</p>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="analysis.js"></script>
+</body>
+</html>
