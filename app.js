@@ -361,19 +361,26 @@ function displayRecommendedProducts() {
 }
 
 function displayPermanentRecommendedProducts() {
-    // Set up page sidebar category switching
-    setupPageSidebarCategories();
-    
-    // Display initial category
-    showSidebarProducts('communication');
+    // Wait for DOM to be fully ready
+    setTimeout(() => {
+        console.log('🎯 Setting up sidebar...');
+        
+        // Set up page sidebar category switching
+        setupPageSidebarCategories();
+        
+        // Display initial category
+        showSidebarProducts('communication');
+    }, 100);
 }
 
 function setupPageSidebarCategories() {
     const categoryButtons = document.querySelectorAll('.sidebar-category-btn');
+    console.log('🔧 Found category buttons:', categoryButtons.length);
     
     categoryButtons.forEach(button => {
         button.addEventListener('click', function() {
             const category = this.getAttribute('data-category');
+            console.log('🖱️ Category clicked:', category);
             
             // Remove active class from all buttons
             categoryButtons.forEach(btn => btn.classList.remove('active'));
@@ -388,10 +395,20 @@ function setupPageSidebarCategories() {
 }
 
 function showSidebarProducts(category) {
+    console.log('🛍️ Loading products for category:', category);
+    
     const productsContainer = document.getElementById('sidebarProducts');
     const categoryTitle = document.getElementById('sidebarCategoryTitle');
     
-    if (!productsContainer || !categoryTitle) return;
+    console.log('📦 Containers found:', {
+        productsContainer: !!productsContainer,
+        categoryTitle: !!categoryTitle
+    });
+    
+    if (!productsContainer || !categoryTitle) {
+        console.error('❌ Required containers not found!');
+        return;
+    }
     
     // Update category title
     const categoryTitles = {
@@ -407,9 +424,16 @@ function showSidebarProducts(category) {
     
     // Get products for category
     const products = PRODUCT_DATABASE[category] || [];
+    console.log('🏪 Products found for', category, ':', products.length);
+    
+    if (products.length === 0) {
+        console.error('❌ No products found for category:', category);
+        return;
+    }
     
     // Add products with animation
     products.forEach((product, index) => {
+        console.log('📱 Creating card for:', product.title);
         const productCard = createSidebarProductCard(product);
         productCard.style.opacity = '0';
         productCard.style.transform = 'translateY(10px)';
@@ -423,6 +447,8 @@ function showSidebarProducts(category) {
             productCard.style.transform = 'translateY(0)';
         }, index * 150);
     });
+    
+    console.log('✅ Products loaded successfully');
 }
 
 function createSidebarProductCard(product) {
