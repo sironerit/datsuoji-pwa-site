@@ -341,11 +341,12 @@ function displayOverallScore(score, grade) {
     // Set grade text
     scoreGrade.textContent = getGradeText(grade, score);
     
-    // Animate compact progress bar
+    // Animate compact progress bar with score-based color
     setTimeout(() => {
         const compactProgress = document.getElementById('scoreProgress');
         if (compactProgress) {
             compactProgress.style.width = `${score}%`;
+            compactProgress.style.background = getScoreColor(score);
         }
     }, 500);
 }
@@ -463,10 +464,26 @@ function getGradeText(grade, score) {
         'A': '良好です',
         'B': 'まずまず',
         'C': '要改善',
-        'D': '大幅改善が必要'
+        'D': '大幅改善が必要',
+        'F': '完全にアウト'
     };
     
     return gradeTexts[grade] || `${score}点`;
+}
+
+function getScoreColor(score) {
+    // 0-100のスコアに応じて色を計算
+    if (score <= 20) {
+        return '#ef4444'; // Red
+    } else if (score <= 40) {
+        return '#f59e0b'; // Orange  
+    } else if (score <= 60) {
+        return '#eab308'; // Yellow
+    } else if (score <= 80) {
+        return '#84cc16'; // Light Green
+    } else {
+        return '#10b981'; // Green
+    }
 }
 
 // 🎯 Enhanced Visualization Functions
