@@ -645,52 +645,58 @@ function drawRadarPolygon(ctx, centerX, centerY, radius, categories) {
 
 function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
     ctx.fillStyle = '#1e293b';
-    ctx.font = '10px system-ui, -apple-system, sans-serif';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
     
     categories.forEach(category => {
         const x = centerX + Math.cos(category.angle) * labelRadius;
         const y = centerY + Math.sin(category.angle) * labelRadius;
         
-        // コンパクトな配置調整
+        // 読みやすさ重視の配置調整
         let labelX = x;
         let labelY = y;
         let scoreX = x;
         let scoreY = y;
         
-        // 文字配置調整（コンパクト版）
+        // 文字配置調整（視認性重視）
         if (category.angle === -Math.PI / 2) { // Top
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
-            labelY = y - 8;
-            scoreY = y + 5;
+            labelY = y - 10;
+            scoreY = y + 8;
         } else if (category.angle === Math.PI / 2) { // Bottom  
             ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            labelY = y + 8;
-            scoreY = y - 5;
+            labelY = y + 10;
+            scoreY = y - 8;
         } else if (category.angle === 0) { // Right
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            labelX = x + 5;
-            scoreX = x + 5;
-            labelY = y - 6;
-            scoreY = y + 6;
+            labelX = x + 8;
+            scoreX = x + 8;
+            labelY = y - 8;
+            scoreY = y + 8;
         } else { // Left
             ctx.textAlign = 'right';
             ctx.textBaseline = 'middle';
-            labelX = x - 5;
-            scoreX = x - 5;
-            labelY = y - 6;
-            scoreY = y + 6;
+            labelX = x - 8;
+            scoreX = x - 8;
+            labelY = y - 8;
+            scoreY = y + 8;
         }
         
-        // Draw label (短縮版)
-        const shortLabel = category.label.replace('・', '\n').split('\n')[0];
-        ctx.fillText(shortLabel, labelX, labelY);
+        // Draw label (適度に短縮・読みやすく)
+        let displayLabel = category.label;
+        if (displayLabel.includes('・')) {
+            displayLabel = displayLabel.split('・')[0];
+        }
+        if (displayLabel === '不快リスク回避') {
+            displayLabel = '不快リスク';
+        }
+        ctx.fillText(displayLabel, labelX, labelY);
         
-        // Draw score
+        // Draw score (大きく見やすく)
         ctx.save();
-        ctx.font = 'bold 11px system-ui, -apple-system, sans-serif';
+        ctx.font = 'bold 14px system-ui, -apple-system, sans-serif';
         ctx.fillStyle = '#2563eb';
         ctx.fillText(`${category.value}%`, scoreX, scoreY);
         ctx.restore();
