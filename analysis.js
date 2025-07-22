@@ -548,12 +548,12 @@ function drawRadarChart(scores) {
     const ctx = canvas.getContext('2d');
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = 90; // 右側配置用にさらに小さく
+    const radius = 80; // 見切れ防止のため小さく調整
     
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Data preparation - 4軸配置
+    // Data preparation - 4軸配置（正しい角度で配置）
     const categories = [
         { label: '印象・好感度', value: scores.impression || 0, angle: -Math.PI / 2 }, // Top
         { label: '自然さ', value: scores.naturalness || 0, angle: 0 }, // Right
@@ -568,9 +568,7 @@ function drawRadarChart(scores) {
     drawRadarPolygon(ctx, centerX, centerY, radius, categories);
     
     // Draw category labels
-    drawRadarLabels(ctx, centerX, centerY, radius + 25, categories);
-    
-    // 中心点は削除（不要）
+    drawRadarLabels(ctx, centerX, centerY, radius + 35, categories);
 }
 
 function drawRadarGrid(ctx, centerX, centerY, radius) {
@@ -603,68 +601,86 @@ function drawRadarPolygon(ctx, centerX, centerY, radius, categories) {
     gradient.addColorStop(0, 'rgba(37, 99, 235, 0.3)');
     gradient.addColorStop(1, 'rgba(37, 99, 235, 0.1)');
     
+    // Draw polygon connecting all points
     ctx.beginPath();
     categories.forEach((category, index) => {
-        const normalizedValue = category.value / 100; // Normalize to 0-1
-        const x = centerX + Math.cos(category.angle - Math.PI / 2) * radius * normalizedValue;
-        const y = centerY + Math.sin(category.angle - Math.PI / 2) * radius * normalizedValue;
+        const normalizedValue = category.value / 100; // Normalize to 0-1 (パーセント対応)
+        const x = centerX + Math.cos(category.angle) * radius * normalizedValue;
+        const y = centerY + Math.sin(category.angle) * radius * normalizedValue;
         
         if (index === 0) {
             ctx.moveTo(x, y);
         } else {
             ctx.lineTo(x, y);
         }
-        
-        // Draw data points
-        ctx.save();
-        ctx.fillStyle = '#2563eb';
-        ctx.beginPath();
-        ctx.arc(x, y, 4, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.restore();
     });
-    
     ctx.closePath();
+    
+    // Fill polygon
     ctx.fillStyle = gradient;
     ctx.fill();
     
+    // Draw polygon outline
     ctx.strokeStyle = '#2563eb';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 3;
     ctx.stroke();
+    
+    // Draw data points (均一サイズ)
+    categories.forEach((category, index) => {
+        const normalizedValue = category.value / 100;
+        const x = centerX + Math.cos(category.angle) * radius * normalizedValue;
+        const y = centerY + Math.sin(category.angle) * radius * normalizedValue;
+        
+        ctx.save();
+        ctx.fillStyle = '#1d4ed8';
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, 2 * Math.PI); // 全て同じサイズ
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+    });
 }
 
 function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
     ctx.fillStyle = '#1e293b';
-    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.font = '11px system-ui, -apple-system, sans-serif';
     
     categories.forEach(category => {
         const x = centerX + Math.cos(category.angle) * labelRadius;
         const y = centerY + Math.sin(category.angle) * labelRadius;
         
-        // Position labels to avoid overlaps and fit canvas
+        // 見切れ防止のため位置調整
         let labelX = x;
         let labelY = y;
         let scoreX = x;
         let scoreY = y;
         
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        
+        // 文字配置調整（見切れ防止）
         if (category.angle === -Math.PI / 2) { // Top
-            labelY = y - 12;
-            scoreY = y + 8;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            labelY = y - 15;
+            scoreY = y - 5;
         } else if (category.angle === Math.PI / 2) { // Bottom  
-            labelY = y + 12;
-            scoreY = y - 8;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            labelY = y + 15;
+            scoreY = y + 5;
         } else if (category.angle === 0) { // Right
-            labelX = x + 5;
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            labelX = x + 8;
+            scoreX = x + 8;
             labelY = y - 8;
-            scoreX = x + 5;
             scoreY = y + 8;
         } else { // Left
-            labelX = x - 5;
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            labelX = x - 8;
+            scoreX = x - 8;
             labelY = y - 8;
-            scoreX = x - 5;
             scoreY = y + 8;
         }
         
@@ -673,7 +689,7 @@ function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
         
         // Draw score with larger font
         ctx.save();
-        ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
+        ctx.font = 'bold 13px system-ui, -apple-system, sans-serif';
         ctx.fillStyle = '#2563eb';
         ctx.fillText(`${category.value}%`, scoreX, scoreY);
         ctx.restore();
