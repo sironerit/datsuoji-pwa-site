@@ -299,17 +299,11 @@ function displayOverallScore(score, grade) {
     // Set grade text
     scoreGrade.textContent = getGradeText(grade, score);
     
-    // Animate progress bar
+    // Animate compact progress bar
     setTimeout(() => {
-        scoreProgress.style.width = `${score}%`;
-        
-        // Change color based on score
-        if (score >= 80) {
-            scoreProgress.style.background = '#10b981';
-        } else if (score >= 60) {
-            scoreProgress.style.background = '#f59e0b';
-        } else {
-            scoreProgress.style.background = '#ef4444';
+        const compactProgress = document.getElementById('scoreProgress');
+        if (compactProgress) {
+            compactProgress.style.width = `${score}%`;
         }
     }, 500);
 }

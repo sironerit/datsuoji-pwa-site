@@ -92,25 +92,6 @@
             <section class="analysis-results-section" id="analysisResultsSection" style="display: none;">
                 <h2>📋 分析結果</h2>
                 
-                <!-- Overall Score -->
-                <div class="score-section">
-                    <div class="score-card">
-                        <h3>📊 総合スコア</h3>
-                        <div class="score-display">
-                            <div class="score-circle">
-                                <span id="overallScore" class="score-number">0</span>
-                                <span class="score-suffix">点</span>
-                            </div>
-                            <div class="score-grade">
-                                <span id="scoreGrade" class="grade-text">評価中...</span>
-                                <div id="scoreBar" class="score-bar">
-                                    <div id="scoreProgress" class="score-progress"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Enhanced Category Scores with Side Radar Chart -->
                 <div class="detailed-analysis">
                     <div class="analysis-layout">
@@ -169,11 +150,31 @@
                             </div>
                         </div>
                         
-                        <!-- Right Side: Radar Chart -->
-                        <div class="radar-chart-section">
-                            <h3>📈 スコア可視化</h3>
-                            <div class="chart-container">
-                                <canvas id="radarChart" width="280" height="280"></canvas>
+                        <!-- Right Side: Overall Score + Radar Chart -->
+                        <div class="right-analysis-section">
+                            <!-- Compact Overall Score -->
+                            <div class="compact-score-section">
+                                <h3>📊 総合スコア</h3>
+                                <div class="compact-score-display">
+                                    <div class="compact-score-circle">
+                                        <span id="overallScore" class="compact-score-number">0</span>
+                                        <span class="compact-score-suffix">点</span>
+                                    </div>
+                                    <div class="compact-score-grade">
+                                        <span id="scoreGrade" class="compact-grade-text">評価中...</span>
+                                        <div id="scoreBar" class="compact-score-bar">
+                                            <div id="scoreProgress" class="compact-score-progress"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Radar Chart -->
+                            <div class="radar-chart-section">
+                                <h3>📈 スコア可視化</h3>
+                                <div class="chart-container">
+                                    <canvas id="radarChart" width="260" height="260"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
