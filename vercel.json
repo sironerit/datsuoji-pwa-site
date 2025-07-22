@@ -2,6 +2,27 @@
   "functions": {
     "api/improve-text.js": {
       "maxDuration": 30
+    },
+    "api/analyze-text.js": {
+      "maxDuration": 30
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/analysis",
+      "destination": "/analysis.html"
+    },
+    {
+      "source": "/learning",
+      "destination": "/learning.html"
+    },
+    {
+      "source": "/stats", 
+      "destination": "/stats.html"
+    },
+    {
+      "source": "/((?!api|_next|favicon.ico|.*\\.).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
