@@ -111,37 +111,66 @@
                     </div>
                 </div>
 
-                <!-- Category Scores -->
+                <!-- Enhanced Category Scores with Radar Chart -->
                 <div class="detailed-analysis">
+                    <!-- Radar Chart Visualization -->
+                    <div class="radar-chart-section">
+                        <h3>📈 スコア可視化</h3>
+                        <div class="chart-container">
+                            <canvas id="radarChart" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Detailed Category Analysis -->
                     <div class="analysis-categories">
                         <div class="category-card">
                             <h4>😊 印象・好感度</h4>
-                            <div class="category-score">
-                                <span id="impressionScore">-</span>/25点
+                            <div class="category-score-section">
+                                <div class="category-score">
+                                    <span id="impressionScore">-</span>/25点
+                                </div>
+                                <div class="score-bar-category">
+                                    <div id="impressionProgress" class="score-progress-category"></div>
+                                </div>
                             </div>
                             <div id="impressionFeedback" class="category-feedback">分析中...</div>
                         </div>
                         
                         <div class="category-card">
                             <h4>💬 自然さ・読みやすさ</h4>
-                            <div class="category-score">
-                                <span id="naturalScore">-</span>/25点
+                            <div class="category-score-section">
+                                <div class="category-score">
+                                    <span id="naturalScore">-</span>/25点
+                                </div>
+                                <div class="score-bar-category">
+                                    <div id="naturalProgress" class="score-progress-category"></div>
+                                </div>
                             </div>
                             <div id="naturalFeedback" class="category-feedback">分析中...</div>
                         </div>
                         
                         <div class="category-card">
                             <h4>🛡️ 不快リスク回避</h4>
-                            <div class="category-score">
-                                <span id="riskScore">-</span>/25点
+                            <div class="category-score-section">
+                                <div class="category-score">
+                                    <span id="riskScore">-</span>/25点
+                                </div>
+                                <div class="score-bar-category">
+                                    <div id="riskProgress" class="score-progress-category"></div>
+                                </div>
                             </div>
                             <div id="riskFeedback" class="category-feedback">分析中...</div>
                         </div>
                         
                         <div class="category-card">
                             <h4>✨ 会話継続性</h4>
-                            <div class="category-score">
-                                <span id="continuityScore">-</span>/25点
+                            <div class="category-score-section">
+                                <div class="category-score">
+                                    <span id="continuityScore">-</span>/25点
+                                </div>
+                                <div class="score-bar-category">
+                                    <div id="continuityProgress" class="score-progress-category"></div>
+                                </div>
                             </div>
                             <div id="continuityFeedback" class="category-feedback">分析中...</div>
                         </div>

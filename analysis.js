@@ -321,11 +321,20 @@ function displayCategoryScores(scores, feedback) {
     setTimeout(() => animateScoreCounter(riskScore, 0, scores.discomfort_risk || 0, 800), 600);
     setTimeout(() => animateScoreCounter(continuityScore, 0, scores.continuity || 0, 800), 800);
     
+    // Animate progress bars
+    setTimeout(() => animateProgressBar('impressionProgress', scores.impression || 0, 25), 300);
+    setTimeout(() => animateProgressBar('naturalProgress', scores.naturalness || 0, 25), 500);
+    setTimeout(() => animateProgressBar('riskProgress', scores.discomfort_risk || 0, 25), 700);
+    setTimeout(() => animateProgressBar('continuityProgress', scores.continuity || 0, 25), 900);
+    
     // Display feedback
     impressionFeedback.textContent = feedback.impression || '';
     naturalFeedback.textContent = feedback.naturalness || '';
     riskFeedback.textContent = feedback.discomfort_risk || '';
     continuityFeedback.textContent = feedback.continuity || '';
+    
+    // Draw radar chart
+    setTimeout(() => drawRadarChart(scores), 1000);
 }
 
 function displayDetectedIssues(issues) {
@@ -422,6 +431,157 @@ function getGradeText(grade, score) {
     };
     
     return gradeTexts[grade] || `${score}点`;
+}
+
+// 🎯 Enhanced Visualization Functions
+
+function animateProgressBar(elementId, value, maxValue) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    const percentage = (value / maxValue) * 100;
+    
+    // Set initial state
+    element.style.width = '0%';
+    element.style.transition = 'width 1s ease-out';
+    
+    // Animate to target width
+    setTimeout(() => {
+        element.style.width = `${percentage}%`;
+        
+        // Set color based on score
+        if (percentage >= 80) {
+            element.style.background = '#10b981'; // Green
+        } else if (percentage >= 60) {
+            element.style.background = '#f59e0b'; // Yellow
+        } else {
+            element.style.background = '#ef4444'; // Red
+        }
+    }, 100);
+}
+
+function drawRadarChart(scores) {
+    const canvas = document.getElementById('radarChart');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = 150;
+    
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Data preparation
+    const categories = [
+        { label: '印象・好感度', value: scores.impression || 0, angle: 0 },
+        { label: '自然さ', value: scores.naturalness || 0, angle: Math.PI / 2 },
+        { label: '不快リスク回避', value: scores.discomfort_risk || 0, angle: Math.PI },
+        { label: '会話継続性', value: scores.continuity || 0, angle: (3 * Math.PI) / 2 }
+    ];
+    
+    // Draw background grid
+    drawRadarGrid(ctx, centerX, centerY, radius);
+    
+    // Draw data polygon
+    drawRadarPolygon(ctx, centerX, centerY, radius, categories);
+    
+    // Draw category labels
+    drawRadarLabels(ctx, centerX, centerY, radius + 30, categories);
+    
+    // Draw center dot
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 3, 0, 2 * Math.PI);
+    ctx.fillStyle = '#2563eb';
+    ctx.fill();
+}
+
+function drawRadarGrid(ctx, centerX, centerY, radius) {
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 1;
+    
+    // Draw concentric circles (grid lines)
+    for (let i = 1; i <= 5; i++) {
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, (radius * i) / 5, 0, 2 * Math.PI);
+        ctx.stroke();
+    }
+    
+    // Draw axes
+    for (let i = 0; i < 4; i++) {
+        const angle = (i * Math.PI) / 2;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+        
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    }
+}
+
+function drawRadarPolygon(ctx, centerX, centerY, radius, categories) {
+    // Create gradient
+    const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+    gradient.addColorStop(0, 'rgba(37, 99, 235, 0.3)');
+    gradient.addColorStop(1, 'rgba(37, 99, 235, 0.1)');
+    
+    ctx.beginPath();
+    categories.forEach((category, index) => {
+        const normalizedValue = category.value / 25; // Normalize to 0-1
+        const x = centerX + Math.cos(category.angle - Math.PI / 2) * radius * normalizedValue;
+        const y = centerY + Math.sin(category.angle - Math.PI / 2) * radius * normalizedValue;
+        
+        if (index === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+        
+        // Draw data points
+        ctx.save();
+        ctx.fillStyle = '#2563eb';
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.restore();
+    });
+    
+    ctx.closePath();
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    
+    ctx.strokeStyle = '#2563eb';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+}
+
+function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
+    ctx.fillStyle = '#374151';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    categories.forEach(category => {
+        const x = centerX + Math.cos(category.angle - Math.PI / 2) * labelRadius;
+        const y = centerY + Math.sin(category.angle - Math.PI / 2) * labelRadius;
+        
+        // Split long labels
+        const words = category.label.split('・');
+        if (words.length > 1) {
+            ctx.fillText(words[0], x, y - 6);
+            ctx.fillText(words[1], x, y + 6);
+        } else {
+            ctx.fillText(category.label, x, y);
+        }
+        
+        // Draw score near label
+        ctx.font = 'bold 11px system-ui, -apple-system, sans-serif';
+        ctx.fillStyle = '#2563eb';
+        ctx.fillText(`${category.value}pt`, x, y + 18);
+        ctx.font = '12px system-ui, -apple-system, sans-serif';
+        ctx.fillStyle = '#374151';
+    });
 }
 
 // Utility functions (copied from main app.js)
