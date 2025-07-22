@@ -619,17 +619,24 @@ function createLearningCard(item) {
             ${item.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
         </div>
         <div class="learning-actions">
-            <button class="learn-btn" data-item-id="${item.id}">
-                📖 詳しく学ぶ
-            </button>
+            <div class="expand-indicator">
+                <span class="expand-text">📖 詳しく学ぶ</span>
+                <span class="expand-icon">▼</span>
+            </div>
         </div>
     `;
     
-    // 展開機能を追加
-    const learnBtn = card.querySelector('.learn-btn');
-    learnBtn.addEventListener('click', () => {
+    // カード全体クリックで展開機能を追加
+    card.addEventListener('click', (e) => {
+        // 展開コンテンツ内のクリックは無視
+        if (e.target.closest('.learning-expanded-content')) {
+            return;
+        }
         toggleLearningExpansion(card, item);
     });
+    
+    // ホバーエフェクト用のクラス追加
+    card.classList.add('clickable-card');
     
     return card;
 }
@@ -670,9 +677,11 @@ function toggleLearningExpansion(cardElement, item) {
     cardElement.appendChild(expandedContent);
     cardElement.classList.add('expanded');
     
-    // ボタンテキストを変更
-    const learnBtn = cardElement.querySelector('.learn-btn');
-    learnBtn.textContent = '📖 閉じる';
+    // インジケーターテキストとアイコンを変更
+    const expandText = cardElement.querySelector('.expand-text');
+    const expandIcon = cardElement.querySelector('.expand-icon');
+    if (expandText) expandText.textContent = '📖 閉じる';
+    if (expandIcon) expandIcon.textContent = '▲';
     
     // スムーズにスクロール
     setTimeout(() => {
@@ -690,9 +699,11 @@ function closeLearningExpansion(cardElement) {
     }
     cardElement.classList.remove('expanded');
     
-    // ボタンテキストを元に戻す
-    const learnBtn = cardElement.querySelector('.learn-btn');
-    learnBtn.textContent = '📖 詳しく学ぶ';
+    // インジケーターテキストとアイコンを元に戻す
+    const expandText = cardElement.querySelector('.expand-text');
+    const expandIcon = cardElement.querySelector('.expand-icon');
+    if (expandText) expandText.textContent = '📖 詳しく学ぶ';
+    if (expandIcon) expandIcon.textContent = '▼';
 }
 
 // 廃止されたモーダル関数（互換性のため残す）

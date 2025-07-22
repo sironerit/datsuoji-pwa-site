@@ -230,6 +230,19 @@ body > * {
     border-color: #2563eb;
 }
 
+.learning-card.clickable-card {
+    cursor: pointer;
+    user-select: none;
+}
+
+.learning-card.clickable-card:hover {
+    background: linear-gradient(135deg, #fefffe, #f8fafc);
+}
+
+.learning-card.clickable-card:active {
+    transform: translateY(-2px);
+}
+
 .learning-card-header {
     margin-bottom: 1rem;
 }
@@ -311,6 +324,53 @@ body > * {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+/* Expand Indicator */
+.expand-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.learning-card.clickable-card:hover .expand-indicator {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+.expand-text {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #475569;
+    transition: color 0.2s;
+}
+
+.expand-icon {
+    font-size: 0.8rem;
+    color: #64748b;
+    transition: all 0.2s;
+}
+
+.learning-card.clickable-card:hover .expand-text,
+.learning-card.clickable-card:hover .expand-icon {
+    color: #2563eb;
+}
+
+.learning-card.expanded .expand-indicator {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border-color: #2563eb;
+}
+
+.learning-card.expanded .expand-text,
+.learning-card.expanded .expand-icon {
+    color: #2563eb;
 }
 
 /* Quick Categories Sidebar */
