@@ -128,19 +128,28 @@ export default async function handler(req, res) {
         });
 
     } catch (error) {
-        console.error('Analysis API Error:', error);
+        console.error('=== ANALYSIS API ERROR DETAILS ===');
+        console.error('Error message:', error.message);
+        console.error('Error stack:', error.stack);
+        console.error('API Key exists:', !!process.env.GEMINI_API_KEY);
+        console.error('API Key length:', process.env.GEMINI_API_KEY?.length);
+        console.error('=====================================');
         
         // エラーの詳細をログに記録
-        if (error.message?.includes('API_KEY_INVALID')) {
-            console.error('Gemini API Key is invalid');
-        } else if (error.message?.includes('QUOTA_EXCEEDED')) {
-            console.error('Gemini API quota exceeded');
+        if (error.message?.includes('API_KEY_INVALID') || error.message?.includes('403')) {
+            console.error('🚨 Gemini API Key is invalid or expired');
+        } else if (error.message?.includes('QUOTA_EXCEEDED') || error.message?.includes('429')) {
+            console.error('🚨 Gemini API quota exceeded or rate limited');
+        } else if (error.message?.includes('Network')) {
+            console.error('🚨 Network connection error');
         }
 
         res.status(500).json({ 
             success: false,
             error: 'メッセージ分析中にエラーが発生しました。もう一度お試しください。',
-            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+            details: error.message,
+            errorType: error.message?.includes('403') ? 'API_KEY_ERROR' : 
+                      error.message?.includes('429') ? 'QUOTA_ERROR' : 'UNKNOWN_ERROR'
         });
     }
 }
