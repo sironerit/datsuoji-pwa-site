@@ -214,62 +214,104 @@ function generateMockAnalysis(originalText) {
     const hasRepetition = /(.)\1{2,}/.test(originalText);
     const hasInappropriateWords = /(好き|愛|ちゅ|キス|抱|抱き)/i.test(originalText);
     
-    let naturalness_score = 15;
-    let naturalness_feedback = "文章の構成は理解できますが、";
+    // 🚨 性的・セクハラ的内容の検出
+    const hasSexualContent = /(パンツ|下着|ブラ|胸|お尻|性的|セックス|エッチ|キス|抱く|触|なめ)/i.test(originalText);
     
-    if (hasRepetition) {
-        naturalness_score -= 8;
-        naturalness_feedback += "同じ文字や表現の繰り返しが多く、不自然な印象を与えています。";
-    } else if (emojiCount > 3) {
-        naturalness_score -= 5;
-        naturalness_feedback += "絵文字の使用が多すぎて、文章が不自然な印象を与えています。";
-    } else if (emojiCount === 1) {
-        naturalness_feedback += "絵文字の使用は適度ですが、全体の表現が幼稚な印象を与えています。";
-    } else {
-        naturalness_feedback += "表現が直接的すぎて、大人の会話として不自然です。";
-    }
+    let naturalness_score, impression_score, discomfort_risk_score, continuity_score;
+    let naturalness_feedback, impression_feedback, discomfort_risk_feedback, continuity_feedback;
+    let overall_score;
     
-    let impression_score = 5;
-    let impression_feedback = "";
-    if (hasInappropriateWords) {
-        impression_feedback = "愛情表現が直接的すぎて、初対面の相手には不適切で不快感を与える可能性があります。";
+    if (hasSexualContent) {
+        // 🚨 性的内容は全カテゴリで0-3点の最低評価
+        impression_score = 1;
+        naturalness_score = 2;
+        discomfort_risk_score = 1;
+        continuity_score = 1;
+        overall_score = 5;
+        
+        impression_feedback = "セクハラ的で極めて不適切。完全に印象最悪で、相手に恐怖感や嫌悪感を与える内容です。";
+        naturalness_feedback = "完全に異常で不自然。このような発言は社会的に許容されません。";
+        discomfort_risk_feedback = "セクハラ・即ブロック級の内容。法的問題に発展する可能性もある完全アウトな内容です。";
+        continuity_feedback = "会話は完全終了。関係破綻は確実で、二度と連絡が来ることはないでしょう。";
     } else {
-        impression_feedback = "表現が幼稚で、40-50代男性としての品格に欠ける印象を与えます。";
+        // 一般的な不適切表現の場合
+        naturalness_score = 15;
+        naturalness_feedback = "文章の構成は理解できますが、";
+        
+        if (hasRepetition) {
+            naturalness_score -= 8;
+            naturalness_feedback += "同じ文字や表現の繰り返しが多く、不自然な印象を与えています。";
+        } else if (emojiCount > 3) {
+            naturalness_score -= 5;
+            naturalness_feedback += "絵文字の使用が多すぎて、文章が不自然な印象を与えています。";
+        } else if (emojiCount === 1) {
+            naturalness_feedback += "絵文字の使用は適度ですが、全体の表現が幼稚な印象を与えています。";
+        } else {
+            naturalness_feedback += "表現が直接的すぎて、大人の会話として不自然です。";
+        }
+        
+        impression_score = 5;
+        if (hasInappropriateWords) {
+            impression_feedback = "愛情表現が直接的すぎて、初対面の相手には不適切で不快感を与える可能性があります。";
+        } else {
+            impression_feedback = "表現が幼稚で、40-50代男性としての品格に欠ける印象を与えます。";
+        }
+        
+        discomfort_risk_score = 3;
+        continuity_score = 2;
+        overall_score = 25;
+        discomfort_risk_feedback = "不快感を与えるリスクが高く、相手への配慮が不足しています。より慎重な表現を心がけましょう。";
+        continuity_feedback = "一方的な感情表現で、相手が返信しづらい内容になっています。";
     }
     
     let detected_issues = [];
-    if (hasRepetition) detected_issues.push("同じ表現の過度な繰り返し");
-    if (hasInappropriateWords) detected_issues.push("不適切な愛情表現");
-    if (emojiCount > 0) detected_issues.push("感情的すぎる表現");
-    detected_issues.push("大人らしさの欠如");
+    if (hasSexualContent) {
+        detected_issues.push("セクハラ的・性的内容");
+        detected_issues.push("完全に不適切な表現");
+        detected_issues.push("法的リスクのある内容");
+        detected_issues.push("相手への配慮の完全欠如");
+    } else {
+        if (hasRepetition) detected_issues.push("同じ表現の過度な繰り返し");
+        if (hasInappropriateWords) detected_issues.push("不適切な愛情表現");
+        if (emojiCount > 0) detected_issues.push("感情的すぎる表現");
+        detected_issues.push("大人らしさの欠如");
+    }
     
     return {
-        overall_score: 25,
+        overall_score: overall_score,
         category_scores: {
             impression: impression_score,
             naturalness: naturalness_score,
-            discomfort_risk: 3,
-            continuity: 2
+            discomfort_risk: discomfort_risk_score,
+            continuity: continuity_score
         },
         detailed_feedback: {
             impression: impression_feedback,
             naturalness: naturalness_feedback,
-            discomfort_risk: "不快感を与えるリスクが高く、相手への配慮が不足しています。より慎重な表現を心がけましょう。",
-            continuity: "一方的な感情表現で、相手が返信しづらい内容になっています。"
+            discomfort_risk: discomfort_risk_feedback,
+            continuity: continuity_feedback
         },
         detected_issues: detected_issues,
-        improvement_suggestions: [
+        improvement_suggestions: hasSexualContent ? [
+            "性的・セクハラ的内容は絶対に使用しないでください",
+            "相手を尊重し、品格のある挨拶から始めましょう",
+            "プロフィールに基づいた健全な話題で会話を始めましょう",
+            "法的・倫理的問題を避けるため、適切なコミュニケーションを学びましょう"
+        ] : [
             "感情表現は控えめにして、まずは軽い挨拶から始めましょう",
             "相手の興味や趣味について質問を含めて、会話のきっかけを作りましょう",
             "大人らしい落ち着いた表現を心がけ、品格のある文章にしましょう",
             "一方的な表現ではなく、相手のことを気遣う内容を含めましょう"
         ],
-        pro_tips: [
+        pro_tips: hasSexualContent ? [
+            "性的内容は即ブロック・通報の対象となり、法的問題にも発展します",
+            "健全で相手を尊重するコミュニケーションが成功の基本です"
+        ] : [
             "初回メッセージでは感情表現は控え、相手のプロフィールに基づいた質問から始めることが重要です",
             "40-50代男性としての落ち着きと品格を表現に反映させましょう"
         ],
-        grade: "D",
-        summary: "感情表現が直接的すぎて、相手に不快感を与える可能性が高いメッセージです。もっと控えめで品格のある表現を心がけましょう。"
+        grade: hasSexualContent ? "F" : "D",
+        summary: hasSexualContent ? "完全に不適切なセクハラ的内容です。このようなメッセージは絶対に送ってはいけません。法的問題にも発展する可能性があります。" : "感情表現が直接的すぎて、相手に不快感を与える可能性が高いメッセージです。もっと控えめで品格のある表現を心がけましょう。"
     };
 }
 
