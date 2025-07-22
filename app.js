@@ -361,37 +361,37 @@ function displayRecommendedProducts() {
 }
 
 function displayPermanentRecommendedProducts() {
-    // Set up sidebar category switching
-    setupSidebarCategoryTabs();
+    // Set up page sidebar category switching
+    setupPageSidebarCategories();
     
     // Display initial category
-    showCategoryProducts('communication');
+    showSidebarProducts('communication');
 }
 
-function setupSidebarCategoryTabs() {
-    const categoryTabs = document.querySelectorAll('.category-tab');
+function setupPageSidebarCategories() {
+    const categoryButtons = document.querySelectorAll('.sidebar-category-btn');
     
-    categoryTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
             const category = this.getAttribute('data-category');
             
-            // Remove active class from all tabs
-            categoryTabs.forEach(t => t.classList.remove('active'));
+            // Remove active class from all buttons
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
             
-            // Add active class to clicked tab
+            // Add active class to clicked button
             this.classList.add('active');
             
             // Show products for selected category
-            showCategoryProducts(category);
+            showSidebarProducts(category);
         });
     });
 }
 
-function showCategoryProducts(category) {
-    const productsContainer = document.getElementById('productsContainer');
-    const activeCategory = document.getElementById('activeCategory');
+function showSidebarProducts(category) {
+    const productsContainer = document.getElementById('sidebarProducts');
+    const categoryTitle = document.getElementById('sidebarCategoryTitle');
     
-    if (!productsContainer || !activeCategory) return;
+    if (!productsContainer || !categoryTitle) return;
     
     // Update category title
     const categoryTitles = {
@@ -400,7 +400,7 @@ function showCategoryProducts(category) {
         'lifestyle': '🍷 ライフスタイル'
     };
     
-    activeCategory.textContent = categoryTitles[category] || category;
+    categoryTitle.textContent = categoryTitles[category] || category;
     
     // Clear container
     productsContainer.innerHTML = '';
@@ -410,9 +410,9 @@ function showCategoryProducts(category) {
     
     // Add products with animation
     products.forEach((product, index) => {
-        const productCard = createHorizontalProductCard(product);
+        const productCard = createSidebarProductCard(product);
         productCard.style.opacity = '0';
-        productCard.style.transform = 'translateX(20px)';
+        productCard.style.transform = 'translateY(10px)';
         
         productsContainer.appendChild(productCard);
         
@@ -420,9 +420,38 @@ function showCategoryProducts(category) {
         setTimeout(() => {
             productCard.style.transition = 'all 0.3s ease';
             productCard.style.opacity = '1';
-            productCard.style.transform = 'translateX(0)';
-        }, index * 100);
+            productCard.style.transform = 'translateY(0)';
+        }, index * 150);
     });
+}
+
+function createSidebarProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'sidebar-product-card';
+    
+    const amazonUrl = `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
+    const stars = '★'.repeat(Math.floor(product.rating));
+    
+    card.innerHTML = `
+        <div class="sidebar-product-image">
+            <img src="${product.image}" alt="${product.title}" loading="lazy">
+        </div>
+        <div class="sidebar-product-info">
+            <div class="sidebar-product-title">${product.title}</div>
+            <div class="sidebar-product-price">${product.price}</div>
+            <div class="sidebar-product-rating">
+                <span class="stars">${stars}</span>
+                <span>${product.rating}</span>
+            </div>
+        </div>
+    `;
+    
+    // Add click handler to open Amazon link
+    card.addEventListener('click', () => {
+        window.open(amazonUrl, '_blank', 'noopener');
+    });
+    
+    return card;
 }
 
 function setupCategorySwitching() {

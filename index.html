@@ -48,148 +48,144 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main">
-        <div class="container">
-            <!-- Input Section -->
-            <section class="input-section">
-                <h2>💬 メッセージを入力してください</h2>
-                <div class="input-wrapper">
-                    <textarea
-                        id="inputText"
-                        class="input-textarea"
-                        placeholder="例：写真可愛いですね😍お疲れ様です🍺&#10;一緒にお酒飲みませんか？&#10;&#10;改善したいメッセージを入力してください..."
-                        rows="4"
-                        maxlength="500"
-                    ></textarea>
-                    <div class="char-counter">
-                        <span id="charCount">0</span>/500
+    <!-- Page Layout Container -->
+    <div class="page-layout">
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2>💬 メッセージを入力してください</h2>
+                    <div class="input-wrapper">
+                        <textarea
+                            id="inputText"
+                            class="input-textarea"
+                            placeholder="例：写真可愛いですね😍お疲れ様です🍺&#10;一緒にお酒飲みませんか？&#10;&#10;改善したいメッセージを入力してください..."
+                            rows="4"
+                            maxlength="500"
+                        ></textarea>
+                        <div class="char-counter">
+                            <span id="charCount">0</span>/500
+                        </div>
                     </div>
-                </div>
-                <button id="improveBtn" class="improve-btn" disabled>
-                    ✨ AIで改善する
-                </button>
-            </section>
+                    <button id="improveBtn" class="improve-btn" disabled>
+                        ✨ AIで改善する
+                    </button>
+                </section>
 
-            <!-- Results Section -->
-            <section class="results-section" id="resultsSection" style="display: none;">
-                <h2>📝 改善提案（4候補）</h2>
-                <div class="results-grid" id="resultsGrid">
-                    <!-- Results will be populated here -->
-                </div>
-            </section>
+                <!-- Results Section -->
+                <section class="results-section" id="resultsSection" style="display: none;">
+                    <h2>📝 改善提案（4候補）</h2>
+                    <div class="results-grid" id="resultsGrid">
+                        <!-- Results will be populated here -->
+                    </div>
+                </section>
 
-            <!-- Recommended Products Section (Always Visible) -->
-            <section class="recommendations-section" id="permanentRecommendationsSection">
-                <h2>💍 魅力アップ商品</h2>
-                <p class="recommendations-subtitle">40-50代男性の魅力を高める厳選アイテム</p>
-                
-                <!-- Products Layout with Sidebar -->
-                <div class="products-container">
-                    <!-- Left Sidebar for Categories -->
-                    <aside class="categories-sidebar">
-                        <nav class="category-navigation">
-                            <button class="category-tab active" data-category="communication">
-                                📚 コミュニケーション
-                            </button>
-                            <button class="category-tab" data-category="fashion">
-                                👔 ファッション・身だしなみ
-                            </button>
-                            <button class="category-tab" data-category="lifestyle">
-                                🍷 ライフスタイル
-                            </button>
-                        </nav>
-                    </aside>
-                    
-                    <!-- Right Content Area for Products -->
-                    <main class="products-content">
-                        <header class="content-header">
-                            <h3 id="activeCategory">📚 コミュニケーション</h3>
-                        </header>
-                        <div class="products-scroll-area">
-                            <div id="productsContainer" class="products-horizontal-container">
-                                <!-- Products will be loaded here -->
+                <!-- Features Section -->
+                <section class="features-section">
+                    <h2>✨ 主な機能</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🤖</div>
+                            <h3>AI改善エンジン</h3>
+                            <p>最新の自然言語処理技術で、不適切な表現を品格ある文章に変換</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💡</div>
+                            <h3>4つの提案</h3>
+                            <p>シチュエーションに応じた複数の改善案を同時に表示</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📱</div>
+                            <h3>モバイル対応</h3>
+                            <p>スマートフォンでも快適に利用できるレスポンシブデザイン</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>プライバシー保護</h3>
+                            <p>入力したメッセージは安全に処理され、保存されません</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- About Section -->
+                <section class="about-section">
+                    <h2>📖 脱おじ構文AIとは？</h2>
+                    <div class="about-content">
+                        <p>
+                            「脱おじ構文AI」は、不適切な表現や古い言い回しを、現代的で品格のある文章に改善するAIツールです。
+                            特にマッチングアプリやLINEなどのメッセージコミュニケーションで、相手に好印象を与える表現をサポートします。
+                        </p>
+                        <div class="example-box">
+                            <h3>改善例</h3>
+                            <div class="example-item">
+                                <div class="before">❌ 写真可愛いですね😍一目惚れです💕</div>
+                                <div class="arrow">→</div>
+                                <div class="after">✅ プロフィールを拝見しました。素敵な方だなと感じています。</div>
                             </div>
                         </div>
-                    </main>
-                </div>
-            </section>
+                    </div>
+                </section>
 
-            <!-- Features Section -->
-            <section class="features-section">
-                <h2>✨ 主な機能</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🤖</div>
-                        <h3>AI改善エンジン</h3>
-                        <p>最新の自然言語処理技術で、不適切な表現を品格ある文章に変換</p>
+                <!-- Usage Guide -->
+                <section class="usage-section">
+                    <h2>📝 使い方</h2>
+                    <div class="usage-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>メッセージ入力</h3>
+                                <p>改善したいメッセージを入力欄に貼り付けまたは入力してください</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>AI改善実行</h3>
+                                <p>「AIで改善する」ボタンをクリックして、AIによる改善を開始</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>結果確認</h3>
+                                <p>4つの改善提案から、最も適切なものを選択してご利用ください</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💡</div>
-                        <h3>4つの提案</h3>
-                        <p>シチュエーションに応じた複数の改善案を同時に表示</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📱</div>
-                        <h3>モバイル対応</h3>
-                        <p>スマートフォンでも快適に利用できるレスポンシブデザイン</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>プライバシー保護</h3>
-                        <p>入力したメッセージは安全に処理され、保存されません</p>
-                    </div>
-                </div>
-            </section>
+                </section>
+            </div>
+        </main>
 
-            <!-- About Section -->
-            <section class="about-section">
-                <h2>📖 脱おじ構文AIとは？</h2>
-                <div class="about-content">
-                    <p>
-                        「脱おじ構文AI」は、不適切な表現や古い言い回しを、現代的で品格のある文章に改善するAIツールです。
-                        特にマッチングアプリやLINEなどのメッセージコミュニケーションで、相手に好印象を与える表現をサポートします。
-                    </p>
-                    <div class="example-box">
-                        <h3>改善例</h3>
-                        <div class="example-item">
-                            <div class="before">❌ 写真可愛いですね😍一目惚れです💕</div>
-                            <div class="arrow">→</div>
-                            <div class="after">✅ プロフィールを拝見しました。素敵な方だなと感じています。</div>
-                        </div>
-                    </div>
+        <!-- Right Sidebar -->
+        <aside class="page-sidebar">
+            <div class="sidebar-content">
+                <!-- Product Categories -->
+                <div class="sidebar-section">
+                    <h3>💍 魅力アップ商品</h3>
+                    <nav class="sidebar-categories">
+                        <button class="sidebar-category-btn active" data-category="communication">
+                            📚 コミュニケーション
+                        </button>
+                        <button class="sidebar-category-btn" data-category="fashion">
+                            👔 ファッション・身だしなみ
+                        </button>
+                        <button class="sidebar-category-btn" data-category="lifestyle">
+                            🍷 ライフスタイル
+                        </button>
+                    </nav>
                 </div>
-            </section>
 
-            <!-- Usage Guide -->
-            <section class="usage-section">
-                <h2>📝 使い方</h2>
-                <div class="usage-steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h3>メッセージ入力</h3>
-                            <p>改善したいメッセージを入力欄に貼り付けまたは入力してください</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h3>AI改善実行</h3>
-                            <p>「AIで改善する」ボタンをクリックして、AIによる改善を開始</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h3>結果確認</h3>
-                            <p>4つの改善提案から、最も適切なものを選択してご利用ください</p>
-                        </div>
+                <!-- Products Display -->
+                <div class="sidebar-section">
+                    <h4 id="sidebarCategoryTitle">📚 コミュニケーション</h4>
+                    <div class="sidebar-products" id="sidebarProducts">
+                        <!-- Products will be loaded here -->
                     </div>
                 </div>
-            </section>
-        </div>
-    </main>
+            </div>
+        </aside>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
