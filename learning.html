@@ -166,16 +166,7 @@
     </div>
 
     <!-- Script -->
-    <!-- 完全キャッシュバスティング: ランダムタイムスタンプ -->
-    <script>
-        const timestamp = Date.now();
-        const script = document.createElement('script');
-        script.src = `learning.js?v=2.3.0&bust=${timestamp}`;
-        script.onload = function() {
-            console.log('✅ Fresh learning.js loaded with timestamp:', timestamp);
-        };
-        document.head.appendChild(script);
-    </script>
+    <script src="learning-v3.js"></script>
     
     <!-- Service Worker無効化 -->
     <script>
