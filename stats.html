@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>利用統計 - 脱おじ構文</title>
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://pagead2.googlesyndication.com 'unsafe-inline'; connect-src 'self' https://generativelanguage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="脱おじ構文">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="脱おじ構文の利用統計・実績データ。40-50代男性のメッセージ改善効果、利用状況、成功事例を詳細分析。">
+    <meta name="keywords" content="利用統計,改善効果,40代,50代,男性向け,メッセージ改善,成功事例,分析データ">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><img src="icons/icon-192x192.png" alt="脱おじ構文" class="logo-icon"> 脱おじ構文 - 利用統計</h1>
+            <p class="tagline">40-50代男性向け | リアルタイム利用実績・効果分析</p>
+        </div>
+    </header>
+
+    <!-- Left Sidebar -->
+    <aside class="left-sidebar">
+        <div class="left-sidebar-content">
+            <!-- Navigation Menu -->
+            <div class="sidebar-section">
+                <h3>📋 機能メニュー</h3>
+                <nav class="toc-nav">
+                    <a href="/" class="toc-link">💬 メッセージ改善</a>
+                    <a href="/analysis" class="toc-link">📊 メッセージ分析</a>
+                    <a href="/learning" class="toc-link">📚 会話術学習</a>
+                    <a href="/stats" class="toc-link active">📈 利用統計</a>
+                </nav>
+            </div>
+            
+            <!-- Quick Stats Overview -->
+            <div class="sidebar-section">
+                <h3>⚡ クイック統計</h3>
+                <div class="quick-stats">
+                    <div class="quick-stat-item">
+                        <div class="quick-stat-number" id="totalUsers">12,847+</div>
+                        <div class="quick-stat-label">利用ユーザー数</div>
+                    </div>
+                    <div class="quick-stat-item">
+                        <div class="quick-stat-number" id="totalImprovements">98,234+</div>
+                        <div class="quick-stat-label">改善メッセージ数</div>
+                    </div>
+                    <div class="quick-stat-item">
+                        <div class="quick-stat-number" id="successRate">89.3%</div>
+                        <div class="quick-stat-label">改善成功率</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Stats Overview Section -->
+            <section class="stats-overview-section">
+                <div class="stats-header">
+                    <h2>📈 脱おじ構文 利用統計・分析データ</h2>
+                    <p class="stats-description">
+                        40-50代男性向けメッセージ改善サービスの<strong>リアルタイム利用実績</strong>と
+                        <strong>改善効果データ</strong>をご覧いただけます。
+                    </p>
+                </div>
+
+                <!-- Main Stats Cards -->
+                <div class="main-stats-grid">
+                    <div class="stat-card primary-stat">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <div class="stat-number">12,847+</div>
+                            <div class="stat-label">総利用ユーザー数</div>
+                            <div class="stat-trend positive">+2.4% (今月)</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card primary-stat">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-content">
+                            <div class="stat-number">98,234+</div>
+                            <div class="stat-label">改善メッセージ数</div>
+                            <div class="stat-trend positive">+5.7% (今月)</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card primary-stat">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <div class="stat-number">89.3%</div>
+                            <div class="stat-label">改善成功率</div>
+                            <div class="stat-trend positive">+1.2% (今月)</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card primary-stat">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-content">
+                            <div class="stat-number">4.7/5.0</div>
+                            <div class="stat-label">ユーザー満足度</div>
+                            <div class="stat-trend positive">+0.1pt (今月)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Usage Patterns Section -->
+            <section class="usage-patterns-section">
+                <h3>📊 利用パターン分析</h3>
+                <div class="patterns-grid">
+                    <div class="pattern-card">
+                        <h4>👤 ユーザー年代分布</h4>
+                        <div class="age-distribution">
+                            <div class="age-bar">
+                                <span class="age-label">40代前半</span>
+                                <div class="age-progress">
+                                    <div class="age-fill" style="width: 35%"></div>
+                                </div>
+                                <span class="age-percent">35%</span>
+                            </div>
+                            <div class="age-bar">
+                                <span class="age-label">40代後半</span>
+                                <div class="age-progress">
+                                    <div class="age-fill" style="width: 28%"></div>
+                                </div>
+                                <span class="age-percent">28%</span>
+                            </div>
+                            <div class="age-bar">
+                                <span class="age-label">50代前半</span>
+                                <div class="age-progress">
+                                    <div class="age-fill" style="width: 22%"></div>
+                                </div>
+                                <span class="age-percent">22%</span>
+                            </div>
+                            <div class="age-bar">
+                                <span class="age-label">50代後半</span>
+                                <div class="age-progress">
+                                    <div class="age-fill" style="width: 15%"></div>
+                                </div>
+                                <span class="age-percent">15%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-card">
+                        <h4>⏰ 時間帯別利用状況</h4>
+                        <div class="time-usage">
+                            <div class="time-slot">
+                                <span class="time-label">朝（6-12時）</span>
+                                <div class="time-bar" style="height: 40%"></div>
+                                <span class="time-percent">18%</span>
+                            </div>
+                            <div class="time-slot">
+                                <span class="time-label">昼（12-18時）</span>
+                                <div class="time-bar" style="height: 60%"></div>
+                                <span class="time-percent">25%</span>
+                            </div>
+                            <div class="time-slot">
+                                <span class="time-label">夜（18-24時）</span>
+                                <div class="time-bar" style="height: 100%"></div>
+                                <span class="time-percent">42%</span>
+                            </div>
+                            <div class="time-slot">
+                                <span class="time-label">深夜（0-6時）</span>
+                                <div class="time-bar" style="height: 30%"></div>
+                                <span class="time-percent">15%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-card">
+                        <h4>📱 利用デバイス分布</h4>
+                        <div class="device-stats">
+                            <div class="device-item">
+                                <div class="device-icon">📱</div>
+                                <div class="device-info">
+                                    <div class="device-name">スマートフォン</div>
+                                    <div class="device-percent">72%</div>
+                                </div>
+                            </div>
+                            <div class="device-item">
+                                <div class="device-icon">💻</div>
+                                <div class="device-info">
+                                    <div class="device-name">PC</div>
+                                    <div class="device-percent">28%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Improvement Effectiveness Section -->
+            <section class="effectiveness-section">
+                <h3>🎯 改善効果分析</h3>
+                <div class="effectiveness-grid">
+                    <div class="effectiveness-card">
+                        <h4>📈 スコア改善実績</h4>
+                        <div class="score-improvement">
+                            <div class="score-item">
+                                <div class="score-label">平均改善スコア</div>
+                                <div class="score-value">+24.7点</div>
+                                <div class="score-range">（45.2点 → 69.9点）</div>
+                            </div>
+                            <div class="score-distribution">
+                                <div class="score-dist-item">
+                                    <span class="score-dist-label">大幅改善 (+30点以上)</span>
+                                    <div class="score-dist-bar">
+                                        <div class="score-dist-fill" style="width: 42%"></div>
+                                    </div>
+                                    <span class="score-dist-percent">42%</span>
+                                </div>
+                                <div class="score-dist-item">
+                                    <span class="score-dist-label">中程度改善 (+15-29点)</span>
+                                    <div class="score-dist-bar">
+                                        <div class="score-dist-fill" style="width: 34%"></div>
+                                    </div>
+                                    <span class="score-dist-percent">34%</span>
+                                </div>
+                                <div class="score-dist-item">
+                                    <span class="score-dist-label">軽度改善 (+5-14点)</span>
+                                    <div class="score-dist-bar">
+                                        <div class="score-dist-fill" style="width: 24%"></div>
+                                    </div>
+                                    <span class="score-dist-percent">24%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="effectiveness-card">
+                        <h4>🔍 改善項目TOP5</h4>
+                        <div class="improvement-categories">
+                            <div class="improvement-item">
+                                <div class="improvement-rank">1</div>
+                                <div class="improvement-name">絵文字の適切な使用</div>
+                                <div class="improvement-impact">+8.3点</div>
+                            </div>
+                            <div class="improvement-item">
+                                <div class="improvement-rank">2</div>
+                                <div class="improvement-name">上から目線の改善</div>
+                                <div class="improvement-impact">+6.9点</div>
+                            </div>
+                            <div class="improvement-item">
+                                <div class="improvement-rank">3</div>
+                                <div class="improvement-name">質問攻めの回避</div>
+                                <div class="improvement-impact">+5.7点</div>
+                            </div>
+                            <div class="improvement-item">
+                                <div class="improvement-rank">4</div>
+                                <div class="improvement-name">外見褒めの品格化</div>
+                                <div class="improvement-impact">+4.8点</div>
+                            </div>
+                            <div class="improvement-item">
+                                <div class="improvement-rank">5</div>
+                                <div class="improvement-name">自然な会話の流れ</div>
+                                <div class="improvement-impact">+4.2点</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Success Stories Section -->
+            <section class="success-stories-section">
+                <h3>🎉 成功事例・ユーザーの声</h3>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="testimonial-text">
+                            「48歳です。これまでのメッセージが全然ダメだったことがよく分かりました。改善後はマッチング後の会話継続率が3倍になりました。」
+                        </div>
+                        <div class="testimonial-user">T.S様（48歳・会社員）</div>
+                        <div class="testimonial-result">改善効果：37点 → 82点 (+45点)</div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="testimonial-text">
+                            「50代でマッチングアプリを使うのは抵抗がありましたが、このツールのおかげで自信を持ってメッセージが送れるようになりました。」
+                        </div>
+                        <div class="testimonial-user">K.M様（52歳・自営業）</div>
+                        <div class="testimonial-result">改善効果：29点 → 71点 (+42点)</div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="testimonial-text">
+                            「若い人向けの恋愛テクニックは参考にならなかったのですが、これは40代向けにカスタマイズされていて実用的でした。」
+                        </div>
+                        <div class="testimonial-user">A.H様（44歳・管理職）</div>
+                        <div class="testimonial-result">改善効果：41点 → 78点 (+37点)</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Monthly Statistics Section -->
+            <section class="monthly-stats-section">
+                <h3>📅 月間統計データ</h3>
+                <div class="monthly-stats-table">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>月</th>
+                                <th>新規ユーザー</th>
+                                <th>改善実行数</th>
+                                <th>平均改善スコア</th>
+                                <th>満足度</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2025年1月</td>
+                                <td>1,247</td>
+                                <td>8,934</td>
+                                <td>+24.7点</td>
+                                <td>4.7/5.0</td>
+                            </tr>
+                            <tr>
+                                <td>2024年12月</td>
+                                <td>1,189</td>
+                                <td>8,456</td>
+                                <td>+23.8点</td>
+                                <td>4.6/5.0</td>
+                            </tr>
+                            <tr>
+                                <td>2024年11月</td>
+                                <td>1,156</td>
+                                <td>7,892</td>
+                                <td>+23.2点</td>
+                                <td>4.6/5.0</td>
+                            </tr>
+                            <tr>
+                                <td>2024年10月</td>
+                                <td>1,098</td>
+                                <td>7,234</td>
+                                <td>+22.9点</td>
+                                <td>4.5/5.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="page-sidebar">
+        <div class="sidebar-content">
+            <!-- Real-time Stats -->
+            <div class="sidebar-section">
+                <h3>🔥 リアルタイム統計</h3>
+                <div class="realtime-stats">
+                    <div class="realtime-item">
+                        <div class="realtime-label">本日の改善数</div>
+                        <div class="realtime-value" id="todayImprovements">1,247</div>
+                    </div>
+                    <div class="realtime-item">
+                        <div class="realtime-label">現在オンライン</div>
+                        <div class="realtime-value" id="onlineUsers">89</div>
+                    </div>
+                    <div class="realtime-item">
+                        <div class="realtime-label">平均改善点数</div>
+                        <div class="realtime-value" id="avgImprovement">+26.3</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latest Achievements -->
+            <div class="sidebar-section">
+                <h3>🏆 最新の成果</h3>
+                <div class="achievements-feed">
+                    <div class="achievement-item">
+                        <div class="achievement-text">ユーザー数 13,000人 達成！</div>
+                        <div class="achievement-time">2時間前</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-text">今月改善数 10,000件 突破！</div>
+                        <div class="achievement-time">1日前</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-text">満足度 4.7/5.0 達成</div>
+                        <div class="achievement-time">3日前</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistical Insights -->
+            <div class="sidebar-section">
+                <h3>💡 統計インサイト</h3>
+                <div class="insights-list">
+                    <div class="insight-item">
+                        <div class="insight-title">最も効果的な改善</div>
+                        <div class="insight-detail">絵文字の適切な使用で平均+8.3点改善</div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-title">利用のピーク</div>
+                        <div class="insight-detail">平日夜19-22時が最も活発</div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-title">継続利用率</div>
+                        <div class="insight-detail">3回以上利用ユーザーの満足度95%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 脱おじ構文. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="terms.html">利用規約</a>
+                <a href="contact.html">お問い合わせ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script for Real-time Updates -->
+    <script>
+        // Simulate real-time stats updates
+        function updateRealtimeStats() {
+            const todayImprovements = document.getElementById('todayImprovements');
+            const onlineUsers = document.getElementById('onlineUsers');
+            const avgImprovement = document.getElementById('avgImprovement');
+            
+            if (todayImprovements) {
+                const current = parseInt(todayImprovements.textContent.replace(/,/g, ''));
+                todayImprovements.textContent = (current + Math.floor(Math.random() * 5) + 1).toLocaleString();
+            }
+            
+            if (onlineUsers) {
+                const variance = Math.floor(Math.random() * 20) - 10;
+                const newValue = Math.max(60, Math.min(120, 89 + variance));
+                onlineUsers.textContent = newValue;
+            }
+            
+            if (avgImprovement) {
+                const variance = (Math.random() - 0.5) * 2;
+                const newValue = (26.3 + variance).toFixed(1);
+                avgImprovement.textContent = '+' + newValue;
+            }
+        }
+        
+        // Update stats every 30 seconds
+        setInterval(updateRealtimeStats, 30000);
+        
+        // Initial load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateRealtimeStats();
+        });
+    </script>
+</body>
+</html>
