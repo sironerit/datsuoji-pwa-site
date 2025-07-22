@@ -678,19 +678,22 @@ function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
         } else { // Left
             ctx.textAlign = 'right';
             ctx.textBaseline = 'middle';
-            labelX = x - 5; // 見切れ防止のため内側に
-            scoreX = x - 5;
+            labelX = x - 2; // さらに内側に移動
+            scoreX = x - 2;
             labelY = y - 8;
             scoreY = y + 8;
         }
         
-        // Draw label (適度に短縮・読みやすく)
+        // Draw label (見切れ防止のため短縮)
         let displayLabel = category.label;
         if (displayLabel.includes('・')) {
             displayLabel = displayLabel.split('・')[0];
         }
         if (displayLabel === '不快リスク回避') {
             displayLabel = '不快リスク';
+        }
+        if (displayLabel === '会話継続性') {
+            displayLabel = '継続性';
         }
         ctx.fillText(displayLabel, labelX, labelY);
         
