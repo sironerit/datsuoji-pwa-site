@@ -548,7 +548,7 @@ function drawRadarChart(scores) {
     const ctx = canvas.getContext('2d');
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = 70; // さらに小さく調整
+    const radius = 60; // 左右見切れ防止のためさらに縮小
     
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -568,7 +568,7 @@ function drawRadarChart(scores) {
     drawRadarPolygon(ctx, centerX, centerY, radius, categories);
     
     // Draw category labels
-    drawRadarLabels(ctx, centerX, centerY, radius + 25, categories);
+    drawRadarLabels(ctx, centerX, centerY, radius + 20, categories);
 }
 
 function drawRadarGrid(ctx, centerX, centerY, radius) {
@@ -657,7 +657,7 @@ function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
         let scoreX = x;
         let scoreY = y;
         
-        // 文字配置調整（視認性重視）
+        // 文字配置調整（左右見切れ防止）
         if (category.angle === -Math.PI / 2) { // Top
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
@@ -671,15 +671,15 @@ function drawRadarLabels(ctx, centerX, centerY, labelRadius, categories) {
         } else if (category.angle === 0) { // Right
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            labelX = x + 8;
-            scoreX = x + 8;
+            labelX = x + 5; // 見切れ防止のため内側に
+            scoreX = x + 5;
             labelY = y - 8;
             scoreY = y + 8;
         } else { // Left
             ctx.textAlign = 'right';
             ctx.textBaseline = 'middle';
-            labelX = x - 8;
-            scoreX = x - 8;
+            labelX = x - 5; // 見切れ防止のため内側に
+            scoreX = x - 5;
             labelY = y - 8;
             scoreY = y + 8;
         }
