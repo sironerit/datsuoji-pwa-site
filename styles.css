@@ -20,6 +20,19 @@ body {
     flex-direction: column;
 }
 
+/* Body Content Layout */
+body > * {
+    position: relative;
+}
+
+/* Main content area with sidebar layout */
+.main {
+    flex: 1;
+    position: relative;
+    padding: 3rem 0;
+    margin-right: 360px; /* Space for fixed sidebar */
+}
+
 /* Container */
 .container {
     max-width: 1200px;
@@ -67,13 +80,17 @@ body {
 
 /* Page Sidebar */
 .page-sidebar {
+    position: fixed;
+    top: 120px; /* Below header */
+    right: 2rem;
     width: 320px;
-    flex-shrink: 0;
+    z-index: 100;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
 }
 
 .sidebar-content {
-    position: sticky;
-    top: 2rem;
+    /* Remove sticky positioning */
 }
 
 .sidebar-section {
@@ -1236,19 +1253,19 @@ section h2 {
     }
     
     /* Page Layout Mobile */
-    .page-layout {
-        flex-direction: column;
-        padding: 2rem 1rem;
-        gap: 1.5rem;
+    .main {
+        margin-right: 0; /* Remove sidebar margin on mobile */
+        padding: 2rem 0;
     }
     
     .page-sidebar {
+        position: static; /* Not fixed on mobile */
+        top: auto;
+        right: auto;
         width: 100%;
-        order: -1; /* Show sidebar above main content on mobile */
-    }
-    
-    .sidebar-content {
-        position: static;
+        max-height: none;
+        order: -1; /* Show above main content */
+        margin-bottom: 2rem;
     }
     
     .sidebar-section {
