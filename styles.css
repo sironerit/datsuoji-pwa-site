@@ -2671,8 +2671,10 @@ section h2 {
 
 .modal-content {
     background-color: white;
-    margin: 50% auto;
-    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 2rem;
     border-radius: 16px;
     width: 90%;
@@ -2826,7 +2828,6 @@ section h2 {
     }
     
     .modal-content {
-        margin: 40% auto;
         width: 95%;
         padding: 1.5rem;
     }
