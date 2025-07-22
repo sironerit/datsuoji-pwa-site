@@ -1,7 +1,7 @@
 {
-  "name": "脱おじ構文AI - おじさん構文改善ツール",
-  "short_name": "脱おじ構文AI",
-  "description": "おじさん構文を品格ある文章に改善するAIツール",
+  "name": "脱おじ構文 - おじさん構文改善ツール",
+  "short_name": "脱おじ構文",
+  "description": "おじさん構文を品格ある文章に改善するツール",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8fafc",
