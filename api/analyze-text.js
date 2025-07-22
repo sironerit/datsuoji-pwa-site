@@ -63,7 +63,7 @@ export default async function handler(req, res) {
 以下のJSON形式で厳格に採点してください：
 
 {
-  "overall_score": 実際の品質に応じた点数,
+  "overall_score": 4カテゴリの合計点数(impression + naturalness + discomfort_risk + continuity),
   "category_scores": {
     "impression": 印象得点（0-25点）,
     "naturalness": 自然さ得点（0-25点）,
