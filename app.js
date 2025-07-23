@@ -4,6 +4,19 @@ console.log('🔥 APP.JS VERSION 1.2 LOADED - With Amazon product recommendation
 // Amazon Associates configuration
 const AMAZON_ASSOCIATE_TAG = 'pachisondatin-22';
 
+// Android版統合カテゴリ（8カテゴリ、30+商品） - フィットネス優先表示
+// Global categories for shared product system
+const categories = [
+    { key: 'fitness', title: '💪 フィットネス', products: null }, // Will be populated after PRODUCT_DATABASE is loaded
+    { key: 'skincare', title: '🧴 スキンケア', products: null },  
+    { key: 'fragrance', title: '🌸 香水・フレグランス', products: null },
+    { key: 'accessories', title: '⌚ アクセサリー', products: null },
+    { key: 'grooming', title: '✂️ 身だしなみ', products: null },
+    { key: 'gadget', title: '📱 ガジェット', products: null },
+    { key: 'hobby', title: '📚 趣味・教養', products: null },
+    { key: 'fashion', title: '👔 ファッション', products: null }
+];
+
 // Product database for recommendations - Real Android app products with working ASINs
 // Android版MoteGoodsSampleDataから統合した高品質商品データベース
 const PRODUCT_DATABASE = {
@@ -326,6 +339,23 @@ const PRODUCT_DATABASE = {
     ]
 };
 
+// Populate categories with product data
+function initializeCategories() {
+    categories[0].products = PRODUCT_DATABASE.fitness;
+    categories[1].products = PRODUCT_DATABASE.skincare;
+    categories[2].products = PRODUCT_DATABASE.fragrance;
+    categories[3].products = PRODUCT_DATABASE.accessories;
+    categories[4].products = PRODUCT_DATABASE.grooming;
+    categories[5].products = PRODUCT_DATABASE.gadget;
+    categories[6].products = PRODUCT_DATABASE.hobby;
+    categories[7].products = PRODUCT_DATABASE.fashion;
+    
+    console.log('✅ Categories initialized with product data');
+}
+
+// Initialize categories immediately
+initializeCategories();
+
 // DOM Elements
 const inputText = document.getElementById('inputText');
 const charCount = document.getElementById('charCount');
@@ -616,18 +646,7 @@ function showAllSidebarProducts() {
     // Clear existing content
     productsContainer.innerHTML = '';
     
-    // Create category carousels
-    // Android版統合カテゴリ（8カテゴリ、30+商品） - フィットネス優先表示
-    const categories = [
-        { key: 'fitness', title: '💪 フィットネス', products: PRODUCT_DATABASE.fitness },
-        { key: 'skincare', title: '🧴 スキンケア', products: PRODUCT_DATABASE.skincare },  
-        { key: 'fragrance', title: '🌸 香水・フレグランス', products: PRODUCT_DATABASE.fragrance },
-        { key: 'accessories', title: '⌚ アクセサリー', products: PRODUCT_DATABASE.accessories },
-        { key: 'grooming', title: '✂️ 身だしなみ', products: PRODUCT_DATABASE.grooming },
-        { key: 'gadget', title: '📱 ガジェット', products: PRODUCT_DATABASE.gadget },
-        { key: 'hobby', title: '📚 趣味・教養', products: PRODUCT_DATABASE.hobby },
-        { key: 'fashion', title: '👔 ファッション', products: PRODUCT_DATABASE.fashion }
-    ];
+    // Use global categories (already initialized with product data)
     
     categories.forEach((category, categoryIndex) => {
         if (category.products.length > 0) {
