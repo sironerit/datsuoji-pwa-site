@@ -1409,11 +1409,11 @@ body > * {
 /* Left Sidebar */
 .left-sidebar {
     position: fixed;
-    top: 140px; /* Below header with extra spacing */
+    top: 180px; /* Increased spacing to avoid header overlap */
     left: 2rem;
     width: 260px;
     z-index: 100;
-    max-height: calc(100vh - 160px);
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
 }
 
