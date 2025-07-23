@@ -45,7 +45,14 @@ exports.handler = async (event, context) => {
         }
 
         const apiKey = process.env.GEMINI_API_KEY;
+        console.log('Environment check:', {
+            hasApiKey: !!apiKey,
+            keyLength: apiKey ? apiKey.length : 0,
+            keyPrefix: apiKey ? apiKey.substring(0, 10) + '...' : 'undefined'
+        });
+        
         if (!apiKey) {
+            console.error('GEMINI_API_KEY not found in environment variables');
             throw new Error('Gemini API key not configured');
         }
 
