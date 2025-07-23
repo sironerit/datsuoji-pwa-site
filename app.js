@@ -16,10 +16,42 @@ const PRODUCT_DATABASE = {
             image: "https://m.media-amazon.com/images/I/61vM9p2C3uL.__AC_SY300_SX300_QL70_ML2_.jpg",
             asin: "B000C1YPZQ",
             category: "香水・フレグランス"
+        },
+        {
+            title: "サムライ オードトワレ 100ml",
+            description: "日本生まれのメンズフレグランス。爽やかでスパイシーな香りが大人の男性を演出します。",
+            price: "¥2,980",
+            rating: 4.2,
+            reviews: 1240,
+            image: "https://m.media-amazon.com/images/I/61Gs8J5RKQL._AC_SX300_SY300_.jpg",
+            asin: "B000FQOFPU",
+            category: "香水・フレグランス"
         }
     ],
-    fashion: [],
-    lifestyle: []
+    fashion: [
+        {
+            title: "ビジネスベルト 本革 日本製",
+            description: "上質な本革を使用した日本製ビジネスベルト。シンプルで洗練されたデザインが大人の品格を演出。",
+            price: "¥6,800",
+            rating: 4.3,
+            reviews: 456,
+            image: "https://m.media-amazon.com/images/I/61XYZ123ABC._AC_SX300_SY300_.jpg",
+            asin: "B07XYZ1234",
+            category: "ファッション小物"
+        }
+    ],
+    lifestyle: [
+        {
+            title: "高級ボールペン パーカー IM",
+            description: "エレガントなデザインのパーカー製ボールペン。ビジネスシーンやギフトに最適な一本。",
+            price: "¥4,200",
+            rating: 4.5,
+            reviews: 789,
+            image: "https://m.media-amazon.com/images/I/51ABC789XYZ._AC_SX300_SY300_.jpg",
+            asin: "B01ABC7890",
+            category: "文房具・オフィス用品"
+        }
+    ]
 };
 
 // DOM Elements
