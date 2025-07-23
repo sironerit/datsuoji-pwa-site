@@ -3921,14 +3921,15 @@ section h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0);
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.15), rgba(241, 245, 249, 0.15));
     transition: all 0.3s ease;
-    opacity: 0;
+    opacity: 1;
 }
 
+.carousel-nav-area:hover,
 .carousel-nav-area.visible {
     opacity: 1;
-    background: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
 }
 
 .carousel-nav-left {
@@ -3944,9 +3945,10 @@ section h2 {
 .carousel-nav-icon {
     font-size: 2rem;
     font-weight: bold;
-    color: #2563eb;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: rgba(37, 99, 235, 0.4);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     z-index: 12;
+    transition: all 0.3s ease;
 }
 
 .carousel-nav-line {
@@ -3956,19 +3958,21 @@ section h2 {
     transform: translate(-50%, -50%);
     width: 2px;
     height: 60%;
-    background: linear-gradient(to bottom, transparent, #2563eb, transparent);
-    opacity: 0.6;
+    background: linear-gradient(to bottom, transparent, rgba(37, 99, 235, 0.3), transparent);
+    opacity: 1;
     z-index: 11;
+    transition: all 0.3s ease;
 }
 
 .carousel-nav-area:hover .carousel-nav-icon {
     color: #1d4ed8;
     transform: scale(1.1);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .carousel-nav-area:hover .carousel-nav-line {
-    opacity: 0.8;
     background: linear-gradient(to bottom, transparent, #1d4ed8, transparent);
+    opacity: 0.9;
 }
 
 .carousel-nav-area:active .carousel-nav-icon {

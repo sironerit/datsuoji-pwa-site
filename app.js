@@ -505,15 +505,6 @@ function setupCarouselEventListeners(categoryKey) {
             e.stopPropagation(); // Prevent card click
             navigateCarousel(categoryKey, direction);
         });
-        
-        // Show/hide navigation on hover
-        navArea.addEventListener('mouseenter', () => {
-            navArea.classList.add('visible');
-        });
-        
-        navArea.addEventListener('mouseleave', () => {
-            navArea.classList.remove('visible');
-        });
     });
     
     // Indicator clicks
