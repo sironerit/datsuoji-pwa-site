@@ -653,11 +653,9 @@ function createCategoryCarousel(category, categoryIndex) {
             </div>
             <div class="carousel-nav-area carousel-nav-left" data-category="${category.key}" data-direction="prev">
                 <div class="carousel-nav-icon">‹</div>
-                <div class="carousel-nav-line"></div>
             </div>
             <div class="carousel-nav-area carousel-nav-right" data-category="${category.key}" data-direction="next">
                 <div class="carousel-nav-icon">›</div>
-                <div class="carousel-nav-line"></div>
             </div>
         </div>
         <div class="carousel-indicators" data-category="${category.key}">
