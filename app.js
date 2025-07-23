@@ -388,14 +388,18 @@ function createCategoryCarousel(category, categoryIndex) {
     section.innerHTML = `
         <div class="category-carousel-header">
             <h4 class="category-title">${category.title}</h4>
-            <div class="carousel-controls">
-                <button class="carousel-btn prev-btn" data-category="${category.key}">‹</button>
-                <button class="carousel-btn next-btn" data-category="${category.key}">›</button>
-            </div>
         </div>
         <div class="category-carousel-container">
             <div class="category-carousel-track" data-category="${category.key}">
                 <!-- Products will be added here -->
+            </div>
+            <div class="carousel-nav-area carousel-nav-left" data-category="${category.key}" data-direction="prev">
+                <div class="carousel-nav-icon">‹</div>
+                <div class="carousel-nav-line"></div>
+            </div>
+            <div class="carousel-nav-area carousel-nav-right" data-category="${category.key}" data-direction="next">
+                <div class="carousel-nav-icon">›</div>
+                <div class="carousel-nav-line"></div>
             </div>
         </div>
         <div class="carousel-indicators" data-category="${category.key}">
@@ -492,16 +496,24 @@ function setupCarouselEventListeners(categoryKey) {
     const section = document.querySelector(`.category-carousel-section[data-category="${categoryKey}"]`);
     if (!section) return;
     
-    // Navigation buttons
-    const prevBtn = section.querySelector('.prev-btn');
-    const nextBtn = section.querySelector('.next-btn');
-    
-    prevBtn.addEventListener('click', () => {
-        navigateCarousel(categoryKey, 'prev');
-    });
-    
-    nextBtn.addEventListener('click', () => {
-        navigateCarousel(categoryKey, 'next');
+    // Large navigation areas
+    const navAreas = section.querySelectorAll('.carousel-nav-area');
+    navAreas.forEach(navArea => {
+        const direction = navArea.getAttribute('data-direction');
+        
+        navArea.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card click
+            navigateCarousel(categoryKey, direction);
+        });
+        
+        // Show/hide navigation on hover
+        navArea.addEventListener('mouseenter', () => {
+            navArea.classList.add('visible');
+        });
+        
+        navArea.addEventListener('mouseleave', () => {
+            navArea.classList.remove('visible');
+        });
     });
     
     // Indicator clicks
@@ -512,14 +524,14 @@ function setupCarouselEventListeners(categoryKey) {
         });
     });
     
-    // Hover to pause auto-slide
-    const container = section.querySelector('.category-carousel-container');
-    container.addEventListener('mouseenter', () => {
+    // Hover to pause auto-slide (only on product content, not nav areas)
+    const track = section.querySelector('.category-carousel-track');
+    track.addEventListener('mouseenter', () => {
         carouselStates[categoryKey].isHovered = true;
         stopAutoSlide(categoryKey);
     });
     
-    container.addEventListener('mouseleave', () => {
+    track.addEventListener('mouseleave', () => {
         carouselStates[categoryKey].isHovered = false;
         startAutoSlide(categoryKey);
     });

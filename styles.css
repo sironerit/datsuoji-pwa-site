@@ -3891,7 +3891,7 @@ section h2 {
 
 .category-carousel-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 1rem 1rem 0.5rem 1rem;
     background: linear-gradient(135deg, #f8fafc, #f1f5f9);
@@ -3904,40 +3904,75 @@ section h2 {
     color: #1e293b;
 }
 
-.carousel-controls {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.carousel-btn {
-    width: 32px;
-    height: 32px;
-    border: none;
-    border-radius: 50%;
-    background: #2563eb;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.carousel-btn:hover {
-    background: #1d4ed8;
-    transform: scale(1.1);
-}
-
-.carousel-btn:active {
-    transform: scale(0.95);
-}
-
 .category-carousel-container {
     position: relative;
     padding: 0.5rem 1rem;
     min-height: 200px;
+}
+
+/* Large navigation areas */
+.carousel-nav-area {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0);
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.carousel-nav-area.visible {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.carousel-nav-left {
+    left: 0;
+    border-radius: 0 12px 12px 0;
+}
+
+.carousel-nav-right {
+    right: 0;
+    border-radius: 12px 0 0 12px;
+}
+
+.carousel-nav-icon {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2563eb;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 12;
+}
+
+.carousel-nav-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 60%;
+    background: linear-gradient(to bottom, transparent, #2563eb, transparent);
+    opacity: 0.6;
+    z-index: 11;
+}
+
+.carousel-nav-area:hover .carousel-nav-icon {
+    color: #1d4ed8;
+    transform: scale(1.1);
+}
+
+.carousel-nav-area:hover .carousel-nav-line {
+    opacity: 0.8;
+    background: linear-gradient(to bottom, transparent, #1d4ed8, transparent);
+}
+
+.carousel-nav-area:active .carousel-nav-icon {
+    transform: scale(0.95);
 }
 
 .category-carousel-track {
@@ -4077,15 +4112,21 @@ section h2 {
         font-size: 0.9rem;
     }
     
-    .carousel-btn {
-        width: 28px;
-        height: 28px;
-        font-size: 16px;
-    }
-    
     .category-carousel-container {
         padding: 0.5rem 0.75rem;
         min-height: 180px;
+    }
+    
+    .carousel-nav-area {
+        width: 25%; /* Slightly smaller on mobile */
+    }
+    
+    .carousel-nav-icon {
+        font-size: 1.5rem; /* Smaller icon on mobile */
+    }
+    
+    .carousel-nav-line {
+        height: 50%;
     }
     
     .carousel-product-image {
