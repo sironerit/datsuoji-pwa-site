@@ -3929,7 +3929,7 @@ section h2 {
 .carousel-nav-area:hover,
 .carousel-nav-area.visible {
     opacity: 1;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(248, 250, 252, 0.4));
 }
 
 .carousel-nav-left {
