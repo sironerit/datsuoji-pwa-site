@@ -4523,8 +4523,14 @@ function initializeLearningApp() {
 
 function setupEventListeners() {
     // 検索機能
-    searchInput.addEventListener('input', handleSearchInput);
-    document.getElementById('searchBtn').addEventListener('click', handleSearchClick);
+    if (searchInput) {
+        searchInput.addEventListener('input', handleSearchInput);
+    }
+    
+    const searchBtn = document.getElementById('searchBtn');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', handleSearchClick);
+    }
     
     // カテゴリフィルター
     const categoryBtns = document.querySelectorAll('.category-filter-btn');
@@ -4797,8 +4803,12 @@ function resetFilters() {
 
 // サイドバー商品関連
 function displaySidebarProducts() {
-    setupSidebarCategories();
-    showSidebarProducts('communication');
+    try {
+        setupSidebarCategories();
+        showSidebarProducts('communication');
+    } catch (error) {
+        console.log('📦 Product display failed, but learning content will still work:', error);
+    }
 }
 
 function setupSidebarCategories() {
@@ -4822,7 +4832,7 @@ function showSidebarProducts(category) {
     const productsContainer = document.getElementById('sidebarProducts');
     const categoryTitle = document.getElementById('sidebarCategoryTitle');
     
-    if (!productsContainer || !categoryTitle) return;
+    if (!productsContainer) return;
     
     const categoryTitles = {
         'communication': '📚 コミュニケーション',
@@ -4830,11 +4840,18 @@ function showSidebarProducts(category) {
         'lifestyle': '🍷 ライフスタイル'
     };
     
-    categoryTitle.textContent = categoryTitles[category] || category;
+    if (categoryTitle) {
+        categoryTitle.textContent = categoryTitles[category] || category;
+    }
     productsContainer.innerHTML = '';
     
     // Use global PRODUCT_DATABASE from app.js
     const products = window.PRODUCT_DATABASE ? window.PRODUCT_DATABASE[category] || [] : [];
+    
+    if (products.length === 0) {
+        productsContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">商品データを読み込み中...</p>';
+        return;
+    }
     
     products.forEach((product, index) => {
         const productCard = createSidebarProductCard(product);
