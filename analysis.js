@@ -767,60 +767,18 @@ function handleKeyboardShortcuts(event) {
 const PRODUCT_DATABASE = {
     communication: [
         {
-            title: "大人の話し方大全",
-            description: "品格のある大人の会話術を身につける実践ガイド",
-            price: "¥1,540",
-            rating: 4.3,
-            reviews: 186,
-            image: "https://m.media-amazon.com/images/I/51xQ2BdVhJL._SL500_.jpg",
-            asin: "B08XYQZQ7M",
-            category: "コミュニケーション"
-        },
-        {
-            title: "恋愛心理学 大全",
-            description: "心理学に基づいた恋愛テクニックと人間関係の秘訣",
-            price: "¥1,650",
-            rating: 4.1,
-            reviews: 94,
-            image: "https://m.media-amazon.com/images/I/51CDG+mjXVL._SL500_.jpg",
-            asin: "B09XVYQL2P",
-            category: "恋愛心理学"
-        },
-        {
-            title: "人を動かす",
-            description: "デール・カーネギーの名著。人間関係の基本を学ぶ",
-            price: "¥715",
+            title: "ブルガリ プールオム オードトワレ 100ml",
+            description: "大人の男性に人気の上品で洗練された香り。デートやビジネスシーンで好印象を与える定番フレグランス。",
+            price: "¥14,230",
             rating: 4.4,
-            reviews: 2847,
-            image: "https://m.media-amazon.com/images/I/51CDG+mjXVL._SL500_.jpg",
-            asin: "B071DC7ZTN",
-            category: "自己啓発"
-        }
-    ],
-    fashion: [
-        {
-            title: "カルバン クライン 香水 エタニティ",
-            description: "大人の男性に人気の上品で洗練された香り",
-            price: "¥3,280",
-            rating: 4.2,
-            reviews: 451,
-            image: "https://m.media-amazon.com/images/I/61z+vQqD+VL._SL500_.jpg",
+            reviews: 892,
+            image: "https://m.media-amazon.com/images/I/61vM9p2C3uL.__AC_SY300_SX300_QL70_ML2_.jpg",
             asin: "B000C20F0I",
-            category: "フレグランス"
+            category: "香水・フレグランス"
         }
     ],
-    lifestyle: [
-        {
-            title: "おしゃれなワイングラス セット",
-            description: "デートやお食事に使える上品なグラス",
-            price: "¥2,480",
-            rating: 4.3,
-            reviews: 89,
-            image: "https://m.media-amazon.com/images/I/71rH2qZvLwL._SL500_.jpg",
-            asin: "B0B2L7M9XR",
-            category: "インテリア"
-        }
-    ]
+    fashion: [],
+    lifestyle: []
 };
 
 // Product display functions (copied from main app.js)
