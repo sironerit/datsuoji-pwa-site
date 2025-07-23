@@ -488,7 +488,7 @@ async function callImprovementAPI(text) {
     try {
         console.log('Calling improvement API with text:', text);
         
-        const response = await fetch('/api/improve-text', {
+        const response = await fetch('/.netlify/functions/improve-text', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

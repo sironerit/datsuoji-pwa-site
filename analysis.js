@@ -173,7 +173,7 @@ async function callAnalysisAPI(text) {
     try {
         console.log('Calling analysis API with text:', text);
         
-        const response = await fetch('/api/analyze-text', {
+        const response = await fetch('/.netlify/functions/analyze-text', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,0 +1,26 @@
+{
+  "name": "datsuoji-pwa-site",
+  "version": "1.0.0",
+  "description": "40-50代男性向けメッセージ改善AI - 脱おじ構文",
+  "main": "index.js",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build step required'",
+    "deploy": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "keywords": [
+    "dating",
+    "messaging",
+    "AI",
+    "improvement",
+    "japanese"
+  ],
+  "author": "sironerit",
+  "license": "MIT"
+}
