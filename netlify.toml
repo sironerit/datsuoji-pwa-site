@@ -4,6 +4,11 @@
   command = ""
   functions = "netlify/functions"
 
+[functions]
+  # Increase timeout for AI API calls
+  "improve-text" = { timeout = "30s" }
+  "analyze-text" = { timeout = "30s" }
+
 [[redirects]]
   from = "/analysis"
   to = "/analysis.html"
