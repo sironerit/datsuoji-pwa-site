@@ -70,10 +70,10 @@ exports.handler = async (event, context) => {
         };
         
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 25000); // 25秒でタイムアウト
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒でタイムアウト
         
         const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key=${apiKey}`,
             {
                 method: 'POST',
                 headers: {
