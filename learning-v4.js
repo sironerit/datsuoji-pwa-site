@@ -4516,8 +4516,7 @@ function initializeLearningApp() {
     // サイドバー商品表示
     displaySidebarProducts();
     
-    // 今日のヒント更新
-    updateDailyTip();
+    // 今日のヒント更新は daily-tip.js で自動実行される
 }
 
 function setupEventListeners() {
@@ -4878,40 +4877,7 @@ function createSidebarProductCard(product) {
     return card;
 }
 
-function updateDailyTip() {
-    const tips = [
-        {
-            title: "📍 40代男性の魅力アピール",
-            text: "「仕事での経験」や「人生の深み」を自然に話題に。若い男性にはない大人の魅力を活かしましょう。"
-        },
-        {
-            title: "💬 会話の間の取り方",
-            text: "焦って話し続けるより、相手の話をじっくり聞く姿勢が40-50代男性には大切。「聞き上手」こそが最強の武器です。"
-        },
-        {
-            title: "📱 LINEの返信タイミング",
-            text: "即レスは避けて、相手の2-3倍の時間をかけて返信。「余裕のある大人」を演出することが重要です。"
-        },
-        {
-            title: "🍽️ デート場所の選び方",
-            text: "ファミレスより少し良いお店を。価格より「落ち着いて話せる環境」を重視すると、大人の魅力が伝わります。"
-        }
-    ];
-    
-    const today = new Date();
-    const tipIndex = today.getDate() % tips.length;
-    const todaysTip = tips[tipIndex];
-    
-    const tipElement = document.getElementById('dailyTip');
-    if (tipElement) {
-        tipElement.innerHTML = `
-            <div class="tip-content">
-                <p class="tip-title">${todaysTip.title}</p>
-                <p class="tip-text">${todaysTip.text}</p>
-            </div>
-        `;
-    }
-}
+// updateDailyTip() 関数は削除済み - daily-tip.js で統一管理
 
 // グローバル関数（HTMLから呼び出し用）
 window.openLearningModal = openLearningModal;
