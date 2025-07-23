@@ -3,7 +3,7 @@ console.log('🔍 ANALYSIS.JS VERSION 1.0 LOADED - Message Analysis with Pro Coa
 
 // Import product database from main app.js
 // We'll reuse the same product system
-const AMAZON_ASSOCIATE_TAG = 'pachisondatin-22';
+// AMAZON_ASSOCIATE_TAG is already defined in app.js
 
 // DOM Elements
 const analysisInputText = document.getElementById('analysisInputText');

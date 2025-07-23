@@ -4426,8 +4426,8 @@ const LEARNING_DATABASE = {
 let currentFilter = 'all';
 let searchQuery = '';
 
-// 商品データベース（analysis.jsから流用）
-const PRODUCT_DATABASE = {
+// 商品データベース（app.jsから参照するためコメントアウト）
+// const PRODUCT_DATABASE = {
     communication: [
         {
             title: "大人の話し方大全",

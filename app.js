@@ -385,16 +385,20 @@ function initializeApp() {
 }
 
 function setupEventListeners() {
-    // Input text area events
-    inputText.addEventListener('input', handleInputChange);
-    inputText.addEventListener('paste', handlePaste);
+    // Input text area events (only on main page)
+    if (inputText) {
+        inputText.addEventListener('input', handleInputChange);
+        inputText.addEventListener('paste', handlePaste);
+    }
     
-    // Improve button click
-    console.log('🔧 Setting up improve button listener');
-    improveBtn.addEventListener('click', function(event) {
-        console.log('🖱️ Improve button clicked!', event);
-        handleImproveClick();
-    });
+    // Improve button click (only on main page)
+    if (improveBtn) {
+        console.log('🔧 Setting up improve button listener');
+        improveBtn.addEventListener('click', function(event) {
+            console.log('🖱️ Improve button clicked!', event);
+            handleImproveClick();
+        });
+    }
     
     // Keyboard shortcuts
     document.addEventListener('keydown', handleKeyboardShortcuts);
