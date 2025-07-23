@@ -101,7 +101,7 @@ class SharedProductsSystem {
         return `
             <div class="product-card" onclick="openAmazonLink('${product.amazonUrl}')">
                 <div class="product-image-container">
-                    <img src="${product.imageUrl}" alt="${product.title}" class="product-image" loading="lazy">
+                    <img src="${product.image}" alt="${product.title}" class="product-image" loading="lazy">
                 </div>
                 <div class="product-info">
                     <h5 class="product-title">${product.title}</h5>
