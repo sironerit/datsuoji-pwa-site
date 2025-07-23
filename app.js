@@ -407,16 +407,13 @@ function createEnhancedProductCard(product) {
         <div class="enhanced-product-info">
             <div class="enhanced-product-title">${product.title}</div>
             <div class="enhanced-product-description">${product.description}</div>
-            <div class="enhanced-product-rating">
-                <span class="stars">${stars}${emptyStars}</span>
-                <span class="rating-number">${product.rating}</span>
-                <span class="review-count">(${product.reviews})</span>
-            </div>
             <div class="enhanced-product-footer">
+                <div class="enhanced-product-rating">
+                    <span class="stars">${stars}${emptyStars}</span>
+                    <span class="rating-number">${product.rating}</span>
+                    <span class="review-count">(${product.reviews})</span>
+                </div>
                 <div class="enhanced-product-price">${product.price}</div>
-                <button class="buy-now-btn">
-                    🛒 Amazon で見る
-                </button>
             </div>
         </div>
     `;
