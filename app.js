@@ -617,16 +617,16 @@ function showAllSidebarProducts() {
     productsContainer.innerHTML = '';
     
     // Create category carousels
-    // Android版統合カテゴリ（8カテゴリ、30+商品）
+    // Android版統合カテゴリ（8カテゴリ、30+商品） - フィットネス優先表示
     const categories = [
-        { key: 'fashion', title: '👔 ファッション', products: PRODUCT_DATABASE.fashion },
+        { key: 'fitness', title: '💪 フィットネス', products: PRODUCT_DATABASE.fitness },
         { key: 'skincare', title: '🧴 スキンケア', products: PRODUCT_DATABASE.skincare },  
         { key: 'fragrance', title: '🌸 香水・フレグランス', products: PRODUCT_DATABASE.fragrance },
         { key: 'accessories', title: '⌚ アクセサリー', products: PRODUCT_DATABASE.accessories },
         { key: 'grooming', title: '✂️ 身だしなみ', products: PRODUCT_DATABASE.grooming },
-        { key: 'fitness', title: '💪 フィットネス', products: PRODUCT_DATABASE.fitness },
         { key: 'gadget', title: '📱 ガジェット', products: PRODUCT_DATABASE.gadget },
-        { key: 'hobby', title: '📚 趣味・教養', products: PRODUCT_DATABASE.hobby }
+        { key: 'hobby', title: '📚 趣味・教養', products: PRODUCT_DATABASE.hobby },
+        { key: 'fashion', title: '👔 ファッション', products: PRODUCT_DATABASE.fashion }
     ];
     
     categories.forEach((category, categoryIndex) => {
@@ -917,16 +917,16 @@ function showSidebarProducts(category) {
         return;
     }
     
-    // Update category title (Android版統合カテゴリに対応)
+    // Update category title (Android版統合カテゴリに対応) - フィットネス優先
     const categoryTitles = {
-        'fashion': '👔 ファッション',
+        'fitness': '💪 フィットネス',
         'skincare': '🧴 スキンケア',
         'fragrance': '🌸 香水・フレグランス', 
         'accessories': '⌚ アクセサリー',
         'grooming': '✂️ 身だしなみ',
-        'fitness': '💪 フィットネス',
         'gadget': '📱ガジェット',  
-        'hobby': '📚 趣味・教養'
+        'hobby': '📚 趣味・教養',
+        'fashion': '👔 ファッション'
     };
     
     categoryTitle.textContent = categoryTitles[category] || category;
@@ -1019,16 +1019,16 @@ function displayCategoryProducts(category) {
     
     if (!productsContainer || !categoryTitle) return;
     
-    // Update category title (Android版統合カテゴリに対応)
+    // Update category title (Android版統合カテゴリに対応) - フィットネス優先
     const categoryTitles = {
-        'fashion': '👔 ファッション',
+        'fitness': '💪 フィットネス',
         'skincare': '🧴 スキンケア',
         'fragrance': '🌸 香水・フレグランス', 
         'accessories': '⌚ アクセサリー',
         'grooming': '✂️ 身だしなみ',
-        'fitness': '💪 フィットネス',
         'gadget': '📱 ガジェット',
-        'hobby': '📚 趣味・教養'
+        'hobby': '📚 趣味・教養',
+        'fashion': '👔 ファッション'
     };
     categoryTitle.textContent = categoryTitles[category] || 'カテゴリ';
     
@@ -1127,8 +1127,8 @@ function createPermanentCategorySection(title, category, animationDelay) {
 }
 
 function getRecommendedProducts() {
-    // Select 3 products from different categories (Android統合版から)
-    const availableCategories = ['fashion', 'skincare', 'fragrance', 'accessories', 'grooming', 'fitness', 'gadget', 'hobby'];
+    // Select 3 products from different categories (Android統合版から) - フィットネス優先
+    const availableCategories = ['fitness', 'skincare', 'fragrance', 'accessories', 'grooming', 'gadget', 'hobby', 'fashion'];
     const selectedProducts = [];
     
     // ランダムに3つの異なるカテゴリから商品を選択
