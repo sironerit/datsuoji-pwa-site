@@ -66,8 +66,7 @@ function initializeAnalysisApp() {
     // Update character count
     updateAnalysisCharCount();
     
-    // Display recommended products immediately on page load
-    displayPermanentRecommendedProducts();
+    // Analysis page now focuses purely on message analysis - no product displays
 }
 
 function setupAnalysisEventListeners() {
@@ -763,194 +762,13 @@ function handleKeyboardShortcuts(event) {
     }
 }
 
-// Product recommendation system (reuse from main app.js)
-const PRODUCT_DATABASE = {
-    communication: [
-        {
-            title: "ブルガリ プールオム オードトワレ 100ml",
-            description: "大人の男性に人気の上品で洗練された香り。デートやビジネスシーンで好印象を与える定番フレグランス。",
-            price: "¥14,230",
-            rating: 4.4,
-            reviews: 892,
-            image: "https://m.media-amazon.com/images/I/61vM9p2C3uL.__AC_SY300_SX300_QL70_ML2_.jpg",
-            asin: "B000C1YPZQ",
-            category: "香水・フレグランス"
-        }
-    ],
-    fashion: [],
-    lifestyle: []
-};
+// Product system removed - no longer displaying products on analysis page
 
-// Product display functions (copied from main app.js)
-function displayPermanentRecommendedProducts() {
-    setTimeout(() => {
-        console.log('🎯 Setting up sidebar...');
-        showAllSidebarProducts();
-    }, 100);
-}
+// Product display functions removed - analysis page no longer shows products
 
-// New function to show all products without categories
-function showAllSidebarProducts() {
-    console.log('🛍️ Loading all products...');
-    
-    const productsContainer = document.getElementById('sidebarProducts');
-    
-    if (!productsContainer) {
-        console.error('❌ Products container not found!');
-        return;
-    }
+// Product card functions removed - analysis page focuses on message analysis only
 
-    // Clear existing content
-    productsContainer.innerHTML = '';
-    
-    // Combine all products from all categories
-    const allProducts = [
-        ...PRODUCT_DATABASE.communication,
-        ...PRODUCT_DATABASE.fashion, 
-        ...PRODUCT_DATABASE.lifestyle
-    ];
-    
-    console.log(`📦 Displaying ${allProducts.length} products total`);
-    
-    // Display each product with enhanced UI
-    allProducts.forEach((product, index) => {
-        const productCard = createEnhancedProductCard(product);
-        productCard.style.opacity = '0';
-        productCard.style.transform = 'translateY(10px)';
-        
-        productsContainer.appendChild(productCard);
-        
-        // Staggered animation
-        setTimeout(() => {
-            productCard.style.transition = 'all 0.3s ease';
-            productCard.style.opacity = '1';
-            productCard.style.transform = 'translateY(0)';
-        }, index * 100);
-    });
-}
+// Sidebar category functions removed - analysis page no longer has product categories
 
-// Enhanced product card creation function  
-function createEnhancedProductCard(product) {
-    const card = document.createElement('div');
-    card.className = 'enhanced-product-card';
-    
-    const amazonUrl = `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
-    const stars = '★'.repeat(Math.floor(product.rating));
-    const emptyStars = '☆'.repeat(5 - Math.floor(product.rating));
-    
-    card.innerHTML = `
-        <div class="enhanced-product-image">
-            <img src="${product.image}" alt="${product.title}" loading="lazy">
-            <div class="category-badge">${product.category}</div>
-        </div>
-        <div class="enhanced-product-info">
-            <div class="enhanced-product-title">${product.title}</div>
-            <div class="enhanced-product-description">${product.description}</div>
-            <div class="enhanced-product-rating">
-                <span class="stars">${stars}${emptyStars}</span>
-                <span class="rating-number">${product.rating}</span>
-                <span class="review-count">(${product.reviews})</span>
-            </div>
-            <div class="enhanced-product-footer">
-                <div class="enhanced-product-price">${product.price}</div>
-                <button class="buy-now-btn">
-                    🛒 Amazon で見る
-                </button>
-            </div>
-        </div>
-    `;
-    
-    // Add click event to the entire card
-    card.addEventListener('click', () => {
-        window.open(amazonUrl, '_blank', 'noopener');
-    });
-    
-    return card;
-}
-
-function setupPageSidebarCategories() {
-    const categoryButtons = document.querySelectorAll('.sidebar-category-btn');
-    console.log('🔧 Found category buttons:', categoryButtons.length);
-    
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const category = this.getAttribute('data-category');
-            console.log('🖱️ Category clicked:', category);
-            
-            // Remove active class from all buttons
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Show products for selected category
-            showSidebarProducts(category);
-        });
-    });
-}
-
-function showSidebarProducts(category) {
-    console.log('🛍️ Loading products for category:', category);
-    
-    const productsContainer = document.getElementById('sidebarProducts');
-    const categoryTitle = document.getElementById('sidebarCategoryTitle');
-    
-    if (!productsContainer || !categoryTitle) {
-        console.error('❌ Required containers not found!');
-        return;
-    }
-    
-    const categoryTitles = {
-        'communication': '📚 コミュニケーション',
-        'fashion': '👔 ファッション・身だしなみ', 
-        'lifestyle': '🍷 ライフスタイル'
-    };
-    
-    categoryTitle.textContent = categoryTitles[category] || category;
-    productsContainer.innerHTML = '';
-    
-    const products = PRODUCT_DATABASE[category] || [];
-    
-    products.forEach((product, index) => {
-        const productCard = createSidebarProductCard(product);
-        productCard.style.opacity = '0';
-        productCard.style.transform = 'translateY(10px)';
-        
-        productsContainer.appendChild(productCard);
-        
-        setTimeout(() => {
-            productCard.style.transition = 'all 0.3s ease';
-            productCard.style.opacity = '1';
-            productCard.style.transform = 'translateY(0)';
-        }, index * 150);
-    });
-}
-
-function createSidebarProductCard(product) {
-    const card = document.createElement('div');
-    card.className = 'sidebar-product-card';
-    
-    const amazonUrl = `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
-    const stars = '★'.repeat(Math.floor(product.rating));
-    
-    card.innerHTML = `
-        <div class="sidebar-product-image">
-            <img src="${product.image}" alt="${product.title}" loading="lazy">
-        </div>
-        <div class="sidebar-product-info">
-            <div class="sidebar-product-title">${product.title}</div>
-            <div class="sidebar-product-price">${product.price}</div>
-            <div class="sidebar-product-rating">
-                <span class="stars">${stars}</span>
-                <span>${product.rating}</span>
-            </div>
-        </div>
-    `;
-    
-    card.addEventListener('click', () => {
-        window.open(amazonUrl, '_blank', 'noopener');
-    });
-    
-    return card;
-}
+// All product-related functions removed - analysis page now focuses purely on message analysis
 
