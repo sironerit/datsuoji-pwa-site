@@ -5,71 +5,323 @@ console.log('🔥 APP.JS VERSION 1.2 LOADED - With Amazon product recommendation
 const AMAZON_ASSOCIATE_TAG = 'pachisondatin-22';
 
 // Product database for recommendations - Real Android app products with working ASINs
+// Android版MoteGoodsSampleDataから統合した高品質商品データベース
 const PRODUCT_DATABASE = {
-    communication: [
+    // 👔 ファッション
+    fashion: [
+        {
+            title: "HMT スラックス メンズ ズボン 夏服 冷感パンツ",
+            description: "接触冷感でビジネスシーンも快適。ストレッチ素材で動きやすく、ウォッシャブルで手入れも簡単",
+            price: "¥2,980",
+            rating: 4.1,
+            reviews: 234,
+            image: "https://m.media-amazon.com/images/I/41LgnJTvhjL._AC_SX569_.jpg",
+            asin: "B0F12TRMW7",
+            category: "パンツ",
+            amazonUrl: "https://www.amazon.co.jp/dp/B0F12TRMW7/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "ビジネスシューズ 本革 メンズ ドレスシューズ",
+            description: "足元で差がつく本革ビジネスシューズ。上質な革と洗練されたデザインで大人の品格を演出",
+            price: "¥8,800",
+            rating: 4.2,
+            reviews: 1567,
+            image: "https://m.media-amazon.com/images/I/71LG+fqr4FL._AC_SX695_.jpg",
+            asin: "B01N9GNS6T",
+            category: "シューズ",
+            amazonUrl: "https://www.amazon.co.jp/dp/B01N9GNS6T/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "CHAOREN クリックベルト 革ベルト オートロック",
+            description: "本革使用の高品質ベルト。オートロック機能で装着簡単、105-150cmの大きいサイズまで対応",
+            price: "¥2,480",
+            rating: 4.3,
+            reviews: 1567,
+            image: "https://m.media-amazon.com/images/I/817zRHPKC2L._AC_SY606_.jpg",
+            asin: "40pqzUr",
+            category: "ベルト",
+            amazonUrl: "https://amzn.to/40pqzUr"
+        }
+    ],
+    
+    // 🧴 スキンケア  
+    skincare: [
         {
             title: "マニフィーク オールインワンジェル メンズ スキンケア",
-            description: "男性向けスキンケア。洗顔後これ1本で化粧水・乳液・美容液の役割。忙しい大人の男性に最適。",
-            price: "¥2,680",
+            description: "化粧水・乳液・美容液がこれ1本。忙しい男性の時短スキンケアに最適な230mL大容量",
+            price: "¥2,750",
             rating: 4.2,
-            reviews: 1547,
+            reviews: 567,
             image: "https://m.media-amazon.com/images/I/51xiOsgCYDL._AC_SY450_.jpg",
             asin: "B08D3MRSRC",
-            category: "スキンケア"
+            category: "オールインワン",
+            amazonUrl: "https://www.amazon.co.jp/dp/B08D3MRSRC/ref=nosim?tag=pachisondatin-22"
         },
         {
             title: "NILE ホワイトローション アルファ α",
-            description: "メンズ化粧水。保湿とエイジングケアを両立。大人の男性の肌を健やかに保ちます。",
-            price: "¥2,499",
-            rating: 4.1,
+            description: "高保湿化粧水でメンズ・レディース両用。ヒアルロン酸配合で肌に潤いを与える",
+            price: "¥2,480",
+            rating: 4.3,
             reviews: 892,
             image: "https://m.media-amazon.com/images/I/619JoyXHn3L.__AC_SX300_SY300_QL70_ML2_.jpg",
             asin: "B08D8V8HH9",
-            category: "スキンケア"
-        }
-    ],
-    fashion: [
-        {
-            title: "ビジネスシューズ 本革 メンズ ドレスシューズ",
-            description: "本革使用の高品質ビジネスシューズ。シンプルで洗練されたデザインがビジネスシーンを格上げ。",
-            price: "¥8,999",
-            rating: 4.3,
-            reviews: 2156,
-            image: "https://m.media-amazon.com/images/I/71LG+fqr4FL._AC_SX695_.jpg",
-            asin: "B01N9GNS6T",
-            category: "シューズ"
+            category: "化粧水",
+            amazonUrl: "https://www.amazon.co.jp/dp/B08D8V8HH9/ref=nosim?tag=pachisondatin-22"
         },
         {
-            title: "ＡＴＩＡＮＮＩ 財布 メンズ 長財布",
-            description: "上質な本革長財布。カードポケット豊富で機能性とエレガンスを兼ね備えた大人の逸品。",
-            price: "¥3,580",
-            rating: 4.4,
-            reviews: 1847,
-            image: "https://m.media-amazon.com/images/I/71smAZPqxUL._AC_SX679_.jpg",
-            asin: "B0C7Q5QP6R",
-            category: "財布・小物"
+            title: "無印良品 敏感肌用オールインワン美容液ジェル",
+            description: "敏感肌にやさしいオールインワンジェル。1本で化粧水・乳液・美容液の役割を果たし、忙しい男性の時短スキンケアに最適",
+            price: "¥1,890",
+            rating: 4.2,
+            reviews: 856,
+            image: "https://m.media-amazon.com/images/I/517rBm7-PnL._AC_SY450_.jpg",
+            asin: "B087CG8YXH",
+            category: "オールインワン",
+            amazonUrl: "https://www.amazon.co.jp/dp/B087CG8YXH/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "NILE 濃密泡洗顔 メンズ",
+            description: "濃密な泡で優しく洗浄。男性の肌を清潔に保ち、好印象を与える洗顔フォーム",
+            price: "¥2,280",
+            rating: 4.3,
+            reviews: 1678,
+            image: "https://m.media-amazon.com/images/I/61PVl8iD6CL._AC_SY879_.jpg",
+            asin: "B0F3N3TLBZ",
+            category: "洗顔",
+            amazonUrl: "https://www.amazon.co.jp/dp/B0F3N3TLBZ/ref=nosim?tag=pachisondatin-22"
         }
     ],
-    lifestyle: [
+    
+    // 🌸 香水・フレグランス
+    fragrance: [
         {
-            title: "フィリップス 電気シェーバー 5000シリーズ",
-            description: "快適な剃り心地の電気シェーバー。忙しい朝でも素早く身だしなみを整えられます。",
-            price: "¥9,980",
+            title: "ブルガリ プールオム オードトワレ 100ml",
+            description: "洗練された大人の男性のための上質な香り。シトラスとスパイシーノートが絶妙に調和",
+            price: "¥14,230",
+            rating: 4.4,
+            reviews: 892,
+            image: "https://m.media-amazon.com/images/I/61vM9p2C3uL.__AC_SY300_SX300_QL70_ML2_.jpg",
+            asin: "4eZUZm3",
+            category: "香水",
+            amazonUrl: "https://amzn.to/4eZUZm3"
+        },
+        {
+            title: "カルバンクライン CK-ONE オードトワレ 100ml",
+            description: "ユニセックスで使える爽やかな香り。シトラス系の清潔感あふれる定番フレグランス",
+            price: "¥3,602",
             rating: 4.3,
-            reviews: 3421,
-            image: "https://m.media-amazon.com/images/I/7106+xeoWqL._AC_SX679_.jpg",
-            asin: "B09TPSTJLV",
-            category: "身だしなみ"
+            reviews: 1567,
+            image: "https://m.media-amazon.com/images/I/51GHAOF+vFL._AC_SX679_.jpg",
+            asin: "4lAZKF7",
+            category: "香水",
+            amazonUrl: "https://amzn.to/4lAZKF7"
+        },
+        {
+            title: "トムフォード ブラックオーキッド オードパルファム",
+            description: "最高級の大人の魅力を演出する究極のフレグランス。洗練された男性の象徴",
+            price: "¥25,850",
+            rating: 4.5,
+            reviews: 892,
+            image: "https://m.media-amazon.com/images/I/51nQHHC3NeL._AC_SY879_.jpg",
+            asin: "46meGT6",
+            category: "香水",
+            amazonUrl: "https://amzn.to/46meGT6"
+        }
+    ],
+    
+    // ⌚ アクセサリー
+    accessories: [
+        {
+            title: "【JIS認証】UVカット100%遮光遮熱 折り畳み傘",
+            description: "皮膚科医監修の高性能折り畳み傘。UVカット100%、自動開閉、超軽量で紳士の身だしなみに最適",
+            price: "¥3,999",
+            rating: 4.5,
+            reviews: 892,
+            image: "https://m.media-amazon.com/images/I/61nb4klZA4L._AC_SX569_.jpg",
+            asin: "46lbebk",
+            category: "傘",
+            amazonUrl: "https://amzn.to/46lbebk"
+        },
+        {
+            title: "セイコー ソーラー腕時計 メンズ ビジネス",
+            description: "ソーラー充電で電池交換不要。ビジネスシーンで信頼感を演出する大人の必需品",
+            price: "¥12,100",
+            rating: 4.3,
+            reviews: 1234,
+            image: "https://m.media-amazon.com/images/I/611juWDOc-L._AC_SX679_.jpg",
+            asin: "4o07uCa",
+            category: "腕時計",
+            amazonUrl: "https://amzn.to/4o07uCa"
         },
         {
             title: "カシオ G-SHOCK デジタル腕時計 メンズ",
-            description: "タフで機能的なG-SHOCK。ビジネスからアウトドアまで幅広いシーンで活躍する信頼の逸品。",
-            price: "¥12,800",
-            rating: 4.6,
-            reviews: 5672,
+            description: "タフネス・アクティブさを演出するアイコニックウォッチ。男らしさの象徴",
+            price: "¥11,450",
+            rating: 4.4,
+            reviews: 2156,
             image: "https://m.media-amazon.com/images/I/61BudVOKqeL._AC_SX679_.jpg",
             asin: "B08D92LG93",
-            category: "腕時計"
+            category: "腕時計",
+            amazonUrl: "https://www.amazon.co.jp/dp/B08D92LG93/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "ＡＴＩＡＮＮＩ 財布 メンズ 長財布",
+            description: "一流の財布職人が作る本革長財布。YKKファスナー、スキミング防止機能付きで安心・安全",
+            price: "¥4,980",
+            rating: 4.4,
+            reviews: 456,
+            image: "https://m.media-amazon.com/images/I/71smAZPqxUL._AC_SX679_.jpg",
+            asin: "B0C7Q5QP6R",
+            category: "財布",
+            amazonUrl: "https://www.amazon.co.jp/dp/B0C7Q5QP6R/ref=nosim?tag=pachisondatin-22"
+        }
+    ],
+    
+    // ✂️ 身だしなみ
+    grooming: [
+        {
+            title: "ヘインズ ボクサーパンツ 5枚組",
+            description: "抗菌防臭機能付きで清潔をキープ。前開き仕様で使いやすく、5枚セットでお得",
+            price: "¥2,530",
+            rating: 4.3,
+            reviews: 2567,
+            image: "https://m.media-amazon.com/images/I/61Dmanr+e7L._AC_SX569_.jpg",
+            asin: "B0897Y2HQ4",
+            category: "下着",
+            amazonUrl: "https://www.amazon.co.jp/dp/B0897Y2HQ4/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "フィリップス 電気シェーバー 5000シリーズ",
+            description: "快適な深剃りを実現する回転式シェーバー。肌にやさしく、毎日の身だしなみを格上げ",
+            price: "¥13,200",
+            rating: 4.2,
+            reviews: 1456,
+            image: "https://m.media-amazon.com/images/I/7106+xeoWqL._AC_SX679_.jpg",
+            asin: "B09TPSTJLV",
+            category: "シェーバー",
+            amazonUrl: "https://www.amazon.co.jp/dp/B09TPSTJLV/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "パナソニック エチケットカッター 鼻毛カッター",
+            description: "見えない部分のケアも完璧に。コンパクトで持ち運びしやすく、清潔感のある大人の必需品",
+            price: "¥1,480",
+            rating: 4.1,
+            reviews: 892,
+            image: "https://m.media-amazon.com/images/I/6165mmE3gJL._AC_SX679_.jpg",
+            asin: "B0CY3QC19Q",
+            category: "エチケット",
+            amazonUrl: "https://www.amazon.co.jp/dp/B0CY3QC19Q/ref=nosim?tag=pachisondatin-22"
+        }
+    ],
+    
+    // 💪 フィットネス
+    fitness: [
+        {
+            title: "青汁 大麦若葉 国産野菜 44包",
+            description: "国産大麦若葉使用の健康青汁。野菜不足を手軽に解消し、健康意識の高い大人の印象をアップ",
+            price: "¥1,126",
+            rating: 4.2,
+            reviews: 1456,
+            image: "https://m.media-amazon.com/images/I/81QFwMaWVVL._AC_SX679_PIbundle-44,TopRight,0,0_SH20_.jpg",
+            asin: "B088CC1H15",
+            category: "健康食品",
+            amazonUrl: "https://www.amazon.co.jp/dp/B088CC1H15/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "マルチビタミン&ミネラル サプリメント",
+            description: "忙しいビジネスマンの栄養バランスをサポート。疲労回復・免疫力向上で体調管理を完璧に",
+            price: "¥778",
+            rating: 4.3,
+            reviews: 967,
+            image: "https://m.media-amazon.com/images/I/81Pun0gDirL._AC_SY879_.jpg",
+            asin: "B088RN1K1Q",
+            category: "サプリメント",
+            amazonUrl: "https://www.amazon.co.jp/dp/B088RN1K1Q/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "亜鉛サプリメント 男性向け 90粒",
+            description: "男性の活力をサポートする亜鉛サプリ。精力維持・疲労回復で40-50代の体調管理に最適",
+            price: "¥1,922",
+            rating: 4.1,
+            reviews: 743,
+            image: "https://m.media-amazon.com/images/I/51h8vpalxAL._AC_SX679_.jpg",
+            asin: "B00516RUX8",
+            category: "サプリメント",
+            amazonUrl: "https://www.amazon.co.jp/dp/B00516RUX8/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "DHA EPA オメガ3 フィッシュオイル",
+            description: "血液サラサラ・脳の健康をサポート。生活習慣病予防で長期的な健康維持を目指す大人のサプリ",
+            price: "¥904",
+            rating: 4.4,
+            reviews: 1234,
+            image: "https://m.media-amazon.com/images/I/71GhF6wMUmL._AC_SY879_.jpg",
+            asin: "B0015ESYC6",
+            category: "サプリメント",
+            amazonUrl: "https://www.amazon.co.jp/dp/B0015ESYC6/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "マッサージガン 筋膜リリース 静音",
+            description: "疲労回復・肩こり解消に最適なマッサージガン。40-50代の体メンテナンスで若々しい体調をキープ",
+            price: "¥6,999",
+            rating: 4.4,
+            reviews: 1892,
+            image: "https://m.media-amazon.com/images/I/71w44xx-lNL._AC_SY450_.jpg",
+            asin: "B093B4TSPM",
+            category: "フィットネス器具",
+            amazonUrl: "https://www.amazon.co.jp/dp/B093B4TSPM/ref=nosim?tag=pachisondatin-22"
+        }
+    ],
+    
+    // 📚 趣味・教養
+    hobby: [
+        {
+            title: "全自動エスプレッソマシン デロンギ",
+            description: "本格イタリアンエスプレッソを自宅で。最高級の大人の嗜みで、究極のライフスタイルを演出",
+            price: "¥69,800",
+            rating: 4.5,
+            reviews: 234,
+            image: "https://m.media-amazon.com/images/I/518ApUrwkqL._AC_SY879_.jpg",
+            asin: "B088HJCVDX",
+            category: "コーヒー",
+            amazonUrl: "https://www.amazon.co.jp/dp/B088HJCVDX/ref=nosim?tag=pachisondatin-22"
+        }
+    ],
+    
+    // 📱 ガジェット
+    gadget: [
+        {
+            title: "スマートウォッチ メンズ 多機能",
+            description: "最新テクノロジーで先進性をアピール。健康管理・通知機能で知的な男性を演出",
+            price: "¥6,580",
+            rating: 4.3,
+            reviews: 1892,
+            image: "https://m.media-amazon.com/images/I/61gMFKB+KNL._AC_SX679_.jpg",
+            asin: "B0CVX92HMN",
+            category: "スマートウォッチ",
+            amazonUrl: "https://www.amazon.co.jp/dp/B0CVX92HMN/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "ワイヤレスイヤホン ノイズキャンセリング",
+            description: "高音質とノイズキャンセリング機能で集中力UP。通勤・テレワークに最適な現代必須アイテム",
+            price: "¥6,890",
+            rating: 4.4,
+            reviews: 2134,
+            image: "https://m.media-amazon.com/images/I/41KRe-YdH1L._AC_SX679_.jpg",
+            asin: "B09GK8FS94",
+            category: "イヤホン",
+            amazonUrl: "https://www.amazon.co.jp/dp/B09GK8FS94/ref=nosim?tag=pachisondatin-22"
+        },
+        {
+            title: "NANAMIワイヤレス急速充電器 20W出力",
+            description: "Android端末対応のワイヤレス急速充電器。置くだけで充電できる先進性で、デスク周りをスマートに演出。PSE認証済みで安全性も確保",
+            price: "¥2,990",
+            rating: 4.5,
+            reviews: 2456,
+            image: "https://m.media-amazon.com/images/I/61OnmgIgitL._AC_SY450_.jpg",
+            asin: "B07S2WT1ZP",
+            category: "充電器",
+            amazonUrl: "https://www.amazon.co.jp/dp/B07S2WT1ZP/ref=nosim?tag=pachisondatin-22"
         }
     ]
 };
@@ -365,10 +617,16 @@ function showAllSidebarProducts() {
     productsContainer.innerHTML = '';
     
     // Create category carousels
+    // Android版統合カテゴリ（8カテゴリ、30+商品）
     const categories = [
-        { key: 'communication', title: '📚 スキンケア', products: PRODUCT_DATABASE.communication },
         { key: 'fashion', title: '👔 ファッション', products: PRODUCT_DATABASE.fashion },
-        { key: 'lifestyle', title: '🍷 ライフスタイル', products: PRODUCT_DATABASE.lifestyle }
+        { key: 'skincare', title: '🧴 スキンケア', products: PRODUCT_DATABASE.skincare },  
+        { key: 'fragrance', title: '🌸 香水・フレグランス', products: PRODUCT_DATABASE.fragrance },
+        { key: 'accessories', title: '⌚ アクセサリー', products: PRODUCT_DATABASE.accessories },
+        { key: 'grooming', title: '✂️ 身だしなみ', products: PRODUCT_DATABASE.grooming },
+        { key: 'fitness', title: '💪 フィットネス', products: PRODUCT_DATABASE.fitness },
+        { key: 'gadget', title: '📱 ガジェット', products: PRODUCT_DATABASE.gadget },
+        { key: 'hobby', title: '📚 趣味・教養', products: PRODUCT_DATABASE.hobby }
     ];
     
     categories.forEach((category, categoryIndex) => {
@@ -433,12 +691,13 @@ function createCategoryCarousel(category, categoryIndex) {
     return section;
 }
 
-// Create compact carousel product card
+// Create compact carousel product card  
 function createCompactCarouselCard(product) {
     const card = document.createElement('div');
     card.className = 'carousel-product-card';
     
-    const amazonUrl = `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
+    // Use pre-configured Amazon URLs from Android app data (with proper associate tag)
+    const amazonUrl = product.amazonUrl || `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
     const stars = '★'.repeat(Math.floor(product.rating));
     const emptyStars = '☆'.repeat(5 - Math.floor(product.rating));
     
@@ -660,11 +919,16 @@ function showSidebarProducts(category) {
         return;
     }
     
-    // Update category title
+    // Update category title (Android版統合カテゴリに対応)
     const categoryTitles = {
-        'communication': '📚 コミュニケーション',
-        'fashion': '👔 ファッション・身だしなみ', 
-        'lifestyle': '🍷 ライフスタイル'
+        'fashion': '👔 ファッション',
+        'skincare': '🧴 スキンケア',
+        'fragrance': '🌸 香水・フレグランス', 
+        'accessories': '⌚ アクセサリー',
+        'grooming': '✂️ 身だしなみ',
+        'fitness': '💪 フィットネス',
+        'gadget': '📱ガジェット',  
+        'hobby': '📚 趣味・教養'
     };
     
     categoryTitle.textContent = categoryTitles[category] || category;
@@ -705,7 +969,8 @@ function createSidebarProductCard(product) {
     const card = document.createElement('div');
     card.className = 'sidebar-product-card';
     
-    const amazonUrl = `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
+    // Use pre-configured Amazon URLs from Android app data (with proper associate tag)
+    const amazonUrl = product.amazonUrl || `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
     const stars = '★'.repeat(Math.floor(product.rating));
     
     card.innerHTML = `
@@ -756,11 +1021,16 @@ function displayCategoryProducts(category) {
     
     if (!productsContainer || !categoryTitle) return;
     
-    // Update category title
+    // Update category title (Android版統合カテゴリに対応)
     const categoryTitles = {
-        'communication': '📚 コミュニケーション',
-        'fashion': '👔 ファッション・身だしなみ',
-        'lifestyle': '🍷 ライフスタイル'
+        'fashion': '👔 ファッション',
+        'skincare': '🧴 スキンケア',
+        'fragrance': '🌸 香水・フレグランス', 
+        'accessories': '⌚ アクセサリー',
+        'grooming': '✂️ 身だしなみ',
+        'fitness': '💪 フィットネス',
+        'gadget': '📱 ガジェット',
+        'hobby': '📚 趣味・教養'
     };
     categoryTitle.textContent = categoryTitles[category] || 'カテゴリ';
     
@@ -859,19 +1129,31 @@ function createPermanentCategorySection(title, category, animationDelay) {
 }
 
 function getRecommendedProducts() {
-    // Select 3 products from different categories
-    const communication = PRODUCT_DATABASE.communication[Math.floor(Math.random() * PRODUCT_DATABASE.communication.length)];
-    const fashion = PRODUCT_DATABASE.fashion[Math.floor(Math.random() * PRODUCT_DATABASE.fashion.length)];
-    const lifestyle = PRODUCT_DATABASE.lifestyle[Math.floor(Math.random() * PRODUCT_DATABASE.lifestyle.length)];
+    // Select 3 products from different categories (Android統合版から)
+    const availableCategories = ['fashion', 'skincare', 'fragrance', 'accessories', 'grooming', 'fitness', 'gadget', 'hobby'];
+    const selectedProducts = [];
     
-    return [communication, fashion, lifestyle];
+    // ランダムに3つの異なるカテゴリから商品を選択
+    const shuffledCategories = availableCategories.sort(() => Math.random() - 0.5);
+    
+    for (let i = 0; i < Math.min(3, shuffledCategories.length); i++) {
+        const category = shuffledCategories[i];
+        const categoryProducts = PRODUCT_DATABASE[category];
+        if (categoryProducts && categoryProducts.length > 0) {
+            const randomProduct = categoryProducts[Math.floor(Math.random() * categoryProducts.length)];
+            selectedProducts.push(randomProduct);
+        }
+    }
+    
+    return selectedProducts;
 }
 
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
     
-    const amazonUrl = `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
+    // Use pre-configured Amazon URLs from Android app data (with proper associate tag)
+    const amazonUrl = product.amazonUrl || `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
     const stars = '★'.repeat(Math.floor(product.rating)) + '☆'.repeat(5 - Math.floor(product.rating));
     
     card.innerHTML = `
@@ -902,7 +1184,8 @@ function createHorizontalProductCard(product) {
     const card = document.createElement('div');
     card.className = 'horizontal-product-card';
     
-    const amazonUrl = `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
+    // Use pre-configured Amazon URLs from Android app data (with proper associate tag)
+    const amazonUrl = product.amazonUrl || `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
     const stars = '★'.repeat(Math.floor(product.rating)) + '☆'.repeat(5 - Math.floor(product.rating));
     
     card.innerHTML = `
