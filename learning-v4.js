@@ -4427,7 +4427,8 @@ let currentFilter = 'all';
 let searchQuery = '';
 
 // 商品データベース（app.jsから参照するためコメントアウト）
-// const PRODUCT_DATABASE = {
+/*
+const PRODUCT_DATABASE = {
     communication: [
         {
             title: "大人の話し方大全",
@@ -4475,8 +4476,9 @@ let searchQuery = '';
         }
     ]
 };
+*/
 
-const AMAZON_ASSOCIATE_TAG = 'pachisondatin-22';
+// AMAZON_ASSOCIATE_TAG is already defined in app.js
 
 // DOM要素
 let learningGrid;
@@ -4831,7 +4833,8 @@ function showSidebarProducts(category) {
     categoryTitle.textContent = categoryTitles[category] || category;
     productsContainer.innerHTML = '';
     
-    const products = PRODUCT_DATABASE[category] || [];
+    // Use global PRODUCT_DATABASE from app.js
+    const products = window.PRODUCT_DATABASE ? window.PRODUCT_DATABASE[category] || [] : [];
     
     products.forEach((product, index) => {
         const productCard = createSidebarProductCard(product);
