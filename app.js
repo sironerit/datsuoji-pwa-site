@@ -13,7 +13,7 @@ const PRODUCT_DATABASE = {
             price: "¥2,680",
             rating: 4.2,
             reviews: 1547,
-            image: "https://m.media-amazon.com/images/I/71vKp8YzQfL._AC_SX300_SY300_.jpg",
+            image: "https://m.media-amazon.com/images/I/51xiOsgCYDL._AC_SY450_.jpg",
             asin: "B08D3MRSRC",
             category: "スキンケア"
         },
@@ -23,7 +23,7 @@ const PRODUCT_DATABASE = {
             price: "¥2,499",
             rating: 4.1,
             reviews: 892,
-            image: "https://m.media-amazon.com/images/I/61h7X8k0AFL._AC_SX300_SY300_.jpg",
+            image: "https://m.media-amazon.com/images/I/619JoyXHn3L.__AC_SX300_SY300_QL70_ML2_.jpg",
             asin: "B08D8V8HH9",
             category: "スキンケア"
         }
@@ -35,7 +35,7 @@ const PRODUCT_DATABASE = {
             price: "¥8,999",
             rating: 4.3,
             reviews: 2156,
-            image: "https://m.media-amazon.com/images/I/71rN4KcBvjL._AC_SX300_SY300_.jpg",
+            image: "https://m.media-amazon.com/images/I/71LG+fqr4FL._AC_SX695_.jpg",
             asin: "B01N9GNS6T",
             category: "シューズ"
         },
@@ -45,7 +45,7 @@ const PRODUCT_DATABASE = {
             price: "¥3,580",
             rating: 4.4,
             reviews: 1847,
-            image: "https://m.media-amazon.com/images/I/71k4M3l8DYL._AC_SX300_SY300_.jpg",
+            image: "https://m.media-amazon.com/images/I/71smAZPqxUL._AC_SX679_.jpg",
             asin: "B0C7Q5QP6R",
             category: "財布・小物"
         }
@@ -57,7 +57,7 @@ const PRODUCT_DATABASE = {
             price: "¥9,980",
             rating: 4.3,
             reviews: 3421,
-            image: "https://m.media-amazon.com/images/I/61mC4YUoV4L._AC_SX300_SY300_.jpg",
+            image: "https://m.media-amazon.com/images/I/7106+xeoWqL._AC_SX679_.jpg",
             asin: "B09TPSTJLV",
             category: "身だしなみ"
         },
@@ -67,7 +67,7 @@ const PRODUCT_DATABASE = {
             price: "¥12,800",
             rating: 4.6,
             reviews: 5672,
-            image: "https://m.media-amazon.com/images/I/81P5xQNZJeL._AC_SX300_SY300_.jpg",
+            image: "https://m.media-amazon.com/images/I/61BudVOKqeL._AC_SX679_.jpg",
             asin: "B08D92LG93",
             category: "腕時計"
         }
