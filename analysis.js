@@ -827,9 +827,87 @@ const PRODUCT_DATABASE = {
 function displayPermanentRecommendedProducts() {
     setTimeout(() => {
         console.log('🎯 Setting up sidebar...');
-        setupPageSidebarCategories();
-        showSidebarProducts('communication');
+        showAllSidebarProducts();
     }, 100);
+}
+
+// New function to show all products without categories
+function showAllSidebarProducts() {
+    console.log('🛍️ Loading all products...');
+    
+    const productsContainer = document.getElementById('sidebarProducts');
+    
+    if (!productsContainer) {
+        console.error('❌ Products container not found!');
+        return;
+    }
+
+    // Clear existing content
+    productsContainer.innerHTML = '';
+    
+    // Combine all products from all categories
+    const allProducts = [
+        ...PRODUCT_DATABASE.communication,
+        ...PRODUCT_DATABASE.fashion, 
+        ...PRODUCT_DATABASE.lifestyle
+    ];
+    
+    console.log(`📦 Displaying ${allProducts.length} products total`);
+    
+    // Display each product with enhanced UI
+    allProducts.forEach((product, index) => {
+        const productCard = createEnhancedProductCard(product);
+        productCard.style.opacity = '0';
+        productCard.style.transform = 'translateY(10px)';
+        
+        productsContainer.appendChild(productCard);
+        
+        // Staggered animation
+        setTimeout(() => {
+            productCard.style.transition = 'all 0.3s ease';
+            productCard.style.opacity = '1';
+            productCard.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+}
+
+// Enhanced product card creation function  
+function createEnhancedProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'enhanced-product-card';
+    
+    const amazonUrl = `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
+    const stars = '★'.repeat(Math.floor(product.rating));
+    const emptyStars = '☆'.repeat(5 - Math.floor(product.rating));
+    
+    card.innerHTML = `
+        <div class="enhanced-product-image">
+            <img src="${product.image}" alt="${product.title}" loading="lazy">
+            <div class="category-badge">${product.category}</div>
+        </div>
+        <div class="enhanced-product-info">
+            <div class="enhanced-product-title">${product.title}</div>
+            <div class="enhanced-product-description">${product.description}</div>
+            <div class="enhanced-product-rating">
+                <span class="stars">${stars}${emptyStars}</span>
+                <span class="rating-number">${product.rating}</span>
+                <span class="review-count">(${product.reviews})</span>
+            </div>
+            <div class="enhanced-product-footer">
+                <div class="enhanced-product-price">${product.price}</div>
+                <button class="buy-now-btn">
+                    🛒 Amazon で見る
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // Add click event to the entire card
+    card.addEventListener('click', () => {
+        window.open(amazonUrl, '_blank', 'noopener');
+    });
+    
+    return card;
 }
 
 function setupPageSidebarCategories() {
