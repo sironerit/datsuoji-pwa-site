@@ -3880,7 +3880,224 @@ section h2 {
     color: #dc2626;
 }
 
-/* Buy button removed - card click handles Amazon link */
+/* Category Carousel Styles */
+.category-carousel-section {
+    margin-bottom: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.category-carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem 0.5rem 1rem;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+}
+
+.category-carousel-header .category-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.carousel-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.carousel-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.carousel-btn:hover {
+    background: #1d4ed8;
+    transform: scale(1.1);
+}
+
+.carousel-btn:active {
+    transform: scale(0.95);
+}
+
+.category-carousel-container {
+    position: relative;
+    padding: 0.5rem 1rem;
+    min-height: 200px;
+}
+
+.category-carousel-track {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-product-card {
+    display: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-product-card:hover {
+    transform: translateY(-2px);
+}
+
+.carousel-product-image {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+}
+
+.carousel-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.carousel-product-card:hover .carousel-product-image img {
+    transform: scale(1.05);
+}
+
+.carousel-product-info {
+    padding: 0;
+}
+
+.carousel-product-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.carousel-product-description {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.carousel-product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.carousel-product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.carousel-product-rating .stars {
+    color: #fbbf24;
+    font-size: 0.8rem;
+}
+
+.carousel-product-rating .rating-number {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.carousel-product-rating .review-count {
+    color: #64748b;
+}
+
+.carousel-product-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #dc2626;
+}
+
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem 1rem 1rem;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+}
+
+.carousel-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.carousel-indicator.active {
+    background: #2563eb;
+    transform: scale(1.2);
+}
+
+.carousel-indicator:hover {
+    background: #94a3b8;
+}
+
+/* Mobile responsive adjustments for carousel */
+@media (max-width: 768px) {
+    .category-carousel-section {
+        margin-bottom: 1rem;
+    }
+    
+    .category-carousel-header {
+        padding: 0.75rem 0.75rem 0.5rem 0.75rem;
+    }
+    
+    .category-carousel-header .category-title {
+        font-size: 0.9rem;
+    }
+    
+    .carousel-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+    }
+    
+    .category-carousel-container {
+        padding: 0.5rem 0.75rem;
+        min-height: 180px;
+    }
+    
+    .carousel-product-image {
+        height: 100px;
+    }
+    
+    .carousel-indicators {
+        padding: 0.5rem 0.75rem 0.75rem 0.75rem;
+    }
+}
+
+/* Legacy enhanced product card styles - kept for compatibility */
 
 /* Mobile responsive adjustments for enhanced cards */
 @media (max-width: 768px) {

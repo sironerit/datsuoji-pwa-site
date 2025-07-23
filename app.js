@@ -350,9 +350,9 @@ function displayPermanentRecommendedProducts() {
     }, 100);
 }
 
-// New function to show all products without categories
+// New function to show category-based carousels
 function showAllSidebarProducts() {
-    console.log('🛍️ Loading all products...');
+    console.log('🛍️ Loading category carousels...');
     
     const productsContainer = document.getElementById('sidebarProducts');
     
@@ -364,30 +364,245 @@ function showAllSidebarProducts() {
     // Clear existing content
     productsContainer.innerHTML = '';
     
-    // Combine all products from all categories
-    const allProducts = [
-        ...PRODUCT_DATABASE.communication,
-        ...PRODUCT_DATABASE.fashion, 
-        ...PRODUCT_DATABASE.lifestyle
+    // Create category carousels
+    const categories = [
+        { key: 'communication', title: '📚 スキンケア', products: PRODUCT_DATABASE.communication },
+        { key: 'fashion', title: '👔 ファッション', products: PRODUCT_DATABASE.fashion },
+        { key: 'lifestyle', title: '🍷 ライフスタイル', products: PRODUCT_DATABASE.lifestyle }
     ];
     
-    console.log(`📦 Displaying ${allProducts.length} products total`);
-    
-    // Display each product with enhanced UI
-    allProducts.forEach((product, index) => {
-        const productCard = createEnhancedProductCard(product);
-        productCard.style.opacity = '0';
-        productCard.style.transform = 'translateY(10px)';
-        
-        productsContainer.appendChild(productCard);
-        
-        // Staggered animation
-        setTimeout(() => {
-            productCard.style.transition = 'all 0.3s ease';
-            productCard.style.opacity = '1';
-            productCard.style.transform = 'translateY(0)';
-        }, index * 100);
+    categories.forEach((category, categoryIndex) => {
+        if (category.products.length > 0) {
+            const carouselSection = createCategoryCarousel(category, categoryIndex);
+            productsContainer.appendChild(carouselSection);
+        }
     });
+}
+
+// Create category carousel section
+function createCategoryCarousel(category, categoryIndex) {
+    const section = document.createElement('div');
+    section.className = 'category-carousel-section';
+    section.setAttribute('data-category', category.key);
+    
+    section.innerHTML = `
+        <div class="category-carousel-header">
+            <h4 class="category-title">${category.title}</h4>
+            <div class="carousel-controls">
+                <button class="carousel-btn prev-btn" data-category="${category.key}">‹</button>
+                <button class="carousel-btn next-btn" data-category="${category.key}">›</button>
+            </div>
+        </div>
+        <div class="category-carousel-container">
+            <div class="category-carousel-track" data-category="${category.key}">
+                <!-- Products will be added here -->
+            </div>
+        </div>
+        <div class="carousel-indicators" data-category="${category.key}">
+            <!-- Indicators will be added here -->
+        </div>
+    `;
+    
+    // Add products to carousel
+    const track = section.querySelector('.category-carousel-track');
+    const indicators = section.querySelector('.carousel-indicators');
+    
+    category.products.forEach((product, index) => {
+        // Create product card
+        const productCard = createCompactCarouselCard(product);
+        productCard.style.display = index === 0 ? 'block' : 'none';
+        track.appendChild(productCard);
+        
+        // Create indicator
+        const indicator = document.createElement('span');
+        indicator.className = `carousel-indicator ${index === 0 ? 'active' : ''}`;
+        indicator.setAttribute('data-index', index);
+        indicator.setAttribute('data-category', category.key);
+        indicators.appendChild(indicator);
+    });
+    
+    // Initialize carousel functionality
+    setTimeout(() => {
+        initializeCarousel(category.key, category.products.length);
+    }, 100);
+    
+    return section;
+}
+
+// Create compact carousel product card
+function createCompactCarouselCard(product) {
+    const card = document.createElement('div');
+    card.className = 'carousel-product-card';
+    
+    const amazonUrl = `https://www.amazon.co.jp/dp/${product.asin}?tag=${AMAZON_ASSOCIATE_TAG}`;
+    const stars = '★'.repeat(Math.floor(product.rating));
+    const emptyStars = '☆'.repeat(5 - Math.floor(product.rating));
+    
+    card.innerHTML = `
+        <div class="carousel-product-image">
+            <img src="${product.image}" alt="${product.title}" loading="lazy">
+            <div class="category-badge">${product.category}</div>
+        </div>
+        <div class="carousel-product-info">
+            <div class="carousel-product-title">${product.title}</div>
+            <div class="carousel-product-description">${product.description}</div>
+            <div class="carousel-product-footer">
+                <div class="carousel-product-rating">
+                    <span class="stars">${stars}${emptyStars}</span>
+                    <span class="rating-number">${product.rating}</span>
+                    <span class="review-count">(${product.reviews})</span>
+                </div>
+                <div class="carousel-product-price">${product.price}</div>
+            </div>
+        </div>
+    `;
+    
+    // Add click event to the entire card
+    card.addEventListener('click', () => {
+        window.open(amazonUrl, '_blank', 'noopener');
+    });
+    
+    return card;
+}
+
+// Carousel management
+const carouselStates = {};
+
+// Initialize carousel functionality
+function initializeCarousel(categoryKey, productCount) {
+    if (productCount <= 1) return; // No need for carousel with single product
+    
+    // Initialize state
+    carouselStates[categoryKey] = {
+        currentIndex: 0,
+        productCount: productCount,
+        autoSlideInterval: null,
+        isHovered: false
+    };
+    
+    // Set up event listeners
+    setupCarouselEventListeners(categoryKey);
+    
+    // Start auto-slide
+    startAutoSlide(categoryKey);
+}
+
+// Set up carousel event listeners
+function setupCarouselEventListeners(categoryKey) {
+    const section = document.querySelector(`.category-carousel-section[data-category="${categoryKey}"]`);
+    if (!section) return;
+    
+    // Navigation buttons
+    const prevBtn = section.querySelector('.prev-btn');
+    const nextBtn = section.querySelector('.next-btn');
+    
+    prevBtn.addEventListener('click', () => {
+        navigateCarousel(categoryKey, 'prev');
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        navigateCarousel(categoryKey, 'next');
+    });
+    
+    // Indicator clicks
+    const indicators = section.querySelectorAll('.carousel-indicator');
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            navigateCarousel(categoryKey, index);
+        });
+    });
+    
+    // Hover to pause auto-slide
+    const container = section.querySelector('.category-carousel-container');
+    container.addEventListener('mouseenter', () => {
+        carouselStates[categoryKey].isHovered = true;
+        stopAutoSlide(categoryKey);
+    });
+    
+    container.addEventListener('mouseleave', () => {
+        carouselStates[categoryKey].isHovered = false;
+        startAutoSlide(categoryKey);
+    });
+}
+
+// Navigate carousel
+function navigateCarousel(categoryKey, direction) {
+    const state = carouselStates[categoryKey];
+    if (!state) return;
+    
+    let newIndex;
+    
+    if (direction === 'prev') {
+        newIndex = state.currentIndex === 0 ? state.productCount - 1 : state.currentIndex - 1;
+    } else if (direction === 'next') {
+        newIndex = state.currentIndex === state.productCount - 1 ? 0 : state.currentIndex + 1;
+    } else {
+        newIndex = direction; // Direct index
+    }
+    
+    showCarouselSlide(categoryKey, newIndex);
+}
+
+// Show specific carousel slide
+function showCarouselSlide(categoryKey, index) {
+    const state = carouselStates[categoryKey];
+    if (!state || index === state.currentIndex) return;
+    
+    const section = document.querySelector(`.category-carousel-section[data-category="${categoryKey}"]`);
+    if (!section) return;
+    
+    const track = section.querySelector('.category-carousel-track');
+    const indicators = section.querySelectorAll('.carousel-indicator');
+    const cards = track.querySelectorAll('.carousel-product-card');
+    
+    // Hide current card
+    if (cards[state.currentIndex]) {
+        cards[state.currentIndex].style.display = 'none';
+    }
+    
+    // Show new card with fade effect
+    if (cards[index]) {
+        cards[index].style.display = 'block';
+        cards[index].style.opacity = '0';
+        cards[index].style.transform = 'translateX(20px)';
+        
+        setTimeout(() => {
+            cards[index].style.transition = 'all 0.3s ease';
+            cards[index].style.opacity = '1';
+            cards[index].style.transform = 'translateX(0)';
+        }, 10);
+    }
+    
+    // Update indicators
+    indicators.forEach((indicator, i) => {
+        indicator.classList.toggle('active', i === index);
+    });
+    
+    // Update state
+    state.currentIndex = index;
+}
+
+// Start auto-slide
+function startAutoSlide(categoryKey) {
+    const state = carouselStates[categoryKey];
+    if (!state || state.isHovered || state.productCount <= 1) return;
+    
+    stopAutoSlide(categoryKey); // Clear any existing interval
+    
+    state.autoSlideInterval = setInterval(() => {
+        if (!state.isHovered) {
+            navigateCarousel(categoryKey, 'next');
+        }
+    }, 8000); // 8 seconds
+}
+
+// Stop auto-slide
+function stopAutoSlide(categoryKey) {
+    const state = carouselStates[categoryKey];
+    if (state && state.autoSlideInterval) {
+        clearInterval(state.autoSlideInterval);
+        state.autoSlideInterval = null;
+    }
 }
 
 // Enhanced product card creation function
