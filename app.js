@@ -377,8 +377,10 @@ function initializeApp() {
     // Set up event listeners
     setupEventListeners();
     
-    // Update character count
-    updateCharCount();
+    // Update character count (only on main page)
+    if (inputText && charCount) {
+        updateCharCount();
+    }
     
     // Display recommended products immediately on page load (permanent section)
     displayPermanentRecommendedProducts();
@@ -418,6 +420,8 @@ function handlePaste(event) {
 }
 
 function updateCharCount() {
+    if (!inputText || !charCount) return;
+    
     const text = inputText.value;
     const count = text.length;
     charCount.textContent = count;
