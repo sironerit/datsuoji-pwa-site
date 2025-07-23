@@ -4,52 +4,72 @@ console.log('🔥 APP.JS VERSION 1.2 LOADED - With Amazon product recommendation
 // Amazon Associates configuration
 const AMAZON_ASSOCIATE_TAG = 'pachisondatin-22';
 
-// Product database for recommendations - Real Android app products
+// Product database for recommendations - Real Android app products with working ASINs
 const PRODUCT_DATABASE = {
     communication: [
         {
-            title: "ブルガリ プールオム オードトワレ 100ml",
-            description: "大人の男性に人気の上品で洗練された香り。デートやビジネスシーンで好印象を与える定番フレグランス。",
-            price: "¥14,230",
-            rating: 4.4,
-            reviews: 892,
-            image: "https://m.media-amazon.com/images/I/61vM9p2C3uL.__AC_SY300_SX300_QL70_ML2_.jpg",
-            asin: "B000C1YPZQ",
-            category: "香水・フレグランス"
+            title: "マニフィーク オールインワンジェル メンズ スキンケア",
+            description: "男性向けスキンケア。洗顔後これ1本で化粧水・乳液・美容液の役割。忙しい大人の男性に最適。",
+            price: "¥2,680",
+            rating: 4.2,
+            reviews: 1547,
+            image: "https://m.media-amazon.com/images/I/71vKp8YzQfL._AC_SX300_SY300_.jpg",
+            asin: "B08D3MRSRC",
+            category: "スキンケア"
         },
         {
-            title: "サムライ オードトワレ 100ml",
-            description: "日本生まれのメンズフレグランス。爽やかでスパイシーな香りが大人の男性を演出します。",
-            price: "¥2,980",
-            rating: 4.2,
-            reviews: 1240,
-            image: "https://m.media-amazon.com/images/I/61Gs8J5RKQL._AC_SX300_SY300_.jpg",
-            asin: "B000FQOFPU",
-            category: "香水・フレグランス"
+            title: "NILE ホワイトローション アルファ α",
+            description: "メンズ化粧水。保湿とエイジングケアを両立。大人の男性の肌を健やかに保ちます。",
+            price: "¥2,499",
+            rating: 4.1,
+            reviews: 892,
+            image: "https://m.media-amazon.com/images/I/61h7X8k0AFL._AC_SX300_SY300_.jpg",
+            asin: "B08D8V8HH9",
+            category: "スキンケア"
         }
     ],
     fashion: [
         {
-            title: "ビジネスベルト 本革 日本製",
-            description: "上質な本革を使用した日本製ビジネスベルト。シンプルで洗練されたデザインが大人の品格を演出。",
-            price: "¥6,800",
+            title: "ビジネスシューズ 本革 メンズ ドレスシューズ",
+            description: "本革使用の高品質ビジネスシューズ。シンプルで洗練されたデザインがビジネスシーンを格上げ。",
+            price: "¥8,999",
             rating: 4.3,
-            reviews: 456,
-            image: "https://m.media-amazon.com/images/I/61XYZ123ABC._AC_SX300_SY300_.jpg",
-            asin: "B07XYZ1234",
-            category: "ファッション小物"
+            reviews: 2156,
+            image: "https://m.media-amazon.com/images/I/71rN4KcBvjL._AC_SX300_SY300_.jpg",
+            asin: "B01N9GNS6T",
+            category: "シューズ"
+        },
+        {
+            title: "ＡＴＩＡＮＮＩ 財布 メンズ 長財布",
+            description: "上質な本革長財布。カードポケット豊富で機能性とエレガンスを兼ね備えた大人の逸品。",
+            price: "¥3,580",
+            rating: 4.4,
+            reviews: 1847,
+            image: "https://m.media-amazon.com/images/I/71k4M3l8DYL._AC_SX300_SY300_.jpg",
+            asin: "B0C7Q5QP6R",
+            category: "財布・小物"
         }
     ],
     lifestyle: [
         {
-            title: "高級ボールペン パーカー IM",
-            description: "エレガントなデザインのパーカー製ボールペン。ビジネスシーンやギフトに最適な一本。",
-            price: "¥4,200",
-            rating: 4.5,
-            reviews: 789,
-            image: "https://m.media-amazon.com/images/I/51ABC789XYZ._AC_SX300_SY300_.jpg",
-            asin: "B01ABC7890",
-            category: "文房具・オフィス用品"
+            title: "フィリップス 電気シェーバー 5000シリーズ",
+            description: "快適な剃り心地の電気シェーバー。忙しい朝でも素早く身だしなみを整えられます。",
+            price: "¥9,980",
+            rating: 4.3,
+            reviews: 3421,
+            image: "https://m.media-amazon.com/images/I/61mC4YUoV4L._AC_SX300_SY300_.jpg",
+            asin: "B09TPSTJLV",
+            category: "身だしなみ"
+        },
+        {
+            title: "カシオ G-SHOCK デジタル腕時計 メンズ",
+            description: "タフで機能的なG-SHOCK。ビジネスからアウトドアまで幅広いシーンで活躍する信頼の逸品。",
+            price: "¥12,800",
+            rating: 4.6,
+            reviews: 5672,
+            image: "https://m.media-amazon.com/images/I/81P5xQNZJeL._AC_SX300_SY300_.jpg",
+            asin: "B08D92LG93",
+            category: "腕時計"
         }
     ]
 };
