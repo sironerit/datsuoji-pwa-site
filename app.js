@@ -14,7 +14,7 @@ const PRODUCT_DATABASE = {
             rating: 4.4,
             reviews: 892,
             image: "https://m.media-amazon.com/images/I/61vM9p2C3uL.__AC_SY300_SX300_QL70_ML2_.jpg",
-            asin: "B000C20F0I",
+            asin: "B000C1YPZQ",
             category: "香水・フレグランス"
         }
     ],
