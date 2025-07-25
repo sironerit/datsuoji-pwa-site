@@ -30,13 +30,15 @@ exports.handler = async (event, context) => {
         // Simple in-memory storage for demo (in production, use database)
         // This will reset on each deployment
         if (!global.siteStats) {
+            // 2025年7月25日をサービス開始日として設定
+            const serviceStartDate = new Date('2025-07-25T00:00:00Z');
             global.siteStats = {
                 totalImprovements: 0,
                 totalRequests: 0,
                 successCount: 0,
                 dailyStats: {},
                 timeSlots: { morning: 0, afternoon: 0, evening: 0, night: 0 },
-                firstUse: new Date().toISOString()
+                firstUse: serviceStartDate.toISOString()
             };
         }
 
