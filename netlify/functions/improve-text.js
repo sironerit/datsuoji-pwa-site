@@ -109,23 +109,6 @@ exports.handler = async (event, context) => {
         
         const improvedTexts = parseMultipleImprovements(responseText);
         
-        // 改善成功時に統計データを追跡
-        try {
-            await fetch('https://datsuoji.netlify.app/.netlify/functions/track-stats', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'track',
-                    data: {
-                        success: true,
-                        type: 'improvement',
-                        timestamp: new Date().toISOString()
-                    }
-                })
-            });
-        } catch (trackError) {
-            console.log('Stats tracking failed (non-critical):', trackError);
-        }
         
         return {
             statusCode: 200,

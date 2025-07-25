@@ -471,8 +471,6 @@ async function handleImproveClick() {
         console.log('✅ Got improvements:', improvements);
         displayResults(improvements);
         
-        // 統計データを記録 (改善機能)
-        trackUsageStats(text, improvements, true, 'improvement');
         
         // Don't display additional recommendations after improvement - use permanent sidebar
         resultsSection.style.display = 'block';
@@ -481,8 +479,6 @@ async function handleImproveClick() {
     } catch (error) {
         console.error('Improvement failed:', error);
         
-        // エラーも統計データに記録 (改善機能)
-        trackUsageStats(text, [], false, 'improvement');
         
         showErrorMessage('改善処理中にエラーが発生しました。もう一度お試しください。');
     } finally {
@@ -1442,36 +1438,5 @@ window.addEventListener('offline', () => {
     showErrorMessage('インターネット接続が切断されました。オフライン機能は限定的です。');
 });
 
-// 全体統計データ追跡システム
-async function trackUsageStats(inputText, improvements, success, type = 'improvement') {
-    try {
-        // サーバーに統計データを送信
-        const response = await fetch('/.netlify/functions/track-stats', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                action: 'track',
-                data: {
-                    success: success,
-                    type: type,
-                    improvementCount: improvements.length,
-                    timestamp: new Date().toISOString()
-                }
-            })
-        });
-
-        if (response.ok) {
-            console.log('📊 全体統計データ記録完了');
-        } else {
-            console.error('統計データ送信失敗:', response.status);
-        }
-        
-    } catch (error) {
-        console.error('統計データ記録エラー:', error);
-        // エラーが発生してもメイン機能は継続
-    }
-}
 
 // PWA Update notification

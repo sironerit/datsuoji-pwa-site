@@ -160,23 +160,6 @@ exports.handler = async (event, context) => {
             analysisResult = generateMockAnalysis(text);
         }
 
-        // 分析成功時に統計データを追跡
-        try {
-            await fetch('https://datsuoji.netlify.app/.netlify/functions/track-stats', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'track',
-                    data: {
-                        success: true,
-                        type: 'analysis',
-                        timestamp: new Date().toISOString()
-                    }
-                })
-            });
-        } catch (trackError) {
-            console.log('Stats tracking failed (non-critical):', trackError);
-        }
 
         return {
             statusCode: 200,
