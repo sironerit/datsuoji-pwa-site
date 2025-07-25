@@ -32,8 +32,9 @@ exports.handler = async (event, context) => {
         if (!global.siteStats) {
             // 現在の日付をサービス開始日として自動設定（今後の実装で再利用可能）
             const now = new Date();
-            // 日本時間の今日の0時0分0秒を取得
-            const serviceStartDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            // 日本時間での今日の日付を取得
+            const japanNow = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Tokyo"}));
+            const serviceStartDate = new Date(japanNow.getFullYear(), japanNow.getMonth(), japanNow.getDate());
             
             global.siteStats = {
                 totalImprovements: 0,
@@ -49,9 +50,20 @@ exports.handler = async (event, context) => {
         if (action === 'track') {
             // Track new usage
             const stats = global.siteStats;
+            // 日本時間を取得
             const now = new Date();
-            const today = now.toDateString();
-            const hour = now.getHours();
+            const japanTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Tokyo"}));
+            const today = japanTime.toDateString();
+            const hour = japanTime.getHours();
+            
+            console.log('Time check:', {
+                utc: now.toISOString(),
+                japan: japanTime.toLocaleString(),
+                hour: hour,
+                timeSlot: hour >= 6 && hour < 12 ? 'morning' : 
+                         hour >= 12 && hour < 18 ? 'afternoon' : 
+                         hour >= 18 && hour < 24 ? 'evening' : 'night'
+            });
 
             stats.totalRequests += 1;
             if (data.success) {
