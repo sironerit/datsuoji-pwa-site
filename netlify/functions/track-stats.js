@@ -37,6 +37,7 @@ exports.handler = async (event, context) => {
             
             global.siteStats = {
                 totalImprovements: 0,
+                totalAnalyses: 0,  // 分析機能の統計を追加
                 totalRequests: 0,
                 successCount: 0,
                 dailyStats: {},
@@ -55,7 +56,12 @@ exports.handler = async (event, context) => {
             stats.totalRequests += 1;
             if (data.success) {
                 stats.successCount += 1;
-                stats.totalImprovements += 1;
+                // 機能タイプに応じて統計を分ける
+                if (data.type === 'analysis') {
+                    stats.totalAnalyses += 1;
+                } else {
+                    stats.totalImprovements += 1;  // デフォルトは改善機能
+                }
             }
 
             // Daily stats
@@ -108,6 +114,7 @@ exports.handler = async (event, context) => {
                 headers,
                 body: JSON.stringify({
                     totalImprovements: stats.totalImprovements,
+                    totalAnalyses: stats.totalAnalyses,
                     todayCount,
                     successRate,
                     activeDays,

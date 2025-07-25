@@ -471,8 +471,8 @@ async function handleImproveClick() {
         console.log('✅ Got improvements:', improvements);
         displayResults(improvements);
         
-        // 統計データを記録
-        trackUsageStats(text, improvements, true);
+        // 統計データを記録 (改善機能)
+        trackUsageStats(text, improvements, true, 'improvement');
         
         // Don't display additional recommendations after improvement - use permanent sidebar
         resultsSection.style.display = 'block';
@@ -481,8 +481,8 @@ async function handleImproveClick() {
     } catch (error) {
         console.error('Improvement failed:', error);
         
-        // エラーも統計データに記録
-        trackUsageStats(text, [], false);
+        // エラーも統計データに記録 (改善機能)
+        trackUsageStats(text, [], false, 'improvement');
         
         showErrorMessage('改善処理中にエラーが発生しました。もう一度お試しください。');
     } finally {
@@ -1443,7 +1443,7 @@ window.addEventListener('offline', () => {
 });
 
 // 全体統計データ追跡システム
-async function trackUsageStats(inputText, improvements, success) {
+async function trackUsageStats(inputText, improvements, success, type = 'improvement') {
     try {
         // サーバーに統計データを送信
         const response = await fetch('/.netlify/functions/track-stats', {
@@ -1455,6 +1455,7 @@ async function trackUsageStats(inputText, improvements, success) {
                 action: 'track',
                 data: {
                     success: success,
+                    type: type,
                     improvementCount: improvements.length,
                     timestamp: new Date().toISOString()
                 }

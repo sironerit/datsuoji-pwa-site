@@ -82,6 +82,15 @@
                     </div>
 
                     <div class="stat-card primary-stat">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalAnalyses">0</div>
+                            <div class="stat-label">累計メッセージ分析数</div>
+                            <div class="stat-trend positive" id="analysesTrend">全体利用統計</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card primary-stat">
                         <div class="stat-icon">✅</div>
                         <div class="stat-content">
                             <div class="stat-number" id="successRate">---%</div>
@@ -229,7 +238,11 @@
                     
                     // 基本統計を更新
                     document.getElementById('totalImprovements').textContent = stats.totalImprovements;
-                    document.getElementById('todayCount').textContent = stats.todayCount;
+                    document.getElementById('totalAnalyses').textContent = stats.totalAnalyses;
+                    
+                    // 今日の合計使用回数（改善+分析）
+                    const totalToday = (stats.todayCount || 0);
+                    document.getElementById('todayCount').textContent = totalToday;
                     
                     // 成功率を表示
                     if (stats.totalRequests > 0) {
@@ -273,7 +286,7 @@
                     // 追加統計情報
                     document.getElementById('totalRequests').textContent = stats.totalRequests;
                     document.getElementById('successCount').textContent = 
-                        stats.totalRequests - (stats.totalRequests - stats.totalImprovements);
+                        stats.totalImprovements + stats.totalAnalyses;
                     
                     // サービス開始日
                     const startDate = new Date(stats.firstUse);
