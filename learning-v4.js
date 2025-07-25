@@ -4706,10 +4706,6 @@ function createLearningCard(item) {
     
     // カード全体クリックで展開機能を追加
     card.addEventListener('click', (e) => {
-        // 展開コンテンツ内のクリックは無視
-        if (e.target.closest('.learning-expanded-content')) {
-            return;
-        }
         toggleLearningExpansion(card, item);
     });
     
