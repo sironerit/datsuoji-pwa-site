@@ -50,7 +50,10 @@ body > * {
 
 /* Header */
 .header {
-    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('icons/header-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
     padding: 2rem 0;
     text-align: center;
