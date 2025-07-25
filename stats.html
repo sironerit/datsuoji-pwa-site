@@ -62,11 +62,11 @@
             <!-- Stats Overview Section -->
             <section class="stats-overview-section">
                 <div class="stats-header">
-                    <h2>📈 あなたの利用統計・分析データ</h2>
+                    <h2>📈 脱おじ構文 利用統計・分析データ</h2>
                     <p class="stats-description">
-                        あなたの<strong>メッセージ改善利用実績</strong>と
+                        40-50代男性向けメッセージ改善サービスの<strong>全体利用実績</strong>と
                         <strong>改善効果データ</strong>をご覧いただけます。<br>
-                        <small style="color: #666;">※ データはブラウザに保存され、他のユーザーと共有されません</small>
+                        <small style="color: #666;">※ 全ユーザーの利用データを集計した統計です</small>
                     </p>
                 </div>
 
@@ -76,7 +76,7 @@
                         <div class="stat-icon">💬</div>
                         <div class="stat-content">
                             <div class="stat-number" id="totalImprovements">0</div>
-                            <div class="stat-label">あなたの改善回数</div>
+                            <div class="stat-label">累計改善メッセージ数</div>
                             <div class="stat-trend positive" id="improvementsTrend">本日: <span id="todayCount">0</span>回</div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                         <div class="stat-icon">✅</div>
                         <div class="stat-content">
                             <div class="stat-number" id="successRate">---%</div>
-                            <div class="stat-label">あなたの成功率</div>
+                            <div class="stat-label">AI処理成功率</div>
                             <div class="stat-trend positive" id="successTrend">稼働中</div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                         <div class="stat-icon">📅</div>
                         <div class="stat-content">
                             <div class="stat-number" id="activeDays">0</div>
-                            <div class="stat-label">利用継続日数</div>
+                            <div class="stat-label">サービス稼働日数</div>
                             <div class="stat-trend positive">継続中</div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
 
             <!-- Usage Patterns Section -->
             <section class="usage-patterns-section">
-                <h3>📊 あなたの利用パターン分析</h3>
+                <h3>📊 全体利用パターン分析</h3>
                 <div class="patterns-grid">
                     <div class="pattern-card">
                         <h4>⏰ 時間帯別利用状況</h4>
@@ -141,26 +141,37 @@
                     </div>
 
                     <div class="pattern-card">
-                        <h4>📊 あなたの利用履歴</h4>
-                        <div class="recent-usage" id="recentUsage">
-                            <p class="no-data">まだ利用履歴がありません</p>
+                        <h4>📊 利用統計情報</h4>
+                        <div class="stats-info" id="statsInfo">
+                            <div class="info-item">
+                                <span class="info-label">総リクエスト数</span>
+                                <span class="info-value" id="totalRequests">0</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">成功回数</span>
+                                <span class="info-value" id="successCount">0</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">サービス開始</span>
+                                <span class="info-value" id="serviceStart">---</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="pattern-card">
-                        <h4>📈 あなたの利用傾向</h4>
-                        <div class="usage-trends" id="usageTrends">
-                            <div class="trend-item">
-                                <span class="trend-label">平均利用回数/日</span>
-                                <span class="trend-value" id="avgDaily">0回</span>
+                        <h4>📈 システム状況</h4>
+                        <div class="system-status" id="systemStatus">
+                            <div class="status-item">
+                                <span class="status-icon">🟢</span>
+                                <span class="status-text">AI処理システム稼働中</span>
                             </div>
-                            <div class="trend-item">
-                                <span class="trend-label">最多利用日</span>
-                                <span class="trend-value" id="bestDay">---</span>
+                            <div class="status-item">
+                                <span class="status-icon">📊</span>
+                                <span class="status-text">統計データ収集中</span>
                             </div>
-                            <div class="trend-item">
-                                <span class="trend-label">連続利用日数</span>
-                                <span class="trend-value" id="streak">0日</span>
+                            <div class="status-item">
+                                <span class="status-icon">⚡</span>
+                                <span class="status-text">高速レスポンス維持</span>
                             </div>
                         </div>
                     </div>
@@ -202,117 +213,93 @@
     <script src="shared-products.js"></script>
     <script src="app.js"></script>
     <script>
-        // 実際の統計データを表示する関数
-        function loadRealStats() {
-            // LocalStorageから統計データを取得
-            const stats = JSON.parse(localStorage.getItem('datsujoji-stats') || '{}');
-            const improvements = stats.improvements || [];
-            const successCount = stats.successCount || 0;
-            const totalRequests = stats.totalRequests || 0;
-            
-            // 基本統計を更新
-            document.getElementById('totalImprovements').textContent = improvements.length;
-            
-            // 今日の利用回数を計算
-            const today = new Date().toDateString();
-            const todayCount = improvements.filter(item => 
-                new Date(item.timestamp).toDateString() === today
-            ).length;
-            document.getElementById('todayCount').textContent = todayCount;
-            
-            // 成功率を計算
-            if (totalRequests > 0) {
-                const successRate = Math.round((successCount / totalRequests) * 100);
-                document.getElementById('successRate').textContent = successRate + '%';
-                document.getElementById('successTrend').textContent = 
-                    successRate >= 90 ? '良好' : successRate >= 70 ? '安定' : '改善中';
-            }
-            
-            // 利用日数を計算
-            const uniqueDays = [...new Set(improvements.map(item => 
-                new Date(item.timestamp).toDateString()
-            ))];
-            document.getElementById('activeDays').textContent = uniqueDays.length;
-            
-            // 時間帯別分析
-            const timeSlots = { morning: 0, afternoon: 0, evening: 0, night: 0 };
-            improvements.forEach(item => {
-                const hour = new Date(item.timestamp).getHours();
-                if (hour >= 6 && hour < 12) timeSlots.morning++;
-                else if (hour >= 12 && hour < 18) timeSlots.afternoon++;
-                else if (hour >= 18 && hour < 24) timeSlots.evening++;
-                else timeSlots.night++;
-            });
-            
-            const total = improvements.length;
-            if (total > 0) {
-                const morningPercent = Math.round((timeSlots.morning / total) * 100);
-                const afternoonPercent = Math.round((timeSlots.afternoon / total) * 100);
-                const eveningPercent = Math.round((timeSlots.evening / total) * 100);
-                const nightPercent = Math.round((timeSlots.night / total) * 100);
-                
-                // 最大値を100%の高さとして正規化
-                const maxCount = Math.max(timeSlots.morning, timeSlots.afternoon, timeSlots.evening, timeSlots.night);
-                
-                if (maxCount > 0) {
-                    document.getElementById('morningBar').style.height = (timeSlots.morning / maxCount * 100) + '%';
-                    document.getElementById('afternoonBar').style.height = (timeSlots.afternoon / maxCount * 100) + '%';
-                    document.getElementById('eveningBar').style.height = (timeSlots.evening / maxCount * 100) + '%';
-                    document.getElementById('nightBar').style.height = (timeSlots.night / maxCount * 100) + '%';
-                    
-                    document.getElementById('morningPercent').textContent = morningPercent + '%';
-                    document.getElementById('afternoonPercent').textContent = afternoonPercent + '%';
-                    document.getElementById('eveningPercent').textContent = eveningPercent + '%';
-                    document.getElementById('nightPercent').textContent = nightPercent + '%';
-                }
-            }
-            
-            // 最近の利用履歴（最新5件）
-            const recentUsage = document.getElementById('recentUsage');
-            if (improvements.length > 0) {
-                const recent = improvements.slice(-5).reverse();
-                recentUsage.innerHTML = recent.map(item => {
-                    const date = new Date(item.timestamp);
-                    const timeStr = date.toLocaleString('ja-JP', {
-                        month: 'short', 
-                        day: 'numeric', 
-                        hour: '2-digit', 
-                        minute: '2-digit'
-                    });
-                    return `<div class="recent-item">${timeStr} - 改善実行</div>`;
-                }).join('');
-            }
-            
-            // 利用傾向
-            if (uniqueDays.length > 0) {
-                const avgDaily = Math.round(improvements.length / uniqueDays.length * 10) / 10;
-                document.getElementById('avgDaily').textContent = avgDaily + '回';
-                
-                // 最多利用日を計算
-                const dailyCounts = {};
-                improvements.forEach(item => {
-                    const day = new Date(item.timestamp).toDateString();
-                    dailyCounts[day] = (dailyCounts[day] || 0) + 1;
+        // 全体統計データを表示する関数
+        async function loadGlobalStats() {
+            try {
+                const response = await fetch('/.netlify/functions/track-stats', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ action: 'get' })
                 });
+
+                if (response.ok) {
+                    const stats = await response.json();
+                    
+                    // 基本統計を更新
+                    document.getElementById('totalImprovements').textContent = stats.totalImprovements;
+                    document.getElementById('todayCount').textContent = stats.todayCount;
+                    
+                    // 成功率を表示
+                    if (stats.totalRequests > 0) {
+                        document.getElementById('successRate').textContent = stats.successRate + '%';
+                        document.getElementById('successTrend').textContent = 
+                            stats.successRate >= 90 ? '良好' : 
+                            stats.successRate >= 70 ? '安定' : '改善中';
+                    }
+                    
+                    // 稼働日数を表示
+                    document.getElementById('activeDays').textContent = stats.activeDays;
+                    
+                    // 時間帯別分析
+                    const maxCount = Math.max(
+                        stats.timeSlots.morning, 
+                        stats.timeSlots.afternoon, 
+                        stats.timeSlots.evening, 
+                        stats.timeSlots.night
+                    );
+                    
+                    if (maxCount > 0) {
+                        document.getElementById('morningBar').style.height = 
+                            (stats.timeSlots.morning / maxCount * 100) + '%';
+                        document.getElementById('afternoonBar').style.height = 
+                            (stats.timeSlots.afternoon / maxCount * 100) + '%';
+                        document.getElementById('eveningBar').style.height = 
+                            (stats.timeSlots.evening / maxCount * 100) + '%';
+                        document.getElementById('nightBar').style.height = 
+                            (stats.timeSlots.night / maxCount * 100) + '%';
+                        
+                        document.getElementById('morningPercent').textContent = 
+                            stats.timeSlotPercents.morning + '%';
+                        document.getElementById('afternoonPercent').textContent = 
+                            stats.timeSlotPercents.afternoon + '%';
+                        document.getElementById('eveningPercent').textContent = 
+                            stats.timeSlotPercents.evening + '%';
+                        document.getElementById('nightPercent').textContent = 
+                            stats.timeSlotPercents.night + '%';
+                    }
+                    
+                    // 追加統計情報
+                    document.getElementById('totalRequests').textContent = stats.totalRequests;
+                    document.getElementById('successCount').textContent = 
+                        stats.totalRequests - (stats.totalRequests - stats.totalImprovements);
+                    
+                    // サービス開始日
+                    const startDate = new Date(stats.firstUse);
+                    document.getElementById('serviceStart').textContent = 
+                        startDate.toLocaleDateString('ja-JP', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                        });
+                    
+                    console.log('📊 全体統計データ表示完了');
+                } else {
+                    console.error('統計データ取得失敗:', response.status);
+                }
                 
-                const bestDayEntry = Object.entries(dailyCounts).reduce((a, b) => 
-                    dailyCounts[a[0]] > dailyCounts[b[0]] ? a : b
-                );
-                const bestDayDate = new Date(bestDayEntry[0]);
-                document.getElementById('bestDay').textContent = 
-                    bestDayDate.toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' }) + 
-                    ' (' + bestDayEntry[1] + '回)';
-                
-                // 連続利用日数（簡易計算）
-                document.getElementById('streak').textContent = uniqueDays.length + '日';
+            } catch (error) {
+                console.error('統計データ取得エラー:', error);
+                // エラー時は基本的な表示を維持
             }
         }
         
         // ページ読み込み時に統計を更新
-        document.addEventListener('DOMContentLoaded', loadRealStats);
+        document.addEventListener('DOMContentLoaded', loadGlobalStats);
         
-        // 1分ごとに統計を更新（他のページでの利用を反映）
-        setInterval(loadRealStats, 60000);
+        // 30秒ごとに統計を更新（リアルタイム性を保つ）
+        setInterval(loadGlobalStats, 30000);
     </script>
 </body>
 </html>

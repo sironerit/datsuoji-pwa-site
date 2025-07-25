@@ -1442,47 +1442,34 @@ window.addEventListener('offline', () => {
     showErrorMessage('インターネット接続が切断されました。オフライン機能は限定的です。');
 });
 
-// 統計データ追跡システム
-function trackUsageStats(inputText, improvements, success) {
+// 全体統計データ追跡システム
+async function trackUsageStats(inputText, improvements, success) {
     try {
-        // LocalStorageから既存の統計データを取得
-        const stats = JSON.parse(localStorage.getItem('datsujoji-stats') || '{}');
-        
-        // 基本統計を初期化（存在しない場合）
-        if (!stats.improvements) stats.improvements = [];
-        if (!stats.successCount) stats.successCount = 0;
-        if (!stats.totalRequests) stats.totalRequests = 0;
-        if (!stats.firstUse) stats.firstUse = new Date().toISOString();
-        
-        // 新しい記録を追加
-        const record = {
-            timestamp: new Date().toISOString(),
-            inputText: inputText.substring(0, 100), // プライバシー保護のため100文字まで
-            success: success,
-            improvementCount: improvements.length,
-            hour: new Date().getHours()
-        };
-        
-        stats.improvements.push(record);
-        stats.totalRequests += 1;
-        if (success) stats.successCount += 1;
-        
-        // 古いデータを削除（100件まで保持）
-        if (stats.improvements.length > 100) {
-            stats.improvements = stats.improvements.slice(-100);
-        }
-        
-        // LocalStorageに保存
-        localStorage.setItem('datsujoji-stats', JSON.stringify(stats));
-        
-        console.log('📊 統計データ記録完了:', {
-            total: stats.improvements.length,
-            success: stats.successCount,
-            successRate: Math.round((stats.successCount / stats.totalRequests) * 100) + '%'
+        // サーバーに統計データを送信
+        const response = await fetch('/.netlify/functions/track-stats', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'track',
+                data: {
+                    success: success,
+                    improvementCount: improvements.length,
+                    timestamp: new Date().toISOString()
+                }
+            })
         });
+
+        if (response.ok) {
+            console.log('📊 全体統計データ記録完了');
+        } else {
+            console.error('統計データ送信失敗:', response.status);
+        }
         
     } catch (error) {
         console.error('統計データ記録エラー:', error);
+        // エラーが発生してもメイン機能は継続
     }
 }
 
