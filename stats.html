@@ -352,64 +352,7 @@
         <!-- Right Sidebar -->
         <aside class="page-sidebar">
         <div class="sidebar-content">
-            <!-- Real-time Stats -->
-            <div class="sidebar-section">
-                <h3>🔥 リアルタイム統計</h3>
-                <div class="realtime-stats">
-                    <div class="realtime-item">
-                        <div class="realtime-label">本日の改善数</div>
-                        <div class="realtime-value" id="todayImprovements">1,247</div>
-                    </div>
-                    <div class="realtime-item">
-                        <div class="realtime-label">現在オンライン</div>
-                        <div class="realtime-value" id="onlineUsers">89</div>
-                    </div>
-                    <div class="realtime-item">
-                        <div class="realtime-label">平均改善点数</div>
-                        <div class="realtime-value" id="avgImprovement">+26.3</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Latest Achievements -->
-            <div class="sidebar-section">
-                <h3>🏆 最新の成果</h3>
-                <div class="achievements-feed">
-                    <div class="achievement-item">
-                        <div class="achievement-text">ユーザー数 13,000人 達成！</div>
-                        <div class="achievement-time">2時間前</div>
-                    </div>
-                    <div class="achievement-item">
-                        <div class="achievement-text">今月改善数 10,000件 突破！</div>
-                        <div class="achievement-time">1日前</div>
-                    </div>
-                    <div class="achievement-item">
-                        <div class="achievement-text">満足度 4.7/5.0 達成</div>
-                        <div class="achievement-time">3日前</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Statistical Insights -->
-            <div class="sidebar-section">
-                <h3>💡 統計インサイト</h3>
-                <div class="insights-list">
-                    <div class="insight-item">
-                        <div class="insight-title">最も効果的な改善</div>
-                        <div class="insight-detail">絵文字の適切な使用で平均+8.3点改善</div>
-                    </div>
-                    <div class="insight-item">
-                        <div class="insight-title">利用のピーク</div>
-                        <div class="insight-detail">平日夜19-22時が最も活発</div>
-                    </div>
-                    <div class="insight-item">
-                        <div class="insight-title">継続利用率</div>
-                        <div class="insight-detail">3回以上利用ユーザーの満足度95%</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recommended Products -->
+            <!-- Direct Products Display (No Categories) -->
             <div class="sidebar-section">
                 <h3>🛍️ おすすめ商品</h3>
                 <div class="sidebar-products" id="sidebarProducts">
@@ -432,43 +375,10 @@
         </div>
     </footer>
 
-    <!-- Script for Real-time Updates -->
-    <script>
-        // Simulate real-time stats updates
-        function updateRealtimeStats() {
-            const todayImprovements = document.getElementById('todayImprovements');
-            const onlineUsers = document.getElementById('onlineUsers');
-            const avgImprovement = document.getElementById('avgImprovement');
-            
-            if (todayImprovements) {
-                const current = parseInt(todayImprovements.textContent.replace(/,/g, ''));
-                todayImprovements.textContent = (current + Math.floor(Math.random() * 5) + 1).toLocaleString();
-            }
-            
-            if (onlineUsers) {
-                const variance = Math.floor(Math.random() * 20) - 10;
-                const newValue = Math.max(60, Math.min(120, 89 + variance));
-                onlineUsers.textContent = newValue;
-            }
-            
-            if (avgImprovement) {
-                const variance = (Math.random() - 0.5) * 2;
-                const newValue = (26.3 + variance).toFixed(1);
-                avgImprovement.textContent = '+' + newValue;
-            }
-        }
-        
-        // Update stats every 30 seconds
-        setInterval(updateRealtimeStats, 30000);
-        
-        // Initial load
-        document.addEventListener('DOMContentLoaded', function() {
-            updateRealtimeStats();
-        });
-    </script>
     
     <!-- Daily Tip Script -->
     <script src="daily-tip.js"></script>
+    <script src="shared-products.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
