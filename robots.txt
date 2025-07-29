@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://datsuoji.netlify.app/sitemap.xml
+
+# Specific pages
+Allow: /index.html
+Allow: /analysis.html
+Allow: /learning.html
+Allow: /privacy-policy.html
+Allow: /terms-of-service.html
+Allow: /contact.html
+
+# Static assets
+Allow: /styles.css
+Allow: /app.js
+Allow: /analysis.js
+Allow: /learning-v4.js
+Allow: /icons/
+
+# Block old URLs to prevent confusion
+Disallow: /datsuoji-app.vercel.app*
