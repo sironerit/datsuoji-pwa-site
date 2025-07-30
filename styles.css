@@ -4132,3 +4132,66 @@ section h2 {
     
     /* Buy button removed */
 }
+
+/* SEO Content Section */
+.seo-content {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 2rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.seo-text {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.seo-text h3 {
+    color: #1e40af;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.seo-text p {
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.keyword-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.keyword-tag {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #bfdbfe;
+}
+
+@media (max-width: 768px) {
+    .seo-content {
+        padding: 1.5rem 0;
+    }
+    
+    .seo-text h3 {
+        font-size: 1.3rem;
+    }
+    
+    .seo-text p {
+        font-size: 0.9rem;
+    }
+    
+    .keyword-tag {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
