@@ -24,14 +24,20 @@
   to = "/stats.html"
   status = 200
 
-# SPA fallback
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 404
-
 [build.environment]
   NODE_VERSION = "18"
+
+# Headers for sitemap.xml
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "text/xml"
+
+# Headers for robots.txt  
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain"
 
 # Headers for security
 [[headers]]
@@ -40,3 +46,20 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Exclude important files from SPA redirect
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+
+[[redirects]]
+  from = "/robots.txt"  
+  to = "/robots.txt"
+  status = 200
+
+# SPA fallback for other paths
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
