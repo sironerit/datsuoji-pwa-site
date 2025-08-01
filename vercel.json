@@ -30,10 +30,6 @@
     {
       "source": "/stats", 
       "destination": "/stats.html"
-    },
-    {
-      "source": "/((?!api|_next|favicon.ico|ads\\.txt|sitemap\\.xml|.*\\.).*)",
-      "destination": "/index.html"
     }
   ]
 }
